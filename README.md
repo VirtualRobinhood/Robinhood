@@ -6,9 +6,11 @@ Time spent: **X** hours spent in total
 
 ## User Stories
 
-The following functionality is completed:
+The following functionality is supported:
 
-* [ ] The app includes **all required user stories** from Week 3 Twitter Client
+* [ ] User can search for stocks
+* [ ] User can purchase/sell stocks
+* etc.
 
 
 
