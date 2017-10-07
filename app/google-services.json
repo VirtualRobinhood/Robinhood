@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "567630627221",
+    "firebase_url": "https://virtual-robinhood.firebaseio.com",
+    "project_id": "virtual-robinhood",
+    "storage_bucket": "virtual-robinhood.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567630627221:android:7b1a94cd8ae565f6",
+        "android_client_info": {
+          "package_name": "com.codepath.virtualrobinhood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567630627221-2c8qato6e2jfjf1ao67vvtf9qfuhed39.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codepath.virtualrobinhood",
+            "certificate_hash": "1fee13cafa8a4ba9ad41b2dbb24ddb5c9628b490"
+          }
+        },
+        {
+          "client_id": "567630627221-3lk508karsfc60eugaqbbfco6cej2l0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjHDXP4FeDj9jeWY4ti920xk5JogKoXsg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567630627221-3lk508karsfc60eugaqbbfco6cej2l0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
