@@ -1,7 +1,9 @@
-package com.virtualrobinhood.virtualrobinhood;
+package com.virtualrobinhood.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.virtualrobinhood.R;
 
 public class MainActivity extends AppCompatActivity {
 

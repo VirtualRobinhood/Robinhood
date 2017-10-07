@@ -1,4 +1,4 @@
-package com.virtualrobinhood.virtualrobinhood;
+package com.virtualrobinhood;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.virtualrobinhood.virtualrobinhood", appContext.getPackageName());
+        assertEquals("com.virtualrobinhood", appContext.getPackageName());
     }
 }

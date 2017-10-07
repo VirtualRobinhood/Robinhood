@@ -1,4 +1,4 @@
-package com.virtualrobinhood.virtualrobinhood;
+package com.virtualrobinhood;
 
 import org.junit.Test;
 
