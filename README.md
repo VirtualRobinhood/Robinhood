@@ -9,7 +9,9 @@ Time spent: **X** hours spent in total
 The following functionality is supported:
 
 * [ ] User can search for stocks
-* [ ] User can purchase/sell stocks
+* [ ] User can purchase/sell stocks using virtual currency
+* [ ] User can buy virtual currency
+* [ ] User can view his portfolio performance
 * etc.
 
 
@@ -18,7 +20,7 @@ The following functionality is supported:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/43yBKP4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
