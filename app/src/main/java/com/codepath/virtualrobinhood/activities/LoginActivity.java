@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
+import com.codepath.virtualrobinhood.utils.NetworkUtil;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -196,6 +197,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public boolean onQueryTextSubmit(String query) {
                 // perform query here
 
+                NetworkUtil.getInstance().fetchStockInfo(query);
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
                 searchView.clearFocus();
