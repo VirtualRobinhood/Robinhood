@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
+import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.utils.HttpClient;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.auth.api.Auth;
@@ -31,6 +32,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -248,9 +252,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     throw new IOException("Unexpected code " + response);
                 }
 
-                // Read data on the worker thread
-                final String responseData = response.body().string();
-                Log.d("RESPONSE", responseData);
+                Stock stock = null;
+
+                try {
+                    final String responseData = response.body().string();
+                    JSONObject json = new JSONObject(responseData);
+                    stock = new Stock(json);
+                    Log.d("STOCK", stock.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
