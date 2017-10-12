@@ -16,4 +16,7 @@
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
 
+    <item
+        android:id="@+id/nav_sign_out"
+        android:title="@string/sign_out" />
 </menu>

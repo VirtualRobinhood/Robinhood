@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.virtualrobinhood.activities.LoginActivity">
+    tools:context="com.codepath.virtualrobinhood.activities.LoginActivity"
+    android:background="@android:color/holo_green_light">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Virtual Robinhood"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:textSize="22sp"/>
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
@@ -13,21 +21,4 @@
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true" />
 
-    <Button
-        android:id="@+id/btnSignOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sign_in_button"
-        android:layout_alignStart="@id/sign_in_button"
-        android:layout_alignLeft="@id/sign_in_button"
-        android:text="Sign Out"/>
-
-    <Button
-        android:id="@+id/btnRevoke"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnSignOut"
-        android:layout_alignStart="@id/btnSignOut"
-        android:layout_alignLeft="@id/btnSignOut"
-        android:text="Revoke"/>
 </RelativeLayout>
