@@ -34,7 +34,7 @@ public class FireBaseClient {
         dbRef.child("users").child(u.id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot == null) {
+                if (snapshot.getValue() == null) {
                     dbRef.child("users").child(u.id).setValue(u);
                 }
             }
