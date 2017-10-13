@@ -1,17 +1,40 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.virtualrobinhood.fragments.WatchlistFragment">
+    tools:context="com.codepath.virtualrobinhood.fragments.WatchlistFragment"
+    android:padding="8dp">
+
+    <EditText
+        android:id="@+id/etWatchlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/watchlist_name" />
+
+    <Button
+        android:id="@+id/btnCreateWatchlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_watchlist"
+        android:layout_alignParentRight="true" />
+
+    <Spinner
+        android:id="@+id/spWatchlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etWatchlist"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="8dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvStocks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:clipToPadding="false"
         android:padding="5dp"
         android:scrollbars="vertical"
-        tools:listitem="@layout/item_stock" />
+        tools:listitem="@layout/item_stock"
+        android:layout_below="@id/spWatchlist"
+        android:layout_marginTop="8dp"/>
 
-</FrameLayout>
+</RelativeLayout>
