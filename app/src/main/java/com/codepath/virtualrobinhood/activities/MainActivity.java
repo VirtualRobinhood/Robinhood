@@ -7,11 +7,15 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +23,9 @@ import android.widget.Toast;
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
+import com.codepath.virtualrobinhood.models.Stock;
+import com.codepath.virtualrobinhood.utils.FireBaseClient;
+import com.codepath.virtualrobinhood.utils.HttpClient;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -26,8 +33,18 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = "vr:MainActivity";
@@ -68,10 +85,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         mAuth = FirebaseAuth.getInstance();
 
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-
         // Find our drawer view
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
@@ -80,13 +93,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         mDrawer.addDrawerListener(drawerToggle);
 
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.action_search).setVisible(false);
 
         setupDrawerContent(nvDrawer);
 
         nvDrawer.getMenu().getItem(0).setChecked(true);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, new WatchlistFragment()).commit();
-        setTitle(R.string.portfolio);
+        fragmentManager.beginTransaction().replace(R.id.flContent,
+                WatchlistFragment.newInstance(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                        "TestWatchlist")).commit();
+        setTitle(R.string.watchlist);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -160,6 +177,81 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.drawer_view, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // perform query here
+
+                fetchStockInfo(query);
+                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+                // see https://code.google.com/p/android/issues/detail?id=24599
+                searchView.clearFocus();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public void fetchStockInfo(String symbol) {
+
+        OkHttpClient client = HttpClient.getClient();
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("https://www.alphavantage.co/query").newBuilder();
+        urlBuilder.addQueryParameter("apikey", "G54EIJN1HQ6Q296J");
+        urlBuilder.addQueryParameter("function", "TIME_SERIES_DAILY_ADJUSTED");
+        urlBuilder.addQueryParameter("symbol", symbol);
+        String url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        // Get a handler that can be used to post to the main thread
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                }
+
+                Stock stock = null;
+
+                try {
+                    final String responseData = response.body().string();
+                    JSONObject json = new JSONObject(responseData);
+                    stock = new Stock(json);
+                    Log.d("STOCK", stock.toString());
+                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    FireBaseClient fireBaseClient = new FireBaseClient();
+                    if (stock.symbol.equalsIgnoreCase("fb")) {
+                        fireBaseClient.createWatchlist(userId,
+                                "TestWatchlist");
+                    }
+                    fireBaseClient.addSymbolToWatchlist(userId, "TestWatchlist", stock);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override

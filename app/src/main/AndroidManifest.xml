@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a27bd7b7825ee79072d483b2a9b224a240656d0c" />
@@ -21,9 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activities.MainActivity">
-        </activity>
+        <activity android:name=".activities.MainActivity"></activity>
+        <activity android:name=".activities.StockDetailActivity"></activity>
     </application>
 
 </manifest>

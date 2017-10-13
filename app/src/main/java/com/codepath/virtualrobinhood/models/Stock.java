@@ -3,7 +3,7 @@ package com.codepath.virtualrobinhood.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SagarMutha on 10/11/17.
@@ -12,7 +12,9 @@ import java.util.ArrayList;
 public class Stock {
     public String symbol;
     public String name;
-    public ArrayList<StockQuotation> quotations;
+    public List<StockQuotation> quotations;
+
+    public Stock() {}
 
     public Stock(JSONObject jsonObject) {
         try {

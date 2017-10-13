@@ -12,11 +12,13 @@ import java.util.Date;
  */
 
 public class StockQuotation {
-    Date date;
-    float open;
-    float high;
-    float low;
-    float close;
+    public Date date;
+    public float open;
+    public float high;
+    public float low;
+    public float close;
+
+    public StockQuotation() {}
 
     public StockQuotation(JSONObject jsonObject) {
         try {
