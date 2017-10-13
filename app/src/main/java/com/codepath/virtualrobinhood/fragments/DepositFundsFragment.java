@@ -12,8 +12,8 @@ import com.codepath.virtualrobinhood.R;
  * Created by GANESH on 10/13/17.
  */
 
-public class AddMoneyFragment extends Fragment {
-    public AddMoneyFragment() {
+public class DepositFundsFragment extends Fragment {
+    public DepositFundsFragment() {
         // Required empty public constructor
     }
 
@@ -24,8 +24,8 @@ public class AddMoneyFragment extends Fragment {
      * @return A new instance of fragment PortfolioFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddMoneyFragment newInstance(String param1, String param2) {
-        AddMoneyFragment fragment = new AddMoneyFragment();
+    public static DepositFundsFragment newInstance(String param1, String param2) {
+        DepositFundsFragment fragment = new DepositFundsFragment();
         return fragment;
     }
 
@@ -33,6 +33,6 @@ public class AddMoneyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_money, container, false);
+        return inflater.inflate(R.layout.fragment_deposit_funds, container, false);
     }
 }

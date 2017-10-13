@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
-import com.codepath.virtualrobinhood.fragments.AddMoneyFragment;
+import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 fragmentClass = PortfolioFragment.class;
                 break;
             case R.id.nav_add_money:
-                fragmentClass = AddMoneyFragment.class;
+                fragmentClass = DepositFundsFragment.class;
                 break;
             case R.id.nav_sign_out:
                 signOut();
