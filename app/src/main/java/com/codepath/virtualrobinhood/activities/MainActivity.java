@@ -25,6 +25,7 @@ import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
+import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.codepath.virtualrobinhood.utils.HttpClient;
 import com.google.android.gms.auth.api.Auth;
@@ -238,11 +239,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 }
 
                 Stock stock = null;
+                Trade trade = null;
+                //Portfolio portfolio = null;
 
                 try {
                     final String responseData = response.body().string();
                     JSONObject json = new JSONObject(responseData);
                     stock = new Stock(json);
+                    trade = new Trade();
+                    //portfolio = new Portfolio();
                     Log.d("STOCK", stock.toString());
                     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     FireBaseClient fireBaseClient = new FireBaseClient();
@@ -250,6 +255,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         fireBaseClient.createWatchlist(userId,
                                 "TestWatchlist");
                     }
+
+                    if (stock.symbol.equalsIgnoreCase("csco")) {
+                        fireBaseClient.createPortfolio(userId, "Testtest2");
+                        fireBaseClient.addTradeToPortfolio(userId, "Testtest2",
+                                trade);
+                    }
+
+
+
                     fireBaseClient.addSymbolToWatchlist(userId, "TestWatchlist", stock);
                 } catch (JSONException e) {
                     e.printStackTrace();

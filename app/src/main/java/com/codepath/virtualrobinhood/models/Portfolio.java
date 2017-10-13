@@ -1,5 +1,9 @@
 package com.codepath.virtualrobinhood.models;
 
+import android.util.Log;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +16,11 @@ public class Portfolio {
     public List<Trade> trades;
 
     public Portfolio(){
+        //Log.d("debug", "tst");
         trades = new ArrayList<>();
+    }
+
+    public Portfolio(JSONObject jsonObject) {
+        Log.d("debug", "test");
     }
 }
