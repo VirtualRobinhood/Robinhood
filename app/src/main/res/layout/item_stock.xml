@@ -5,12 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="8dp">
 
+    <ImageView
+        android:id="@+id/ivRemoveSymbol"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/icon_remove_24"/>
+
     <TextView
         android:id="@+id/tvSymbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
+        android:layout_toEndOf="@id/ivRemoveSymbol"
+        android:layout_toRightOf="@+id/ivRemoveSymbol"
+        android:layout_marginLeft="8dp"
         tools:text="MSFT"/>
 
     <TextView

@@ -114,12 +114,12 @@ public class FireBaseClient {
     }
 
     public void removeSymbolFromWatchlist(final String userId, final String watchlistName,
-                                     final Stock stock) {
+                                     final String stockSymbol) {
         dbRef.child("users").child(userId)
                 .child("watchlists")
                 .child(watchlistName)
                 .child("stocks")
-                .child(stock.symbol)
+                .child(stockSymbol)
                 .removeValue();
     }
 
