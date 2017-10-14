@@ -56,11 +56,10 @@ public class WatchlistFragment extends Fragment {
      *
      * @return A new instance of fragment WatchlistFragment.
      */
-    public static WatchlistFragment newInstance(String userId, String watchlistName) {
+    public static WatchlistFragment newInstance(String userId) {
         WatchlistFragment fragment = new WatchlistFragment();
         Bundle args = new Bundle();
         args.putString("userId", userId);
-        args.putString("watchlistName", watchlistName);
         fragment.setArguments(args);
         return fragment;
     }

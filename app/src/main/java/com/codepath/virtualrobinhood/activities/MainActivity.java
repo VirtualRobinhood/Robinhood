@@ -25,7 +25,6 @@ import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
-import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.codepath.virtualrobinhood.utils.HttpClient;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -102,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         nvDrawer.getMenu().getItem(0).setChecked(true);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent,
-                WatchlistFragment.newInstance(FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                        "TestWatchlist")).commit();
+                PortfolioFragment.newInstance(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                .commit();
         setTitle(R.string.watchlist);
     }
 
@@ -121,28 +120,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
-        Class fragmentClass;
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         switch (menuItem.getItemId()) {
             case R.id.nav_watchlist:
-                fragmentClass = WatchlistFragment.class;
+                fragment = WatchlistFragment.newInstance(userId);
                 break;
             case R.id.nav_portfolio:
-                fragmentClass = PortfolioFragment.class;
+                fragment = PortfolioFragment.newInstance(userId);
                 break;
             case R.id.nav_add_money:
-                fragmentClass = DepositFundsFragment.class;
+                fragment = DepositFundsFragment.newInstance(userId);
                 break;
             case R.id.nav_sign_out:
                 signOut();
                 return;
             default:
-                fragmentClass = PortfolioFragment.class;
-        }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+                fragment = PortfolioFragment.newInstance(userId);
         }
 
         // Insert the fragment by replacing any existing fragment
@@ -244,13 +237,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     JSONObject json = new JSONObject(responseData);
                     stock = new Stock(json);
                     Log.d("STOCK", stock.toString());
-                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    FireBaseClient fireBaseClient = new FireBaseClient();
-                    if (stock.symbol.equalsIgnoreCase("fb")) {
-                        fireBaseClient.createWatchlist(userId,
-                                "TestWatchlist");
-                    }
-                    fireBaseClient.addSymbolToWatchlist(userId, "TestWatchlist", stock);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

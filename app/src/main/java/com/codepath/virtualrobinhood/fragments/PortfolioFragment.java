@@ -27,8 +27,11 @@ public class PortfolioFragment extends Fragment {
      * @return A new instance of fragment PortfolioFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PortfolioFragment newInstance(String param1, String param2) {
+    public static PortfolioFragment newInstance(String userId) {
         PortfolioFragment fragment = new PortfolioFragment();
+        Bundle args = new Bundle();
+        args.putString("userId", userId);
+        fragment.setArguments(args);
         return fragment;
     }
 

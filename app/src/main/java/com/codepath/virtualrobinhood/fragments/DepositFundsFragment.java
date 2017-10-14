@@ -24,8 +24,11 @@ public class DepositFundsFragment extends Fragment {
      * @return A new instance of fragment PortfolioFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DepositFundsFragment newInstance(String param1, String param2) {
+    public static DepositFundsFragment newInstance(String userId) {
         DepositFundsFragment fragment = new DepositFundsFragment();
+        Bundle args = new Bundle();
+        args.putString("userId", userId);
+        fragment.setArguments(args);
         return fragment;
     }
 
