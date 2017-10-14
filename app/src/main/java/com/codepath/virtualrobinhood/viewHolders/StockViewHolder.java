@@ -2,6 +2,7 @@ package com.codepath.virtualrobinhood.viewHolders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.virtualrobinhood.R;
@@ -14,12 +15,14 @@ import com.codepath.virtualrobinhood.models.Stock;
 public class StockViewHolder extends RecyclerView.ViewHolder {
     public TextView tvSymbol;
     public TextView tvPrice;
+    public ImageView ivRemoveSymbol;
 
     public StockViewHolder(View itemView) {
         super(itemView);
 
         tvSymbol = itemView.findViewById(R.id.tvSymbol);
         tvPrice = itemView.findViewById(R.id.tvPrice);
+        ivRemoveSymbol = itemView.findViewById(R.id.ivRemoveSymbol);
     }
 
     public void bindToPost(Stock stock) {

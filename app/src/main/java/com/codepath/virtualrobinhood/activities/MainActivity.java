@@ -26,6 +26,7 @@ import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.Trade;
+import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.codepath.virtualrobinhood.utils.HttpClient;
 import com.google.android.gms.auth.api.Auth;
@@ -232,27 +233,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     throw new IOException("Unexpected code " + response);
                 }
 
-                Stock stock = null;
-                Trade trade = null;
-                //Portfolio portfolio = null;
-
                 try {
                     final String responseData = response.body().string();
                     JSONObject json = new JSONObject(responseData);
-                    stock = new Stock(json);
-                    trade = new Trade();
+                    Stock stock = new Stock(json);
+                    Trade trade = new Trade();
                     trade.symbol = "box";
                     //portfolio = new Portfolio();
                     Log.d("STOCK", stock.toString());
 
-                    /*
+                    // searched stocks are going to be added to the watchlist for now
+                    FireBaseClient fireBaseClient = new FireBaseClient();
+                    fireBaseClient.addSymbolToWatchlist(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                            Constants.DEFAULT_WATCHLIST, stock);
+
+/*
                     Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
                     stockDetailActivity.putExtra("stock_symbol", stock.symbol);
                     stockDetailActivity.putExtra("stock_price", "100");
-                    stockDetailActivity.putExtra("user_id", userId);
+                    stockDetailActivity.putExtra("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                     startActivity(stockDetailActivity);
-                    */
+*/
 
                 } catch (JSONException e) {
                     e.printStackTrace();

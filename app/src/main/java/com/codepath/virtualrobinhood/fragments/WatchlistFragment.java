@@ -8,14 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.activities.StockDetailActivity;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.utils.Constants;
+import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.codepath.virtualrobinhood.viewHolders.StockViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -55,7 +59,6 @@ public class WatchlistFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_watchlist, container, false);
 
         dbRerence = FirebaseDatabase.getInstance().getReference();
-
         rvStocks = view.findViewById(R.id.rvStocks);
         rvStocks.setHasFixedSize(true);
 
@@ -108,6 +111,8 @@ public class WatchlistFragment extends Fragment {
 
                 // Bind Stock to ViewHolder, setting OnClickListener for the star button
                 viewHolder.bindToPost(model);
+
+                setupRemoveSymbolImageView(viewHolder.itemView);
             }
         };
 
@@ -128,6 +133,20 @@ public class WatchlistFragment extends Fragment {
         if (mAdapter != null) {
             mAdapter.stopListening();
         }
+    }
+
+    private void setupRemoveSymbolImageView(View view){
+        ImageView ivRemoveSymbol = view.findViewById(R.id.ivRemoveSymbol);
+        final String stockSymbol =  ((TextView)view.findViewById(R.id.tvSymbol)).getText().toString();
+        ivRemoveSymbol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FireBaseClient fireBaseClient = new FireBaseClient();
+                fireBaseClient.removeSymbolFromWatchlist(
+                        FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                        Constants.DEFAULT_WATCHLIST, stockSymbol);
+            }
+        });
     }
 
     private Query getQuery(DatabaseReference databaseReference) {

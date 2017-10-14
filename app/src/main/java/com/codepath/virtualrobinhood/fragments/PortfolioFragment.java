@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class PortfolioFragment extends Fragment {
     private Spinner spWatchlist;
     private LinearLayoutManager linearLayoutManager;
     private List<Watchlist> watchlists;
+    //public String userIdValue;
 
     public PortfolioFragment() {
         // Required empty public constructor
@@ -59,6 +61,7 @@ public class PortfolioFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString("userId", userId);
         fragment.setArguments(args);
+        //userIdValue = userId;
         return fragment;
     }
 
@@ -162,8 +165,10 @@ public class PortfolioFragment extends Fragment {
 
     private Query getQuery(DatabaseReference databaseReference) {
         // All my posts
+        Log.d("debug", "getQuery");
         return databaseReference.child("users")
-                .child("JJCSBtsEvkSZdFTdFuMxsAE5Pes1")
+                //.child("JJCSBtsEvkSZdFTdFuMxsAE5Pes1")
+                .child(getArguments().getString("userId"))
                 .child("portfolios")
                 .child("Saturday")
                 .child("stocks");
