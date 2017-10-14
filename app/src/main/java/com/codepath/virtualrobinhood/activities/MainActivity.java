@@ -25,6 +25,8 @@ import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
+import com.codepath.virtualrobinhood.models.Trade;
+import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.codepath.virtualrobinhood.utils.HttpClient;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         fragmentManager.beginTransaction().replace(R.id.flContent,
                 PortfolioFragment.newInstance(FirebaseAuth.getInstance().getCurrentUser().getUid()))
                 .commit();
-        setTitle(R.string.watchlist);
+        setTitle(R.string.portfolio);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -231,12 +233,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 }
 
                 Stock stock = null;
+                Trade trade = null;
+                //Portfolio portfolio = null;
 
                 try {
                     final String responseData = response.body().string();
                     JSONObject json = new JSONObject(responseData);
                     stock = new Stock(json);
+                    trade = new Trade();
+                    trade.symbol = "box";
+                    //portfolio = new Portfolio();
                     Log.d("STOCK", stock.toString());
+
+                    /*
+                    Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
+                    stockDetailActivity.putExtra("stock_symbol", stock.symbol);
+                    stockDetailActivity.putExtra("stock_price", "100");
+                    stockDetailActivity.putExtra("user_id", userId);
+
+                    startActivity(stockDetailActivity);
+                    */
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

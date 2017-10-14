@@ -1,6 +1,6 @@
 package com.codepath.virtualrobinhood.utils;
 
-import com.codepath.virtualrobinhood.models.Portfolio;
+import com.codepath.virtualrobinhood.models.PortfolioList;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.models.User;
@@ -36,6 +36,13 @@ public class FireBaseClient {
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.getValue() == null) {
                     dbRef.child("users").child(u.id).setValue(u);
+                    Watchlist defaultWatchlist = new Watchlist();
+                    defaultWatchlist.name = Constants.DEFAULT_WATCHLIST;
+                    dbRef.child("users")
+                            .child(u.id)
+                            .child("warchlists")
+                            .child(Constants.DEFAULT_WATCHLIST)
+                            .setValue(defaultWatchlist);
                 }
             }
 
@@ -78,13 +85,15 @@ public class FireBaseClient {
     }
 
     public void createPortfolio(final String userId, final String portfolioName) {
-        Portfolio portfolio = new Portfolio();
-        portfolio.name = portfolioName;
+        //Portfolio portfolio = new Portfolio();
+        //portfolio.name = portfolioName;
+        PortfolioList portfolioList = new PortfolioList();
+        portfolioList.name = portfolioName;
 
         dbRef.child("users").child(userId)
                 .child("portfolios")
                 .child(portfolioName)
-                .setValue(portfolio);
+                .setValue(portfolioList);
     }
 
     public void deletePortfolio(final String userId, final String portfolioName) {
@@ -116,11 +125,27 @@ public class FireBaseClient {
 
     public void addTradeToPortfolio(final String userId, final String portfolioName,
                                     final Trade trade) {
-        dbRef.child("users").child(userId)
+        /*dbRef.child("users").child(userId)
                 .child("portfolios")
                 .child(portfolioName)
                 .child("trades")
                 .child(trade.id)
+                .setValue(trade);*/
+
+        dbRef.child("users").child(userId)
+                .child("portfolios")
+                .child(portfolioName)
+                .child("stocks")
+                .child(trade.symbol)
                 .setValue(trade);
+
+
+        /*dbRef.child("users").child(userId)
+                .child("watchlists")
+                .child(watchlistName)
+                .child("stocks")
+                .child(stock.symbol)
+                .setValue(stock);*/
+
     }
 }

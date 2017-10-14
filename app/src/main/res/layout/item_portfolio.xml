@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/tvSymbolDetail"
+        android:id="@+id/tvSymbolPortfolio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -14,20 +14,10 @@
         tools:text="MSFT"/>
 
     <TextView
-        android:id="@+id/tvPriceDetail"
+        android:id="@+id/tvPricePortfolio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         tools:text="76.70"/>
-
-    <Button
-        android:id="@+id/btnBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPriceDetail"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="83dp"
-        android:onClick="buyStock"
-        android:text="BUY" />
 </RelativeLayout>

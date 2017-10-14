@@ -5,33 +5,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.activities.StockDetailActivity;
 import com.codepath.virtualrobinhood.models.Stock;
-import com.codepath.virtualrobinhood.models.Watchlist;
+import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.viewHolders.StockViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class WatchlistFragment extends Fragment {
@@ -40,11 +28,7 @@ public class WatchlistFragment extends Fragment {
     private DatabaseReference dbRerence;
     private FirebaseRecyclerAdapter<Stock, StockViewHolder> mAdapter;
     private RecyclerView rvStocks;
-    private Button btnCreateWatchlist;
-    private EditText etWatchlist;
-    private Spinner spWatchlist;
     private LinearLayoutManager linearLayoutManager;
-    private List<Watchlist> watchlists;
 
     public WatchlistFragment() {
         // Required empty public constructor
@@ -71,17 +55,9 @@ public class WatchlistFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_watchlist, container, false);
 
         dbRerence = FirebaseDatabase.getInstance().getReference();
-        watchlists = new ArrayList<>();
 
         rvStocks = view.findViewById(R.id.rvStocks);
-        btnCreateWatchlist = view.findViewById(R.id.btnCreateWatchlist);
-        etWatchlist = view.findViewById(R.id.etWatchlist);
-        spWatchlist = view.findViewById(R.id.spWatchlist);
-
         rvStocks.setHasFixedSize(true);
-
-        setupWatchlistSpinner();
-        setupCreateWatchlistButton();
 
         return view;
     }
@@ -154,82 +130,12 @@ public class WatchlistFragment extends Fragment {
         }
     }
 
-    private void setupCreateWatchlistButton() {
-        btnCreateWatchlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String watchlistName = etWatchlist.getText().toString();
-                Watchlist watchlist = new Watchlist();
-                watchlist.name = watchlistName;
-
-                dbRerence.child("users")
-                        .child(getArguments().getString("userId"))
-                        .child("watchlists")
-                        .child(watchlistName)
-                        .setValue(watchlist);
-            }
-        });
-    }
-
-    private void setupWatchlistSpinner() {
-        Query watchlistsQuery = dbRerence.child("users")
-                .child(getArguments().getString("userId"))
-                .child("watchlists");
-
-        watchlistsQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                /*
-                watchlists = dataSnapshot.getValue(List.getClass());
-                ArrayAdapter<String> watchlistSpinnerAdapter = new ArrayAdapter<String>(this,
-                        android.R.layout.simple_spinner_item, watchlists);
-
-                watchlistSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                spWatchlist.setAdapter(watchlistSpinnerAdapter);
-                */
-
-
-                final List<String> watchlists = new ArrayList<String>();
-
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    String watchlistName = snapshot.child("name").getValue(String.class);
-                    watchlists.add(watchlistName);
-                }
-
-                ArrayAdapter<String> watchlistSpinnerAdapter = new ArrayAdapter<String>(getActivity(),
-                        android.R.layout.simple_spinner_item, watchlists);
-                watchlistSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spWatchlist.setAdapter(watchlistSpinnerAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "loadWatchlists:onCancelled", databaseError.toException());
-                Toast.makeText(getActivity(), "Failed to load watchlists.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        spWatchlist.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
     private Query getQuery(DatabaseReference databaseReference) {
         // All my posts
         return databaseReference.child("users")
                 .child(getArguments().getString("userId"))
                 .child("watchlists")
-                .child(getArguments().getString("watchlistName"))
+                .child(Constants.DEFAULT_WATCHLIST)
                 .child("stocks");
     }
 }
