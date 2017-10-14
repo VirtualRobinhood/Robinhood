@@ -247,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     JSONObject json = new JSONObject(responseData);
                     stock = new Stock(json);
                     trade = new Trade();
+                    trade.symbol = "box";
                     //portfolio = new Portfolio();
                     Log.d("STOCK", stock.toString());
                     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -257,14 +258,26 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     }
 
                     if (stock.symbol.equalsIgnoreCase("csco")) {
-                        fireBaseClient.createPortfolio(userId, "Testtest2");
-                        fireBaseClient.addTradeToPortfolio(userId, "Testtest2",
-                                trade);
+                        fireBaseClient.createPortfolio(userId, "Saturday");
+
                     }
 
+                    /*fireBaseClient.addTradeToPortfolio(userId, "Saturday",
+                                trade);*/
 
 
-                    fireBaseClient.addSymbolToWatchlist(userId, "TestWatchlist", stock);
+
+                   fireBaseClient.addSymbolToWatchlist(userId, "Testing1", stock);
+
+
+                    Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
+                    stockDetailActivity.putExtra("stock_symbol", stock.symbol);
+                    stockDetailActivity.putExtra("stock_price", "100");
+                    stockDetailActivity.putExtra("user_id", userId);
+
+                    startActivity(stockDetailActivity);
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
