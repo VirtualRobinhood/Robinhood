@@ -14,7 +14,7 @@ import android.widget.Spinner;
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.activities.StockDetailActivity;
-import com.codepath.virtualrobinhood.models.Portfolio;
+import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.models.Watchlist;
 import com.codepath.virtualrobinhood.viewHolders.PortfolioViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -36,7 +36,7 @@ import java.util.List;
 public class PortfolioFragment extends Fragment {
     private static final String TAG = "PortfolioFragment";
     private DatabaseReference dbRerence;
-    private FirebaseRecyclerAdapter<Portfolio, PortfolioViewHolder> mAdapter;
+    private FirebaseRecyclerAdapter<Trade, PortfolioViewHolder> mAdapter;
     private RecyclerView rvPortfolio;
     private Button btnCreateWatchlist;
     private EditText etWatchlist;
@@ -101,11 +101,11 @@ public class PortfolioFragment extends Fragment {
         // Set up FirebaseRecyclerAdapter with the Query
         Query portfolioQuery = getQuery(dbRerence);
 
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Portfolio>()
-                .setQuery(portfolioQuery, Portfolio.class)
+        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Trade>()
+                .setQuery(portfolioQuery, Trade.class)
                 .build();
 
-        mAdapter = new FirebaseRecyclerAdapter<Portfolio, PortfolioViewHolder>(options) {
+        mAdapter = new FirebaseRecyclerAdapter<Trade, PortfolioViewHolder>(options) {
 
             @Override
             public void onError(DatabaseError error) {
@@ -119,7 +119,7 @@ public class PortfolioFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(PortfolioViewHolder viewHolder, int position, final Portfolio model) {
+            protected void onBindViewHolder(PortfolioViewHolder viewHolder, int position, final Trade model) {
                 final DatabaseReference stockRef = getRef(position);
 
                 // Set click listener for the whole stock view
@@ -168,9 +168,16 @@ public class PortfolioFragment extends Fragment {
         // All my posts
         return databaseReference.child("users")
                 .child("JJCSBtsEvkSZdFTdFuMxsAE5Pes1")
-                .child("portfolios");
-                //.child("Testtest2");
-               // .child("stock");
+                .child("portfolios")
+                .child("Saturday")
+                .child("stocks");
+
+
+        /*return databaseReference.child("users")
+                .child(getArguments().getString("userId"))
+                .child("watchlists")
+                .child(getArguments().getString("watchlistName"))
+                .child("stocks");*/
     }
 }
 
