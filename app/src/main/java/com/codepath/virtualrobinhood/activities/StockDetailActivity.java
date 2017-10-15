@@ -39,6 +39,7 @@ public class StockDetailActivity extends AppCompatActivity {
 
         final Trade trade = new Trade();
         trade.symbol = stockSymbol;
+        trade.price = Double.parseDouble(stockPrice);
 
 
         tvSymbolDetail  = findViewById(R.id.tvSymbolDetail);
