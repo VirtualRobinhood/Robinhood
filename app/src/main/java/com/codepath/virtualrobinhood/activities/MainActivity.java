@@ -37,6 +37,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.action_search).setVisible(false);
 
+
+        // Get current Funds
+        getCurrentFunds(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
         setupDrawerContent(nvDrawer);
 
         nvDrawer.getMenu().getItem(0).setChecked(true);
@@ -125,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         switch (menuItem.getItemId()) {
             case R.id.nav_watchlist:
                 fragment = WatchlistFragment.newInstance(userId);
@@ -292,5 +302,44 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         startActivity(signOutIntent);
                     }
                 });
+    }
+
+    public void getCurrentFunds(String userId) {
+        //final Double amount;
+
+        final FirebaseDatabase database;
+        final DatabaseReference dbRef;
+
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference();
+
+        dbRef.child("users").child(userId).child("amount").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Log.d("debug", "onDataChange");
+                if (snapshot != null) {
+                    if (snapshot.getValue() != null) {
+                        Double amount = Double.parseDouble(snapshot.getValue().toString());
+                        Log.d("debug", "onDataChange");
+
+                        NavigationView navigationView = (NavigationView) findViewById(R.id.nvView);
+                        Menu nav_Menu = navigationView.getMenu();
+
+                        MenuItem myItem = nav_Menu.findItem(R.id.portfolio_value);
+                        myItem.setTitle("    $" + amount.toString() + "0");
+                    } else {
+                        NavigationView navigationView = (NavigationView) findViewById(R.id.nvView);
+                        Menu nav_Menu = navigationView.getMenu();
+
+                        MenuItem myItem = nav_Menu.findItem(R.id.portfolio_value);
+                        myItem.setTitle("    $0.00" );
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 }
