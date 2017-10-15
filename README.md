@@ -25,7 +25,7 @@ The following functionality will supported:
 * [ ] User can see some statistics on his portfolio (% of domestic stocks, growth of his portfolio, etc.)
 
 **Bonus**
-* [ ]Implement screen to search for stocks using autocomplete
+* [ ] Implement screen to search for stocks using autocomplete
 
 
 
