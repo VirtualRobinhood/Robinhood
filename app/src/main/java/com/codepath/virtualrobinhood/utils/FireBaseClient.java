@@ -96,6 +96,13 @@ public class FireBaseClient {
                 .setValue(portfolioList);
     }
 
+
+    public void createDeposit(final String userId, double amount) {
+        dbRef.child("users").child(userId)
+                .child("amount")
+                .setValue(amount);
+    }
+
     public void deletePortfolio(final String userId, final String portfolioName) {
         dbRef.child("users").child(userId)
                 .child("portfolios")
