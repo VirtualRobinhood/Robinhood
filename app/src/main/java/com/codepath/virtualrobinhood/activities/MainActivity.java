@@ -25,6 +25,7 @@ import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
+import com.codepath.virtualrobinhood.models.StockQuotation;
 import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
@@ -238,7 +239,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     JSONObject json = new JSONObject(responseData);
                     Stock stock = new Stock(json);
                     Trade trade = new Trade();
-                    trade.symbol = "box";
+                    trade.symbol = stock.symbol;
+                    StockQuotation quot = stock.quotations.get(0);
                     //portfolio = new Portfolio();
                     Log.d("STOCK", stock.toString());
 
@@ -247,14 +249,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     fireBaseClient.addSymbolToWatchlist(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                             Constants.DEFAULT_WATCHLIST, stock);
 
-                    /*
-                    Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
+
+                    /*Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
                     stockDetailActivity.putExtra("stock_symbol", stock.symbol);
-                    stockDetailActivity.putExtra("stock_price", "100");
+                    stockDetailActivity.putExtra("stock_price", String.valueOf(quot.high));
                     stockDetailActivity.putExtra("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                    startActivity(stockDetailActivity);
-*/
+                    startActivity(stockDetailActivity);*/
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

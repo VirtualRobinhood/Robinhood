@@ -29,7 +29,7 @@ public class StockDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String stockSymbol = intent.getStringExtra("stock_symbol");
-        String stockPrice = intent.getStringExtra("stock_price");
+        final String stockPrice = intent.getStringExtra("stock_price");
         final String userId = intent.getStringExtra("user_id");
 
         TextView tvPriceDetail = null;
@@ -58,6 +58,9 @@ public class StockDetailActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("debug", "debug");
+                if (Double.parseDouble(stockPrice) > depositAmount) {
+                    Log.d("debug", "insufficient funds");
+                }
                  fireBaseClient.addTradeToPortfolio(userId, "Saturday",
                                 trade);
                 // Code here executes on main thread after user presses button

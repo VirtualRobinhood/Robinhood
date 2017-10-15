@@ -170,7 +170,7 @@ public class PortfolioFragment extends Fragment {
                 //.child("JJCSBtsEvkSZdFTdFuMxsAE5Pes1")
                 .child(getArguments().getString("userId"))
                 .child("portfolios")
-                .child("TestPortfolio")
+                .child("Saturday")
                 .child("stocks");
 
 
