@@ -6,13 +6,26 @@ Time spent: **X** hours spent in total
 
 ## User Stories
 
-The following functionality is supported:
+The following functionality will supported:
 
-* [ ] User can search for stocks
-* [ ] User can purchase/sell stocks using virtual currency
+**Required**
+* [ ] User can sign in to the APP using Google account
+* [ ] User can search for stocks and get details about the stock
 * [ ] User can buy virtual currency
-* [ ] User can view his portfolio performance
-* etc.
+* [ ] User can buy/sell stocks using virtual currency
+* [ ] User can view his portfolio
+* [ ] User can add stocks to his watchlist
+* [ ] User can manage his watchlist (remove)
+* [ ] User can see the history of his transactions
+
+**Optional**
+* [ ] User can create a new account
+* [ ] User can sign in to the APP using facebook account
+* [ ] User can view articles related to a stock
+* [ ] User can see some statistics on his portfolio (% of domestic stocks, growth of his portfolio, etc.)
+
+**Bonus**
+* [ ]Implement screen to search for stocks using autocomplete
 
 
 
