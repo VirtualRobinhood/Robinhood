@@ -11,10 +11,16 @@ import android.widget.TextView;
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StockDetailActivity extends AppCompatActivity {
 
     public static String EXTRA_STOCK_KEY = "stock_key";
+    public static double depositAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +29,7 @@ public class StockDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String stockSymbol = intent.getStringExtra("stock_symbol");
-        String stockPrice = intent.getStringExtra("stock_price");
+        final String stockPrice = intent.getStringExtra("stock_price");
         final String userId = intent.getStringExtra("user_id");
 
         TextView tvPriceDetail = null;
@@ -33,6 +39,7 @@ public class StockDetailActivity extends AppCompatActivity {
 
         final Trade trade = new Trade();
         trade.symbol = stockSymbol;
+        trade.price = Double.parseDouble(stockPrice);
 
 
         tvSymbolDetail  = findViewById(R.id.tvSymbolDetail);
@@ -41,13 +48,49 @@ public class StockDetailActivity extends AppCompatActivity {
         tvSymbolDetail.setText(stockSymbol);
         tvPriceDetail.setText(stockPrice);
 
+        /* testing start */
+
+        //fireBaseClient.getDeposit(userId);
+        getDeposit1(userId);
+
+        /* test end */
+
         final Button button = findViewById(R.id.btnBuy);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("debug", "debug");
+                if (Double.parseDouble(stockPrice) > depositAmount) {
+                    Log.d("debug", "insufficient funds");
+                }
                  fireBaseClient.addTradeToPortfolio(userId, "Saturday",
                                 trade);
                 // Code here executes on main thread after user presses button
+            }
+        });
+    }
+
+    public void getDeposit1(String userId) {
+        //final Double amount;
+
+        final FirebaseDatabase database;
+        final DatabaseReference dbRef;
+
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference();
+
+        dbRef.child("users").child(userId).child("amount").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Log.d("debug", "onDataChange");
+                if (snapshot != null && snapshot.getValue() != null) {
+                    Double amount = Double.parseDouble(snapshot.getValue().toString());
+                    Log.d("debug", "onDataChange");
+                    depositAmount = amount;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }

@@ -6,6 +6,9 @@
     <string name="portfolio">Portfolio</string>
     <string name="sign_out">Sign out</string>
     <string name="deposit_funds">Deposit Funds</string>
+    <string name="portfolio_value_title">Portfolio Value</string>
+    <string name="portfolio_value">Portfolio Value</string>
+
     <string name="new_watchlist">New watchlist</string>
     <string name="watchlist_name">Watchlist name</string>
     <string name="create_watchlist">Create watchlist</string>

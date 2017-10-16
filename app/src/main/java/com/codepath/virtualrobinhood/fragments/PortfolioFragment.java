@@ -3,14 +3,17 @@ package com.codepath.virtualrobinhood.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.activities.StockDetailActivity;
@@ -43,6 +46,7 @@ public class PortfolioFragment extends Fragment {
     private Spinner spWatchlist;
     private LinearLayoutManager linearLayoutManager;
     private List<Watchlist> watchlists;
+    //public String userIdValue;
 
     public PortfolioFragment() {
         // Required empty public constructor
@@ -59,6 +63,7 @@ public class PortfolioFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString("userId", userId);
         fragment.setArguments(args);
+        //userIdValue = userId;
         return fragment;
     }
 
@@ -93,6 +98,10 @@ public class PortfolioFragment extends Fragment {
         // Set up Layout Manager, reverse layout
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvPortfolio.setLayoutManager(linearLayoutManager);
+
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        rvPortfolio.addItemDecoration(itemDecoration);
 
         // Set up FirebaseRecyclerAdapter with the Query
         Query portfolioQuery = getQuery(dbRerence);
@@ -162,8 +171,10 @@ public class PortfolioFragment extends Fragment {
 
     private Query getQuery(DatabaseReference databaseReference) {
         // All my posts
+        Log.d("debug", "getQuery");
         return databaseReference.child("users")
-                .child("JJCSBtsEvkSZdFTdFuMxsAE5Pes1")
+                //.child("JJCSBtsEvkSZdFTdFuMxsAE5Pes1")
+                .child(getArguments().getString("userId"))
                 .child("portfolios")
                 .child("Saturday")
                 .child("stocks");

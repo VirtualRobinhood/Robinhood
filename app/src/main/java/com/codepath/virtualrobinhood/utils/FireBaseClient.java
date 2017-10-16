@@ -1,5 +1,7 @@
 package com.codepath.virtualrobinhood.utils;
 
+import android.util.Log;
+
 import com.codepath.virtualrobinhood.models.PortfolioList;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.Trade;
@@ -94,6 +96,31 @@ public class FireBaseClient {
                 .child("portfolios")
                 .child(portfolioName)
                 .setValue(portfolioList);
+    }
+
+
+    public void createDeposit(final String userId, double amount) {
+        dbRef.child("users").child(userId)
+                .child("amount")
+                .setValue(amount);
+    }
+
+    public void getDeposit(String userId) {
+        //final Double amount;
+        dbRef.child("users").child(userId).child("amount").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Log.d("debug", "onDataChange");
+                if (snapshot != null) {
+                    Double amount = Double.parseDouble(snapshot.getValue().toString());
+                    Log.d("debug", "onDataChange");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     public void deletePortfolio(final String userId, final String portfolioName) {
