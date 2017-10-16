@@ -23,6 +23,7 @@ The following functionality will supported:
 * [ ] User can sign in to the APP using facebook account
 * [ ] User can view articles related to a stock
 * [ ] User can see some statistics on his portfolio (% of domestic stocks, growth of his portfolio, etc.)
+* [ ] Graph is displayed for the stocks
 
 **Bonus**
 * [ ] Implement screen to search for stocks using autocomplete
@@ -32,6 +33,10 @@ The following functionality will supported:
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
+
+<img src='https://i.imgur.com/yXry66F.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Here's a walkthrough of high level design:
 
 <img src='https://i.imgur.com/43yBKP4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 

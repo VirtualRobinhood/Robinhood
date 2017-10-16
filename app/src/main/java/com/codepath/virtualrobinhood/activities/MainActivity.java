@@ -260,12 +260,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                             Constants.DEFAULT_WATCHLIST, stock);
 
 
-                    /*Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
+                    Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
                     stockDetailActivity.putExtra("stock_symbol", stock.symbol);
                     stockDetailActivity.putExtra("stock_price", String.valueOf(quot.high));
                     stockDetailActivity.putExtra("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                    startActivity(stockDetailActivity);*/
+                    startActivity(stockDetailActivity);
 
 
                 } catch (JSONException e) {
