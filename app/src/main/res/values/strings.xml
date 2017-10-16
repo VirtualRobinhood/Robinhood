@@ -6,10 +6,11 @@
     <string name="portfolio">Portfolio</string>
     <string name="sign_out">Sign out</string>
     <string name="deposit_funds">Deposit Funds</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="new_watchlist">New watchlist</string>
     <string name="watchlist_name">Watchlist name</string>
     <string name="create_watchlist">Create watchlist</string>
+    <string name="remove_symbol_msg">Remove this symbol?</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="profile_image_description">Profile image</string>
 </resources>

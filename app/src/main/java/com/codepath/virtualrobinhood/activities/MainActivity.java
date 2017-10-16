@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
     private TextView tvUsername;
+    private MenuItem miActionProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.action_search).setVisible(false);
+        nav_Menu.findItem(R.id.action_progress).setVisible(false);
 
         setupDrawerContent(nvDrawer);
 
@@ -203,6 +206,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 return false;
             }
         });
+
+        miActionProgress = menu.findItem(R.id.action_progress);
+        ProgressBar v = (ProgressBar) MenuItemCompat.getActionView(miActionProgress);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -220,10 +227,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .url(url)
                 .build();
 
+        showProgressBar();
+
         // Get a handler that can be used to post to the main thread
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                hideProgressBar();
                 e.printStackTrace();
             }
 
@@ -256,6 +266,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     startActivity(stockDetailActivity);
                     */
 
+                    hideProgressBar();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -290,5 +301,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         startActivity(signOutIntent);
                     }
                 });
+    }
+
+    protected void showProgressBar() {
+        // Show progress item
+        if (miActionProgress != null) {
+            miActionProgress.setVisible(true);
+        }
+    }
+
+    protected void hideProgressBar() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Hide progress item
+                if (miActionProgress != null) {
+                    miActionProgress.setVisible(false);
+                }
+            }
+        });
     }
 }

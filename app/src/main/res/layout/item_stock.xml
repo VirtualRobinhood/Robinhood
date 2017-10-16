@@ -20,13 +20,26 @@
         android:layout_toEndOf="@id/ivRemoveSymbol"
         android:layout_toRightOf="@+id/ivRemoveSymbol"
         android:layout_marginLeft="8dp"
-        tools:text="MSFT"/>
+        android:layout_marginStart="8dp"
+        tools:text="MSFT"
+        style="@style/BoldText"/>
+
+    <TextView
+        android:id="@+id/tvPriceDifference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        tools:text="+1.2"/>
 
     <TextView
         android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        tools:text="76.70"/>
+        android:layout_toLeftOf="@id/tvPriceDifference"
+        android:layout_toStartOf="@id/tvPriceDifference"
+        tools:text="76.70"
+        style="@style/BoldText"/>
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package com.codepath.virtualrobinhood.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -90,7 +92,7 @@ public class WatchlistFragment extends Fragment {
             @Override
             public StockViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                return new StockViewHolder(inflater.inflate(R.layout.item_stock, viewGroup, false));
+                return new StockViewHolder(inflater.inflate(R.layout.item_stock, viewGroup, false), getActivity());
             }
 
             @Override
@@ -141,12 +143,37 @@ public class WatchlistFragment extends Fragment {
         ivRemoveSymbol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showDeleteConfirmationDialog(stockSymbol);
+            }
+        });
+    }
+
+    private void showDeleteConfirmationDialog(final String stockSymbol) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the postivie and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.remove_symbol_msg);
+        builder.setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
                 FireBaseClient fireBaseClient = new FireBaseClient();
                 fireBaseClient.removeSymbolFromWatchlist(
                         FirebaseAuth.getInstance().getCurrentUser().getUid(),
                         Constants.DEFAULT_WATCHLIST, stockSymbol);
             }
         });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so dismiss the dialog
+                // and continue editing the reminder.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private Query getQuery(DatabaseReference databaseReference) {
