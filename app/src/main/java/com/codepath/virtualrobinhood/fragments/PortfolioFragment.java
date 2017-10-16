@@ -3,6 +3,7 @@ package com.codepath.virtualrobinhood.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.activities.StockDetailActivity;
@@ -96,6 +98,10 @@ public class PortfolioFragment extends Fragment {
         // Set up Layout Manager, reverse layout
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvPortfolio.setLayoutManager(linearLayoutManager);
+
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        rvPortfolio.addItemDecoration(itemDecoration);
 
         // Set up FirebaseRecyclerAdapter with the Query
         Query portfolioQuery = getQuery(dbRerence);

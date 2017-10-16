@@ -19,5 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        tools:text="76.70"/>
+        android:background="@color/colorAccent"
+        tools:text="76.70" />
 </RelativeLayout>
