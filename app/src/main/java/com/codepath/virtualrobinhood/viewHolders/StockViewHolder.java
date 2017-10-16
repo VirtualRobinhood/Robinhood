@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.Stock;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by gkurghin on 10/12/17.
  */
@@ -36,8 +38,9 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
     public void bindToPost(Stock stock) {
         tvSymbol.setText(stock.symbol);
         if (stock.quotations.size() > 0) {
+            DecimalFormat df = new DecimalFormat("##.##");
             float currentClose = stock.quotations.get(0).close;
-            tvPrice.setText(String.valueOf(currentClose).toUpperCase());
+            tvPrice.setText(String.valueOf(df.format(currentClose)));
 
             float prevClose = stock.quotations.size() > 1
                     ? stock.quotations.get(1).close
@@ -45,10 +48,10 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
 
 
             if (currentClose > prevClose) {
-                tvPriceDifference.setText("+" + String.valueOf(currentClose - prevClose));
+                tvPriceDifference.setText("+" + df.format(currentClose - prevClose));
                 tvPriceDifference.setBackgroundColor(ContextCompat.getColor(context, R.color.green));
             } else if (currentClose < prevClose) {
-                tvPriceDifference.setText("-" + String.valueOf(currentClose - prevClose));
+                tvPriceDifference.setText("-" + df.format(currentClose - prevClose));
                 tvPriceDifference.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
             } else {
                 tvPriceDifference.setText("0");

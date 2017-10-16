@@ -1,9 +1,12 @@
 package com.codepath.virtualrobinhood.models;
 
+import org.parceler.Parcel;
+
 /**
  * Created by gkurghin on 10/12/17.
  */
 
+@Parcel(analyze = {Trade.class})
 public class Trade {
     public String id;
     public String symbol;

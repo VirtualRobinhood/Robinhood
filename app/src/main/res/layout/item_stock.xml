@@ -22,7 +22,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         tools:text="MSFT"
-        style="@style/BoldText"/>
+        style="@style/LargeText"/>
 
     <TextView
         android:id="@+id/tvPriceDifference"
@@ -41,5 +41,5 @@
         android:layout_toLeftOf="@id/tvPriceDifference"
         android:layout_toStartOf="@id/tvPriceDifference"
         tools:text="76.70"
-        style="@style/BoldText"/>
+        style="@style/LargeText"/>
 </RelativeLayout>

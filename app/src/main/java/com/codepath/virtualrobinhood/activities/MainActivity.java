@@ -17,10 +17,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
@@ -28,6 +31,7 @@ import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.StockQuotation;
 import com.codepath.virtualrobinhood.models.Trade;
+import com.codepath.virtualrobinhood.models.User;
 import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.codepath.virtualrobinhood.utils.HttpClient;
@@ -46,6 +50,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.io.IOException;
 
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
     private TextView tvUsername;
+    private ImageView ivProfileImage;
     private MenuItem miActionProgress;
 
     @Override
@@ -80,9 +86,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nvView);
+        User currentUser = Parcels.unwrap(intent.getParcelableExtra("user"));
+
+        NavigationView navigationView = findViewById(R.id.nvView);
+        ivProfileImage = navigationView.getHeaderView(0).findViewById(R.id.ivProfileImage);
         tvUsername = navigationView.getHeaderView(0).findViewById(R.id.tvUsername);
-        tvUsername.setText(intent.getStringExtra("displayName"));
+        tvUsername.setText(currentUser.displayName);
+
+        Glide.with(this).load(currentUser.photoUrl)
+                .apply(RequestOptions.circleCropTransform())
+                .into(ivProfileImage);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

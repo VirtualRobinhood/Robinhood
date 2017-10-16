@@ -136,7 +136,7 @@ public class FireBaseClient {
                 .child("watchlists")
                 .child(watchlistName)
                 .child("stocks")
-                .child(stock.symbol)
+                .child(stock.symbol.toUpperCase())
                 .setValue(stock);
     }
 

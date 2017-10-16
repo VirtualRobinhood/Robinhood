@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
+import com.codepath.virtualrobinhood.models.User;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.auth.api.Auth;
@@ -24,6 +25,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import org.parceler.Parcels;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -120,9 +123,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (user != null) {
             fireBaseClient.registerNewUser(user);
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("uid", user.getUid());
-            intent.putExtra("email", user.getEmail());
-            intent.putExtra("displayName", user.getDisplayName());
+            User currentUser = new User();
+            currentUser.id = user.getUid();
+            currentUser.displayName = user.getDisplayName();
+            currentUser.email = user.getEmail();
+            currentUser.photoUrl = user.getPhotoUrl().toString();
+            intent.putExtra("user", Parcels.wrap(currentUser));
             startActivity(intent);
         } else {
             Log.d(TAG, "Failed to sign in an user.");

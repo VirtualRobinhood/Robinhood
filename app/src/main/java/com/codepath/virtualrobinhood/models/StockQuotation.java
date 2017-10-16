@@ -3,6 +3,7 @@ package com.codepath.virtualrobinhood.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,8 @@ import java.util.Date;
  * Created by SagarMutha on 10/11/17.
  */
 
+
+@Parcel(analyze = {StockQuotation.class})
 public class StockQuotation {
     public Date date;
     public float open;
