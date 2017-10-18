@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     fireBaseClient.addSymbolToWatchlist(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                             Constants.DEFAULT_WATCHLIST, stock);
 
-                    
+
                     Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
                     stockDetailActivity.putExtra("stock_symbol", stock.symbol);
                     stockDetailActivity.putExtra("stock_price", String.valueOf(quot.high));
