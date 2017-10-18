@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
                     Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
-                    stockDetailActivity.putExtra("stock_symbol", stock.symbol);
+                    stockDetailActivity.putExtra("stock", Parcels.wrap(stock));
                     stockDetailActivity.putExtra("stock_price", String.valueOf(quot.high));
                     stockDetailActivity.putExtra("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
