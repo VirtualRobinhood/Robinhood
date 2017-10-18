@@ -19,7 +19,13 @@ public class Stock {
     public String name;
     public List<StockQuotation> quotations;
 
-    public Stock() {}
+    public Stock() {
+        quotations = new ArrayList<>();
+    }
+
+    public double getLastPrice() {
+        return quotations.size() > 0 ? quotations.get(0).close : 0;
+    }
 
     public Stock(JSONObject jsonObject) {
         try {
