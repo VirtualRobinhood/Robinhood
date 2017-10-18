@@ -32,11 +32,7 @@ import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
-import com.codepath.virtualrobinhood.models.StockQuotation;
-import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.models.User;
-import com.codepath.virtualrobinhood.utils.Constants;
-import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.codepath.virtualrobinhood.utils.HttpClient;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -67,7 +63,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, SearchView.OnSuggestionListener {
     private static final String TAG = "vr:MainActivity";
-    public static String[] columns = new String[] {"_id", "STOCK_NAME", "STOCK_SYMBOL"};
+    public static String[] columns = new String[] {"_id", "STOCK_SYMBOL", "STOCK_NAME"};
 
 
     private DrawerLayout mDrawer;
@@ -250,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void fetchStockInfo(String symbol) {
+    public void fetchStockInfo(String symbol, final String name) {
 
         OkHttpClient client = HttpClient.getClient();
 
@@ -284,25 +280,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     final String responseData = response.body().string();
                     JSONObject json = new JSONObject(responseData);
                     Stock stock = new Stock(json);
-                    Trade trade = new Trade();
-                    trade.symbol = stock.symbol;
-                    StockQuotation quot = stock.quotations.get(0);
-                    //portfolio = new Portfolio();
+                    stock.name = name;
                     Log.d("STOCK", stock.toString());
 
-                    // searched stocks are going to be added to the watchlist for now
-                    FireBaseClient fireBaseClient = new FireBaseClient();
-                    fireBaseClient.addSymbolToWatchlist(FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                            Constants.DEFAULT_WATCHLIST, stock);
-
-                    
-                    Intent stockDetailActivity = new Intent(MainActivity.this, StockDetailActivity.class);
-                    stockDetailActivity.putExtra("stock_symbol", stock.symbol);
-                    stockDetailActivity.putExtra("stock_price", String.valueOf(quot.high));
-                    stockDetailActivity.putExtra("user_id", FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-                    startActivity(stockDetailActivity);
-
+                    Intent intent = new Intent(MainActivity.this, StockDetailActivity.class);
+                    intent.putExtra("stock", Parcels.wrap(stock));
+                    startActivity(intent);
 
                     hideProgressBar();
                 } catch (JSONException e) {
@@ -403,8 +386,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public boolean onSuggestionSelect(int position) {
         Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
         String symbol = cursor.getString(1);
+        String name = cursor.getString(2);
         searchView.setQuery(symbol, false);
-        fetchStockInfo(symbol);
+        fetchStockInfo(symbol, name);
         // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
         // see https://code.google.com/p/android/issues/detail?id=24599
         searchView.clearFocus();
@@ -415,14 +399,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     public boolean onSuggestionClick(int position) {
         Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
         String symbol = cursor.getString(1);
+        String name = cursor.getString(2);
         searchView.setQuery(symbol, false);
-        fetchStockInfo(symbol);
+        fetchStockInfo(symbol, name);
         // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
         // see https://code.google.com/p/android/issues/detail?id=24599
         searchView.clearFocus();
         return true;
     }
-
 
     private MatrixCursor convertToCursor(List<Stock> stocks) {
         MatrixCursor cursor = new MatrixCursor(columns);

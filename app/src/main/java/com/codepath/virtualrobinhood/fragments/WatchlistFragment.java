@@ -29,8 +29,6 @@ import com.google.firebase.database.Query;
 
 import org.parceler.Parcels;
 
-import java.text.DecimalFormat;
-
 
 public class WatchlistFragment extends Fragment {
 
@@ -103,13 +101,9 @@ public class WatchlistFragment extends Fragment {
             protected void onBindViewHolder(StockViewHolder viewHolder, int position, final Stock stock) {
                 final DatabaseReference stockRef = getRef(position);
 
-                // Set click listener for the whole stock view
-                final String stockKey = stockRef.getKey();
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DecimalFormat df = new DecimalFormat("##.##");
-
                         Intent intent = new Intent(getActivity(), StockDetailActivity.class);
                         intent.putExtra("stock", Parcels.wrap(stock));
 
@@ -117,7 +111,6 @@ public class WatchlistFragment extends Fragment {
                     }
                 });
 
-                // Bind Stock to ViewHolder, setting OnClickListener for the star button
                 viewHolder.bindToPost(stock);
 
                 setupRemoveSymbolImageView(viewHolder.itemView);

@@ -11,12 +11,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.StockQuotation;
 import com.codepath.virtualrobinhood.models.Trade;
+import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.CustomMarkerView;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.github.mikephil.charting.charts.LineChart;
@@ -64,21 +66,26 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
 
         setTitle(stock.symbol.toUpperCase());
 
-        TextView tvPrice = null;
-        TextView tvSymbol = null;
-        Button btnSubmit;
         final FireBaseClient fireBaseClient = new FireBaseClient();
         DecimalFormat df = new DecimalFormat("##.##");
 
         final Trade trade = new Trade();
         trade.symbol = stock.symbol;
-        trade.price = stock.getLastPrice();
+        trade.price = stock.getLastClosePrice();
 
-        tvSymbol  = findViewById(R.id.tvSymbol);
-        tvPrice = findViewById(R.id.tvPrice);
+        TextView tvSymbol  = findViewById(R.id.tvSymbol);
+        TextView tvPrice = findViewById(R.id.tvPrice);
+        TextView tvOpenPrice = findViewById(R.id.tvOpenPrice);
+        TextView tvLowPrice = findViewById(R.id.tvLowPrice);
+        TextView tvHighPrice = findViewById(R.id.tvHighPrice);
+        TextView tvClosePrice = findViewById(R.id.tvClosePrice);
 
         tvSymbol.setText(stock.symbol);
-        tvPrice.setText(df.format(stock.getLastPrice()));
+        tvPrice.setText(df.format(stock.getLastClosePrice()));
+        tvOpenPrice.setText(df.format(stock.getLastOpenPrice()));
+        tvClosePrice.setText(df.format(stock.getLastClosePrice()));
+        tvLowPrice.setText(df.format(stock.getLastLowPrice()));
+        tvHighPrice.setText(df.format(stock.getLastHighPrice()));
 
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -91,12 +98,21 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("debug", "debug");
-                if (stock.getLastPrice() > depositAmount) {
+                if (stock.getLastClosePrice() > depositAmount) {
                     Log.d("debug", "insufficient funds");
                 }
                  fireBaseClient.addTradeToPortfolio(userId, "Saturday",
                                 trade);
                 // Code here executes on main thread after user presses button
+            }
+        });
+
+        final ImageView ivAddToWatchlist = findViewById(R.id.ivAddToWatchlist);
+        ivAddToWatchlist.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FireBaseClient fireBaseClient = new FireBaseClient();
+                fireBaseClient.addSymbolToWatchlist(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                        Constants.DEFAULT_WATCHLIST, stock);
             }
         });
 
@@ -250,8 +266,8 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
-        leftAxis.setAxisMaximum(maxPrice);
-        leftAxis.setAxisMinimum(minPrice);
+        //leftAxis.setAxisMaximum(maxPrice);
+        //leftAxis.setAxisMinimum(minPrice);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setDrawZeroLine(false);

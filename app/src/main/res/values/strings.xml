@@ -19,4 +19,8 @@
     <string name="buy_stock">Buy</string>
     <string name="sell_stock">Sell</string>
     <string name="key_statistics">Key Statistics</string>
+    <string name="stock_open">Open</string>
+    <string name="stock_low">Low</string>
+    <string name="stock_high">High</string>
+    <string name="stock_close">Close</string>
 </resources>

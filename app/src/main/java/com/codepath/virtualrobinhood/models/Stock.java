@@ -23,8 +23,19 @@ public class Stock {
         quotations = new ArrayList<>();
     }
 
-    public double getLastPrice() {
+    public double getLastOpenPrice() {
+        return quotations.size() > 0 ? quotations.get(0).open : 0;
+    }
+
+    public double getLastClosePrice() {
         return quotations.size() > 0 ? quotations.get(0).close : 0;
+    }
+
+    public double getLastLowPrice() {
+        return quotations.size() > 0 ? quotations.get(0).low : 0;
+    }
+    public double getLastHighPrice() {
+        return quotations.size() > 0 ? quotations.get(0).high : 0;
     }
 
     public Stock(JSONObject jsonObject) {
