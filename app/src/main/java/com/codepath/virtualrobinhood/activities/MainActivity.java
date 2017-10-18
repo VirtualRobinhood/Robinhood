@@ -2,6 +2,8 @@ package com.codepath.virtualrobinhood.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.codepath.virtualrobinhood.R;
+import com.codepath.virtualrobinhood.adaptors.SearchFeedResultsAdaptor;
 import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
@@ -53,6 +56,7 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -61,8 +65,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, SearchView.OnSuggestionListener {
     private static final String TAG = "vr:MainActivity";
+    public static String[] columns = new String[] {"_id", "STOCK_NAME", "STOCK_SYMBOL"};
+
 
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
@@ -73,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private TextView tvUsername;
     private ImageView ivProfileImage;
     private MenuItem miActionProgress;
+    private SearchView searchView;
+    private SearchFeedResultsAdaptor mSearchViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,23 +219,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.drawer_view, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnSuggestionListener(this);
+        mSearchViewAdapter = new SearchFeedResultsAdaptor(this, R.layout.search_feed_list_item, null, columns, null, -1000);
+        searchView.setSuggestionsAdapter(mSearchViewAdapter);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // perform query here
 
-                fetchStockInfo(query);
-                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
-                // see https://code.google.com/p/android/issues/detail?id=24599
-                searchView.clearFocus();
-
+                if (query.length() > 2) {
+                    loadData(query);
+                }
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                if (newText.length() > 2) {
+                    loadData(newText);
+                }
+                return true;
             }
         });
 
@@ -382,6 +395,101 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    @Override
+    public boolean onSuggestionSelect(int position) {
+        Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
+        String symbol = cursor.getString(1);
+        searchView.setQuery(symbol, false);
+        fetchStockInfo(symbol);
+        // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+        // see https://code.google.com/p/android/issues/detail?id=24599
+        searchView.clearFocus();
+        return true;
+    }
+
+    @Override
+    public boolean onSuggestionClick(int position) {
+        Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
+        String symbol = cursor.getString(1);
+        searchView.setQuery(symbol, false);
+        fetchStockInfo(symbol);
+        // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+        // see https://code.google.com/p/android/issues/detail?id=24599
+        searchView.clearFocus();
+        return true;
+    }
+
+
+    private MatrixCursor convertToCursor(List<Stock> stocks) {
+        MatrixCursor cursor = new MatrixCursor(columns);
+        int i = 0;
+        for (Stock stock : stocks) {
+            String[] temp = new String[3];
+            i = i + 1;
+            temp[0] = Integer.toString(i);
+
+            temp[1] = stock.symbol;
+            temp[2] = stock.name;
+            cursor.addRow(temp);
+        }
+        return cursor;
+    }
+
+    private void loadData(String symbol) {
+        OkHttpClient client = HttpClient.getClient();
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://d.yimg.com/autoc.finance.yahoo.com/autoc").newBuilder();
+        urlBuilder.addQueryParameter("lang", "en");
+        urlBuilder.addQueryParameter("region", "1");
+        urlBuilder.addQueryParameter("callback", "YAHOO.Finance.SymbolSuggest.ssCallback");
+        urlBuilder.addQueryParameter("query", symbol);
+        String url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        showProgressBar();
+
+        // Get a handler that can be used to post to the main thread
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                hideProgressBar();
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                }
+
+                String responseData = response.body().string();
+                responseData = responseData.substring(responseData.indexOf("{"));
+                responseData = responseData.substring(0, responseData.lastIndexOf("}") + 1);
+
+                JSONObject json;
+                try {
+                    json = new JSONObject(responseData);
+                    final List<Stock> suggestions = Stock.getSuggestions(json);
+                    Log.d("stock_suggestions", suggestions.toString());
+
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            MatrixCursor matrixCursor = convertToCursor(suggestions);
+                            mSearchViewAdapter.changeCursor(matrixCursor);
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                hideProgressBar();
             }
         });
     }

@@ -1,9 +1,11 @@
 package com.codepath.virtualrobinhood.models;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,5 +30,22 @@ public class Stock {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public Stock(String symbol, String name) {
+        this.symbol = symbol;
+        this.name = name;
+    }
+
+    public static ArrayList<Stock> getSuggestions(JSONObject jsonObject) throws JSONException {
+        ArrayList<Stock> results = new ArrayList<>();
+        JSONArray array = jsonObject.getJSONObject("ResultSet").getJSONArray("Result");
+
+        for (int x = 0; x < array.length(); x++) {
+            JSONObject json = array.getJSONObject(x);
+            results.add(new Stock(json.getString("symbol"), json.getString("name")));
+        }
+
+        return results;
     }
 }
