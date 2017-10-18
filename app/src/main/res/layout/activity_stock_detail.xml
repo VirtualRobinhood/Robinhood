@@ -6,28 +6,60 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/tvSymbolDetail"
+        android:id="@+id/tvSymbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        tools:text="MSFT"/>
+        tools:text="MSFT"
+        style="@style/LargeText"/>
 
     <TextView
-        android:id="@+id/tvPriceDetail"
+        android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        tools:text="76.70"/>
+        android:layout_below="@id/tvSymbol"
+        tools:text="76.70"
+        android:textSize="22sp"/>
 
-    <Button
-        android:id="@+id/btnBuy"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tvPrice"
+        android:layout_marginTop="16dp"/>
+
+    <LinearLayout
+        android:id="@+id/llbuttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/lineChart"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btnBuy"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:onClick="buyStock"
+            android:text="@string/buy_stock" />
+
+        <Button
+            android:id="@+id/btnSell"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:onClick="buyStock"
+            android:text="@string/sell_stock" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvKeyStatistics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPriceDetail"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="83dp"
-        android:onClick="buyStock"
-        android:text="BUY" />
+        android:layout_below="@id/llbuttons"
+        android:text="@string/key_statistics"
+        android:layout_marginTop="16dp"/>
+
 </RelativeLayout>

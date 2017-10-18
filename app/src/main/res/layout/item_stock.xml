@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/ivRemoveSymbol"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:src="@drawable/icon_remove_24"/>
@@ -32,7 +32,9 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        tools:text="+1.2"/>
+        android:padding="4dp"
+        tools:text="+1.2"
+        style="@style/LargeText"/>
 
     <TextView
         android:id="@+id/tvPrice"

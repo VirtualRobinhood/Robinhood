@@ -16,4 +16,7 @@
     <string name="remove">Remove</string>
     <string name="cancel">Cancel</string>
     <string name="profile_image_description">Profile image</string>
+    <string name="buy_stock">Buy</string>
+    <string name="sell_stock">Sell</string>
+    <string name="key_statistics">Key Statistics</string>
 </resources>

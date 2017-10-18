@@ -27,6 +27,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import org.parceler.Parcels;
+
+import java.text.DecimalFormat;
+
 
 public class WatchlistFragment extends Fragment {
 
@@ -96,7 +100,7 @@ public class WatchlistFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(StockViewHolder viewHolder, int position, final Stock model) {
+            protected void onBindViewHolder(StockViewHolder viewHolder, int position, final Stock stock) {
                 final DatabaseReference stockRef = getRef(position);
 
                 // Set click listener for the whole stock view
@@ -104,15 +108,17 @@ public class WatchlistFragment extends Fragment {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Launch PostDetailActivity
+                        DecimalFormat df = new DecimalFormat("##.##");
+
                         Intent intent = new Intent(getActivity(), StockDetailActivity.class);
-                        intent.putExtra(StockDetailActivity.EXTRA_STOCK_KEY, stockKey);
+                        intent.putExtra("stock", Parcels.wrap(stock));
+
                         startActivity(intent);
                     }
                 });
 
                 // Bind Stock to ViewHolder, setting OnClickListener for the star button
-                viewHolder.bindToPost(model);
+                viewHolder.bindToPost(stock);
 
                 setupRemoveSymbolImageView(viewHolder.itemView);
             }

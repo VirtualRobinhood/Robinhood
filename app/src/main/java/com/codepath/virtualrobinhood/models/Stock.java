@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,13 @@ public class Stock {
     public String name;
     public List<StockQuotation> quotations;
 
-    public Stock() {}
+    public Stock() {
+        quotations = new ArrayList<>();
+    }
+
+    public double getLastPrice() {
+        return quotations.size() > 0 ? quotations.get(0).close : 0;
+    }
 
     public Stock(JSONObject jsonObject) {
         try {
