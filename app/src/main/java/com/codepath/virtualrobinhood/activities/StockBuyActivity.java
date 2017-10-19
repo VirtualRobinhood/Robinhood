@@ -25,6 +25,7 @@ import org.parceler.Parcels;
 
 public class StockBuyActivity extends AppCompatActivity {
     public static int currentStockQuantity;
+    public static long lastHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class StockBuyActivity extends AppCompatActivity {
         final FireBaseClient fireBaseClient = new FireBaseClient();
 
         getPortfolio(userId, stock.symbol);
+        getHistory(userId);
 
 
         final Button btnBuyStock = findViewById(R.id.btnBuyStock);
@@ -50,8 +52,8 @@ public class StockBuyActivity extends AppCompatActivity {
         final EditText etQuantity = findViewById(R.id.etQuantity);
         tvPrice.setText(trade.price.toString());
 
-        History stockHistory = new History();
-        fireBaseClient.addToHistory(userId, stockHistory);
+        final History stockHistory = new History();
+
 
 
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +63,7 @@ public class StockBuyActivity extends AppCompatActivity {
                 trade.quantity = currentStockQuantity + buyQuantity;
                 fireBaseClient.addTradeToPortfolio(userId, "TestPortfolio",
                         trade);
+                fireBaseClient.addToHistory(userId, stockHistory, lastHistory+1);
             }
         });
     }
@@ -95,5 +98,34 @@ public class StockBuyActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    private void getHistory(String userId) {
+        //final Double amount;
+
+        final FirebaseDatabase database;
+        final DatabaseReference dbRef;
+
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference();
+
+        dbRef.child("users")
+                .child(userId)
+                .child("history")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        Log.d("debug", "onDataChange");
+                        if (snapshot != null && snapshot.getValue() != null) {
+                            Log.d("debug", "onDataChange");
+                            //String quantity = snapshot.getValue().toString();
+                            lastHistory = snapshot.getChildrenCount();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
     }
 }
