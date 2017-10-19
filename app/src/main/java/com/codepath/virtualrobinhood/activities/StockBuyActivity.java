@@ -77,6 +77,7 @@ public class StockBuyActivity extends AppCompatActivity {
                         trade);
                 stockHistory.quantity = buyQuantity;
                 fireBaseClient.addToHistory(userId, stockHistory, lastHistory+1);
+                lastHistory = lastHistory + 1;
 
                 Toast.makeText(v.getContext(), "Stock purchased successfully", Toast.LENGTH_SHORT).show();
             }
@@ -127,6 +128,8 @@ public class StockBuyActivity extends AppCompatActivity {
         dbRef.child("users")
                 .child(userId)
                 .child("history")
+                .child("TestHistory")
+                .child("stocks")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
