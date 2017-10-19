@@ -23,6 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class StockBuyActivity extends AppCompatActivity {
     public static int currentStockQuantity;
     public static long lastHistory;
@@ -53,10 +56,15 @@ public class StockBuyActivity extends AppCompatActivity {
         tvPrice.setText(trade.price.toString());
 
         final History stockHistory = new History();
+
+
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+
         stockHistory.symbol = trade.symbol;
         stockHistory.stockPrice = trade.price;
-
-
+        stockHistory.date = date;
+        stockHistory.buySell = "Market Buy";
 
 
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +74,7 @@ public class StockBuyActivity extends AppCompatActivity {
                 trade.quantity = currentStockQuantity + buyQuantity;
                 fireBaseClient.addTradeToPortfolio(userId, "TestPortfolio",
                         trade);
+                stockHistory.quantity = buyQuantity;
                 fireBaseClient.addToHistory(userId, stockHistory, lastHistory+1);
             }
         });

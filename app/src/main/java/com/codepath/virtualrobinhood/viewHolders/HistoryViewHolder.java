@@ -24,7 +24,7 @@ public HistoryViewHolder(View itemView) {
         }
 
     public void bindToPost(History history) {
-        tvSymbolHistory.setText(history.symbol);
+        tvSymbolHistory.setText(history.symbol + " " + history.buySell);
         tvPriceHistory.setText(history.stockPrice.toString());
     }
 }

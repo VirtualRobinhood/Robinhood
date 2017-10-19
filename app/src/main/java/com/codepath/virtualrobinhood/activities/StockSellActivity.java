@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.codepath.virtualrobinhood.R;
+import com.codepath.virtualrobinhood.models.History;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
@@ -21,6 +22,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static com.codepath.virtualrobinhood.activities.StockBuyActivity.lastHistory;
 
 public class StockSellActivity extends AppCompatActivity {
 
@@ -49,14 +55,27 @@ public class StockSellActivity extends AppCompatActivity {
         final EditText etQuantity = findViewById(R.id.etQuantitySell);
         tvPrice.setText(trade.price.toString());
 
+        final History stockHistory = new History();
+
+
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+
+        stockHistory.symbol = trade.symbol;
+        stockHistory.stockPrice = trade.price;
+        stockHistory.date = date;
+        stockHistory.buySell = "Market Sell";
+
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("debug", "debug");
                 int sellQuantity = Integer.parseInt(etQuantity.getText().toString());
                 trade.quantity = currentStockQuantity - sellQuantity;
 
+                stockHistory.quantity = sellQuantity;
                 fireBaseClient.removeTradeFromPortfolio(userId, "TestPortfolio",
                         trade);
+                fireBaseClient.addToHistory(userId, stockHistory, lastHistory+1);
             }
         });
     }
