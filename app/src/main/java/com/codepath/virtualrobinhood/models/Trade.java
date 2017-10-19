@@ -12,12 +12,14 @@ public class Trade {
     public String symbol;
     public Double price;
     public String date;
+    public int quantity;
 
     public Trade() {
         id = "10";
         symbol = "csco";
         price = 16.66;
         date = "1/1/2017";
+        quantity = 10;
 
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.Stock;
@@ -35,6 +36,9 @@ public class StockSellActivity extends AppCompatActivity {
 
 
         final Button btnBuyStock = findViewById(R.id.btnSellStock);
+        final TextView tvPrice = findViewById(R.id.tvMktPriceValueSell);
+        tvPrice.setText(trade.price.toString());
+
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("debug", "debug");
