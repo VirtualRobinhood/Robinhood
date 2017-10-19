@@ -22,7 +22,8 @@
         </activity>
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.StockDetailActivity" />
-        <activity android:name=".activities.StockTradeActivity"></activity>
+        <activity android:name=".activities.StockBuyActivity" />
+        <activity android:name=".activities.StockSellActivity"></activity>
     </application>
 
 </manifest>

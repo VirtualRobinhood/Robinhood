@@ -15,12 +15,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.parceler.Parcels;
 
-public class StockTradeActivity extends AppCompatActivity {
+public class StockSellActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stock_trade);
+        setContentView(R.layout.activity_stock_sell);
 
         Intent intent = getIntent();
         final Stock stock = Parcels.unwrap(intent.getParcelableExtra("stock"));
@@ -34,7 +34,7 @@ public class StockTradeActivity extends AppCompatActivity {
         final FireBaseClient fireBaseClient = new FireBaseClient();
 
 
-        final Button btnBuyStock = findViewById(R.id.btnBuyStock);
+        final Button btnBuyStock = findViewById(R.id.btnSellStock);
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("debug", "debug");
@@ -42,6 +42,5 @@ public class StockTradeActivity extends AppCompatActivity {
                         trade);
             }
         });
-
     }
 }
