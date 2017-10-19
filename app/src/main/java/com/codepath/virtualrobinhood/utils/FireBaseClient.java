@@ -175,4 +175,14 @@ public class FireBaseClient {
                 .setValue(stock);*/
 
     }
+
+    public void removeTradeFromPortfolio(final String userId, final String portfolioName,
+                                    final Trade trade) {
+        dbRef.child("users").child(userId)
+                .child("portfolios")
+                .child(portfolioName)
+                .child("stocks")
+                .child(trade.symbol)
+                .removeValue();
+    }
 }

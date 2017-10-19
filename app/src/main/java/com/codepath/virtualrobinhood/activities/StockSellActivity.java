@@ -38,7 +38,7 @@ public class StockSellActivity extends AppCompatActivity {
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("debug", "debug");
-                fireBaseClient.addTradeToPortfolio(userId, "TestPortfolio",
+                fireBaseClient.removeTradeFromPortfolio(userId, "TestPortfolio",
                         trade);
             }
         });
