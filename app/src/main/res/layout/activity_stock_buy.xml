@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp">
+
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        style="@style/LargeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="SHARES" />
+
+    <EditText
+        android:id="@+id/etQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/icon_add_24"
+        android:layout_above="@+id/tvMktPriceValueBuy" />
+
+    <TextView
+        android:id="@+id/tvMktPriceBuy"
+        style="@style/LargeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MKT PRICE"
+        android:layout_below="@+id/tvQuantity"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/tvMktPriceValueBuy"
+        style="@style/LargeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$197.50"
+        android:layout_above="@+id/tvEstCreditBuy"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tvEstCreditBuy"
+        style="@style/LargeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EST CREDIT"
+        android:layout_below="@+id/tvMktPriceBuy"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="41dp" />
+
+    <TextView
+        android:id="@+id/tvEstCreditValueBuy"
+        style="@style/LargeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$0.00"
+        android:layout_alignBaseline="@+id/tvEstCreditBuy"
+        android:layout_alignBottom="@+id/tvEstCreditBuy"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btnBuyStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="279dp"
+        android:text="BUY" />
+
+
+</RelativeLayout>

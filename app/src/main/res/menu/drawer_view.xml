@@ -36,6 +36,10 @@
         android:title="@string/deposit_funds" />
 
     <item
+        android:id="@+id/nav_history"
+        android:title="@string/history" />
+
+    <item
         android:id="@+id/nav_sign_out"
         android:title="@string/sign_out" />
 </menu>

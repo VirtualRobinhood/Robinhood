@@ -122,7 +122,7 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
         {
             public void onClick(View v)
             {
-                Intent intent = new Intent(StockDetailActivity.this, StockTradeActivity.class);
+                Intent intent = new Intent(StockDetailActivity.this, StockBuyActivity.class);
                 intent.putExtra("stock", Parcels.wrap(stock));
                 startActivity(intent);
             }
@@ -134,7 +134,7 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
         {
             public void onClick(View v)
             {
-                Intent intent = new Intent(StockDetailActivity.this, StockTradeActivity.class);
+                Intent intent = new Intent(StockDetailActivity.this, StockSellActivity.class);
                 intent.putExtra("stock", Parcels.wrap(stock));
                 startActivity(intent);
             }

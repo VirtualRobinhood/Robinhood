@@ -29,6 +29,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.adaptors.SearchFeedResultsAdaptor;
 import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
+import com.codepath.virtualrobinhood.fragments.HistoryFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
@@ -164,6 +165,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 break;
             case R.id.nav_add_money:
                 fragment = DepositFundsFragment.newInstance(userId);
+                break;
+            case R.id.nav_history:
+                fragment = HistoryFragment.newInstance(userId);
                 break;
             case R.id.nav_sign_out:
                 signOut();
