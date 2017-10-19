@@ -14,9 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-
 import com.codepath.virtualrobinhood.R;
-import com.codepath.virtualrobinhood.activities.StockDetailActivity;
+import com.codepath.virtualrobinhood.activities.PortfolioDetailActivity;
 import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.models.Watchlist;
 import com.codepath.virtualrobinhood.viewHolders.PortfolioViewHolder;
@@ -26,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -133,8 +134,13 @@ public class PortfolioFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         // Launch PostDetailActivity
-                        Intent intent = new Intent(getActivity(), StockDetailActivity.class);
+                        /*Intent intent = new Intent(getActivity(), StockDetailActivity.class);
                         intent.putExtra(StockDetailActivity.EXTRA_STOCK_KEY, stockKey);
+                        startActivity(intent);*/
+
+                        Intent intent = new Intent(getActivity(), PortfolioDetailActivity.class);
+                        intent.putExtra("stock", Parcels.wrap(model));
+
                         startActivity(intent);
                     }
                 });
