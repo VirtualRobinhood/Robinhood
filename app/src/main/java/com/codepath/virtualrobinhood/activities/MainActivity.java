@@ -426,10 +426,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void loadData(String symbol) {
         OkHttpClient client = HttpClient.getClient();
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://d.yimg.com/autoc.finance.yahoo.com/autoc").newBuilder();
-        urlBuilder.addQueryParameter("lang", "en");
-        urlBuilder.addQueryParameter("region", "1");
-        urlBuilder.addQueryParameter("callback", "YAHOO.Finance.SymbolSuggest.ssCallback");
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://d.yimg.com/aq/autoc").newBuilder();
+        urlBuilder.addQueryParameter("lang", "en-US");
+        urlBuilder.addQueryParameter("region", "US");
         urlBuilder.addQueryParameter("query", symbol);
         String url = urlBuilder.build().toString();
 
@@ -454,9 +453,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 }
 
                 String responseData = response.body().string();
-                responseData = responseData.substring(responseData.indexOf("{"));
-                responseData = responseData.substring(0, responseData.lastIndexOf("}") + 1);
-
                 JSONObject json;
                 try {
                     json = new JSONObject(responseData);

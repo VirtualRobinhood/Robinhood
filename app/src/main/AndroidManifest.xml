@@ -20,8 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"></activity>
-        <activity android:name=".activities.StockDetailActivity"></activity>
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.StockDetailActivity" />
+        <activity android:name=".activities.StockTradeActivity"></activity>
     </application>
 
 </manifest>

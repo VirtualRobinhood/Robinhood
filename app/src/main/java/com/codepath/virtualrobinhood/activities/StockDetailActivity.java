@@ -116,6 +116,30 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
             }
         });
 
+        Button btnBuy = (Button) findViewById(R.id.btnBuy);
+
+        btnBuy.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(StockDetailActivity.this, StockTradeActivity.class);
+                intent.putExtra("stock", Parcels.wrap(stock));
+                startActivity(intent);
+            }
+        });
+
+        Button btnSell = (Button) findViewById(R.id.btnSell);
+
+        btnSell.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(StockDetailActivity.this, StockTradeActivity.class);
+                intent.putExtra("stock", Parcels.wrap(stock));
+                startActivity(intent);
+            }
+        });
+
         setupLineChart(stock);
     }
 
