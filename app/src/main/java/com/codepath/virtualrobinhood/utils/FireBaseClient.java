@@ -2,6 +2,7 @@ package com.codepath.virtualrobinhood.utils;
 
 import android.util.Log;
 
+import com.codepath.virtualrobinhood.models.History;
 import com.codepath.virtualrobinhood.models.PortfolioList;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.Trade;
@@ -184,5 +185,17 @@ public class FireBaseClient {
                 .child("stocks")
                 .child(trade.symbol)
                 .removeValue();
+    }
+
+    public void addToHistory(final String userId,
+                                    final History history) {
+        dbRef.child("users").child(userId)
+                .child("history").child("1")
+                .setValue(history);
+
+        Log.d("debug", "add_to_history");
+
+
+
     }
 }

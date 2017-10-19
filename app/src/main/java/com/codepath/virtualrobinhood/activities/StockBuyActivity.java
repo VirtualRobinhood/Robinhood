@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.codepath.virtualrobinhood.R;
+import com.codepath.virtualrobinhood.models.History;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
@@ -48,6 +49,9 @@ public class StockBuyActivity extends AppCompatActivity {
         final TextView tvPrice = findViewById(R.id.tvMktPriceValueBuy);
         final EditText etQuantity = findViewById(R.id.etQuantity);
         tvPrice.setText(trade.price.toString());
+
+        History stockHistory = new History();
+        fireBaseClient.addToHistory(userId, stockHistory);
 
 
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
