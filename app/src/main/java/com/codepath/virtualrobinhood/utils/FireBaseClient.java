@@ -189,8 +189,16 @@ public class FireBaseClient {
 
     public void addToHistory(final String userId,
                                     final History history, long historyCount) {
+       /* dbRef.child("users").child(userId)
+                .child("history").child("TestHistory").child("stocks").child(Long.toString(historyCount))
+                .setValue(history);*/
+
+
         dbRef.child("users").child(userId)
-                .child("history").child(Long.toString(historyCount))
+                .child("history")
+                .child("TestHistory")
+                .child("stocks")
+                .child(Long.toString(historyCount))
                 .setValue(history);
 
         Log.d("debug", "add_to_history");

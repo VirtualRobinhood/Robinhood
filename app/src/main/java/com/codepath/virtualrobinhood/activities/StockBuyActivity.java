@@ -53,6 +53,9 @@ public class StockBuyActivity extends AppCompatActivity {
         tvPrice.setText(trade.price.toString());
 
         final History stockHistory = new History();
+        stockHistory.symbol = trade.symbol;
+        stockHistory.stockPrice = trade.price;
+
 
 
 

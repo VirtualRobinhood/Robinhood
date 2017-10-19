@@ -6,15 +6,15 @@ import org.parceler.Parcel;
  * Created by gkurghin on 10/12/17.
  */
 
-@Parcel(analyze = {Trade.class})
+@Parcel(analyze = {History.class})
 public class History {
-    String symbol;
-    String buySell;
-    String date;
-    int quantity;
-    Double stockPrice;
-    Double amount;
-    Double total;
+    public String symbol;
+    public String buySell;
+    public String date;
+    public int quantity;
+    public Double stockPrice;
+    public Double amount;
+    public Double total;
 
     public History() {
         symbol = "CSCO";
