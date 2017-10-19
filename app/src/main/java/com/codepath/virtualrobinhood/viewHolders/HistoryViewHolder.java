@@ -15,16 +15,19 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
 
 public TextView tvSymbolHistory;
 public TextView tvPriceHistory;
+    public TextView tvDateHistory;
 
 public HistoryViewHolder(View itemView) {
         super(itemView);
 
         tvSymbolHistory= itemView.findViewById(R.id.tvSymbolHistory);
         tvPriceHistory = itemView.findViewById(R.id.tvPriceHistory);
+        tvDateHistory = itemView.findViewById(R.id.tvDateHistory);
         }
 
     public void bindToPost(History history) {
         tvSymbolHistory.setText(history.symbol + " " + history.buySell);
         tvPriceHistory.setText(history.stockPrice.toString());
+        tvDateHistory.setText(history.date);
     }
 }
