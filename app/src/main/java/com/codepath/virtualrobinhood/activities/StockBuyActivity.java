@@ -32,6 +32,7 @@ import java.util.Date;
 public class StockBuyActivity extends AppCompatActivity {
     public static int currentStockQuantity;
     public static long lastHistory;
+    public Double stockPrice;
 
     TextView etEstimatedCredit;
 
@@ -60,7 +61,7 @@ public class StockBuyActivity extends AppCompatActivity {
         final EditText etQuantity = findViewById(R.id.etQuantity);
 
         etEstimatedCredit = findViewById(R.id.tvEstCreditValueBuy);
-        //etQuantity.addTextChangedListener(mTextEditorWatcher);
+        etQuantity.addTextChangedListener(mTextEditorWatcher);
         tvPrice.setText(trade.price.toString());
 
         final History stockHistory = new History();
@@ -71,6 +72,7 @@ public class StockBuyActivity extends AppCompatActivity {
 
         stockHistory.symbol = trade.symbol;
         stockHistory.stockPrice = trade.price;
+        stockPrice = trade.price;
         stockHistory.date = date;
         stockHistory.buySell = "Market Buy";
 
@@ -161,7 +163,18 @@ public class StockBuyActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             //This sets a textview to the current length
-            etEstimatedCredit.setText(Integer.toString(start));
+
+            String quantity = s.toString();
+            if (quantity.isEmpty()) {
+                etEstimatedCredit.setText("0");
+                return;
+            }
+            Log.d("debug", "quantity");
+            Log.d("debug", quantity);
+
+            int price = stockPrice.intValue() * Integer.parseInt(quantity);
+
+            etEstimatedCredit.setText(Integer.toString(price));
         }
 
         public void afterTextChanged(Editable s) {
