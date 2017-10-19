@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.History;
@@ -76,6 +77,8 @@ public class StockBuyActivity extends AppCompatActivity {
                         trade);
                 stockHistory.quantity = buyQuantity;
                 fireBaseClient.addToHistory(userId, stockHistory, lastHistory+1);
+
+                Toast.makeText(v.getContext(), "Stock purchased successfully", Toast.LENGTH_SHORT).show();
             }
         });
     }
