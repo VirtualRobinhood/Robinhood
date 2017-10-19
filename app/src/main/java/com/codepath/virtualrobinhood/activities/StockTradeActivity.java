@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.Stock;
@@ -31,8 +33,15 @@ public class StockTradeActivity extends AppCompatActivity {
         trade.price = stock.getLastClosePrice();
         final FireBaseClient fireBaseClient = new FireBaseClient();
 
-        fireBaseClient.addTradeToPortfolio(userId, "TestPortfolio",
-                trade);
+
+        final Button btnBuyStock = findViewById(R.id.btnBuyStock);
+        btnBuyStock.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("debug", "debug");
+                fireBaseClient.addTradeToPortfolio(userId, "TestPortfolio",
+                        trade);
+            }
+        });
 
     }
 }
