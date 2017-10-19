@@ -60,7 +60,10 @@ public class Stock {
 
         for (int x = 0; x < array.length(); x++) {
             JSONObject json = array.getJSONObject(x);
-            results.add(new Stock(json.getString("symbol"), json.getString("name")));
+            String exchange = json.getString("exchDisp");
+            if (exchange.equalsIgnoreCase("NASDAQ") || exchange.equalsIgnoreCase("NYSE")) {
+                results.add(new Stock(json.getString("symbol"), json.getString("name")));
+            }
         }
 
         return results;
