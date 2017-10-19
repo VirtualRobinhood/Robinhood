@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.codepath.virtualrobinhood.R;
@@ -13,10 +14,17 @@ import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
 public class StockSellActivity extends AppCompatActivity {
+
+    public static int currentStockQuantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +41,55 @@ public class StockSellActivity extends AppCompatActivity {
         trade.symbol = stock.symbol;
         trade.price = stock.getLastClosePrice();
         final FireBaseClient fireBaseClient = new FireBaseClient();
+        getPortfolio(userId, stock.symbol);
 
 
         final Button btnBuyStock = findViewById(R.id.btnSellStock);
         final TextView tvPrice = findViewById(R.id.tvMktPriceValueSell);
+        final EditText etQuantity = findViewById(R.id.etQuantitySell);
         tvPrice.setText(trade.price.toString());
 
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("debug", "debug");
+                int sellQuantity = Integer.parseInt(etQuantity.getText().toString());
+                trade.quantity = currentStockQuantity - sellQuantity;
+
                 fireBaseClient.removeTradeFromPortfolio(userId, "TestPortfolio",
                         trade);
             }
         });
+    }
+
+    private void getPortfolio(String userId, String stockSymbol) {
+        //final Double amount;
+
+        final FirebaseDatabase database;
+        final DatabaseReference dbRef;
+
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference();
+
+        dbRef.child("users")
+                .child(userId)
+                .child("portfolios")
+                .child("TestPortfolio")
+                .child("stocks")
+                .child(stockSymbol)
+                .child("quantity")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        Log.d("debug", "onDataChange");
+                        if (snapshot != null && snapshot.getValue() != null) {
+                            String quantity = snapshot.getValue().toString();
+                            currentStockQuantity = Integer.parseInt(quantity);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
     }
 }
