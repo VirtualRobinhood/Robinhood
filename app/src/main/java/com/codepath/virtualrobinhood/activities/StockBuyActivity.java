@@ -3,6 +3,8 @@ package com.codepath.virtualrobinhood.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +33,8 @@ public class StockBuyActivity extends AppCompatActivity {
     public static int currentStockQuantity;
     public static long lastHistory;
 
+    TextView etEstimatedCredit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +58,9 @@ public class StockBuyActivity extends AppCompatActivity {
         final Button btnBuyStock = findViewById(R.id.btnBuyStock);
         final TextView tvPrice = findViewById(R.id.tvMktPriceValueBuy);
         final EditText etQuantity = findViewById(R.id.etQuantity);
+
+        etEstimatedCredit = findViewById(R.id.tvEstCreditValueBuy);
+        //etQuantity.addTextChangedListener(mTextEditorWatcher);
         tvPrice.setText(trade.price.toString());
 
         final History stockHistory = new History();
@@ -146,4 +153,18 @@ public class StockBuyActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private final TextWatcher mTextEditorWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            //This sets a textview to the current length
+            etEstimatedCredit.setText(Integer.toString(start));
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
 }

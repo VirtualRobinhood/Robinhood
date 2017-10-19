@@ -81,7 +81,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stock_open" />
+            android:text="@string/stock_open"
+            style="@style/LargeText"/>
 
         <TextView
             android:id="@+id/tvOpenPrice"
@@ -91,14 +92,16 @@
             android:layout_toRightOf="@id/tvOpen"
             android:layout_toEndOf="@id/tvOpen"
             android:layout_marginLeft="24dp"
-            tools:text="111"/>
+            tools:text="111"
+            style="@style/LargeText"/>
 
         <TextView
             android:id="@+id/tvClose"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stock_close" />
+            android:text="@string/stock_close"
+            style="@style/LargeText"/>
 
         <TextView
             android:id="@+id/tvClosePrice"
@@ -108,7 +111,8 @@
             android:layout_toRightOf="@id/tvClose"
             android:layout_toEndOf="@id/tvClose"
             android:layout_marginLeft="24dp"
-            tools:text="111"/>
+            tools:text="111"
+            style="@style/LargeText"/>
     </LinearLayout>
 
     <LinearLayout
@@ -123,7 +127,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stock_low" />
+            android:text="@string/stock_low"
+            style="@style/LargeText"/>
 
         <TextView
             android:id="@+id/tvLowPrice"
@@ -133,14 +138,16 @@
             android:layout_toRightOf="@id/tvLow"
             android:layout_toEndOf="@id/tvLow"
             android:layout_marginLeft="24dp"
-            tools:text="111"/>
+            tools:text="111"
+            style="@style/LargeText"/>
 
         <TextView
             android:id="@+id/tvHigh"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stock_high" />
+            android:text="@string/stock_high"
+            style="@style/LargeText"/>
 
         <TextView
             android:id="@+id/tvHighPrice"
@@ -150,6 +157,7 @@
             android:layout_toRightOf="@id/tvHigh"
             android:layout_toEndOf="@id/tvHigh"
             android:layout_marginLeft="24dp"
-            tools:text="111"/>
+            tools:text="111"
+            style="@style/LargeText"/>
     </LinearLayout>
 </RelativeLayout>
