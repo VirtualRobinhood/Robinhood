@@ -68,8 +68,6 @@ public class StockSellActivity extends AppCompatActivity {
         tvPrice.setText(trade.price.toString());
 
         final History stockHistory = new History();
-
-
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
 
@@ -77,6 +75,8 @@ public class StockSellActivity extends AppCompatActivity {
         stockHistory.stockPrice = trade.price;
         stockHistory.date = date;
         stockHistory.buySell = "Market Sell";
+
+        getHistory(userId);
 
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -163,5 +163,36 @@ public class StockSellActivity extends AppCompatActivity {
         value = value * factor;
         long tmp = Math.round(value);
         return (double) tmp / factor;
+    }
+
+    private void getHistory(String userId) {
+        //final Double amount;
+
+        final FirebaseDatabase database;
+        final DatabaseReference dbRef;
+
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference();
+
+        dbRef.child("users")
+                .child(userId)
+                .child("history")
+                .child("TestHistory")
+                .child("stocks")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        Log.d("debug", "onDataChange");
+                        if (snapshot != null && snapshot.getValue() != null) {
+                            Log.d("debug", "onDataChange");
+                            //String quantity = snapshot.getValue().toString();
+                            lastHistory = snapshot.getChildrenCount();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
     }
 }

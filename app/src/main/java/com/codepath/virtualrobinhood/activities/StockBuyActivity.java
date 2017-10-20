@@ -43,39 +43,32 @@ public class StockBuyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stock_buy);
 
         Intent intent = getIntent();
+
         final Stock stock = Parcels.unwrap(intent.getParcelableExtra("stock"));
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        Log.d("debug", "stock");
-
         final Trade trade = new Trade();
-        trade.symbol = stock.symbol;
-        trade.price = stock.getLastClosePrice();
         final FireBaseClient fireBaseClient = new FireBaseClient();
+        final Button btnBuyStock = findViewById(R.id.btnBuyStock);
+        final TextView tvPrice = findViewById(R.id.tvMktPriceValueBuy);
+        final EditText etQuantity = findViewById(R.id.etQuantity);
+        final History stockHistory = new History();
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        etEstimatedCredit = findViewById(R.id.tvEstCreditValueBuy);
 
         getPortfolio(userId, stock.symbol);
         getHistory(userId);
 
+        trade.symbol = stock.symbol;
+        trade.price = stock.getLastClosePrice();
         trade.price = round(trade.price, 2);
 
-        final Button btnBuyStock = findViewById(R.id.btnBuyStock);
-        final TextView tvPrice = findViewById(R.id.tvMktPriceValueBuy);
-        final EditText etQuantity = findViewById(R.id.etQuantity);
+        stockPrice = trade.price;
 
-        etEstimatedCredit = findViewById(R.id.tvEstCreditValueBuy);
         etQuantity.addTextChangedListener(mTextEditorWatcher);
         tvPrice.setText(trade.price.toString());
 
-        final History stockHistory = new History();
-
-
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-
-
-
         stockHistory.symbol = trade.symbol;
         stockHistory.stockPrice = trade.price;
-        stockPrice = trade.price;
         stockHistory.date = date;
         stockHistory.buySell = "Market Buy";
 
@@ -164,15 +157,12 @@ public class StockBuyActivity extends AppCompatActivity {
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            //This sets a textview to the current length
-
             String quantity = s.toString();
+
             if (quantity.isEmpty()) {
                 etEstimatedCredit.setText("0");
                 return;
             }
-            Log.d("debug", "quantity");
-            Log.d("debug", quantity);
 
             int price = stockPrice.intValue() * Integer.parseInt(quantity);
 
