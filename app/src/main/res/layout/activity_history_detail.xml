@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
-
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvType"
@@ -13,34 +9,87 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="19dp"
         android:text="TYPE" />
-
-    <TextView
-        android:id="@+id/tvTypeValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/tvSubmittedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="17dp"
+        android:layout_alignLeft="@+id/tvType"
+        android:layout_alignStart="@+id/tvType"
+        android:layout_below="@+id/tvType"
+        android:layout_marginTop="25dp"
         android:text="SUBMITTED" />
+
+    <TextView
+        android:id="@+id/tvEnteredQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvSubmittedDate"
+        android:layout_alignStart="@+id/tvSubmittedDate"
+        android:layout_below="@+id/tvSubmittedDate"
+        android:layout_marginTop="39dp"
+        android:text="ENTERED QUANTITY" />
+
+    <TextView
+        android:id="@+id/tvTypeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvType"
+        android:layout_marginEnd="23dp"
+        android:layout_marginRight="23dp"
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/tvSubmittedDateValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/tvTypeValue"
+        android:layout_alignStart="@+id/tvTypeValue"
         android:layout_alignTop="@+id/tvSubmittedDate"
         android:text="TextView" />
 
+    <TextView
+        android:id="@+id/tvEnteredQuantityValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvSubmittedDateValue"
+        android:layout_alignStart="@+id/tvSubmittedDateValue"
+        android:layout_alignTop="@+id/tvEnteredQuantity"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvSymbolHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvType"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tvType"
+        android:text="CSCO" />
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvEnteredQuantity"
+        android:layout_alignStart="@+id/tvEnteredQuantity"
+        android:layout_below="@+id/tvEnteredQuantity"
+        android:layout_marginTop="37dp"
+        android:text="TOTAL" />
+
+    <TextView
+        android:id="@+id/tvTotalValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_alignBaseline="@+id/tvTotal"
+        android:layout_alignBottom="@+id/tvTotal"
+        android:layout_alignLeft="@+id/tvEnteredQuantityValue"
+        android:layout_alignStart="@+id/tvEnteredQuantityValue" />
 
 </RelativeLayout>

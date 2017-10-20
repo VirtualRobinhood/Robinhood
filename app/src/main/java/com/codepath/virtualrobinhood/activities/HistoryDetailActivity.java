@@ -25,7 +25,13 @@ public class HistoryDetailActivity extends AppCompatActivity {
         final TextView tvTypeValue = findViewById(R.id.tvTypeValue);
         final TextView tvSubmittedDate = findViewById(R.id.tvSubmittedDateValue);
 
+        final TextView tvQuantity = findViewById(R.id.tvEnteredQuantityValue);
+        final TextView tvTotal = findViewById(R.id.tvTotalValue);
+
         tvTypeValue.setText(history.buySell);
         tvSubmittedDate.setText(history.date);
+        tvQuantity.setText(Integer.toString(history.quantity));
+        tvTotal.setText(history.total.toString());
+
     }
 }
