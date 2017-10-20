@@ -3,6 +3,8 @@ package com.codepath.virtualrobinhood.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,6 +35,8 @@ import static com.codepath.virtualrobinhood.activities.StockBuyActivity.lastHist
 public class StockSellActivity extends AppCompatActivity {
 
     public static int currentStockQuantity;
+    TextView tvEstCreditValueSell;
+    public Double stockPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,8 @@ public class StockSellActivity extends AppCompatActivity {
 
         Log.d("debug", "stock");
 
+        tvEstCreditValueSell = findViewById(R.id.tvEstCreditValueSell);
+
         final Trade trade = new Trade();
         trade.symbol = stock.symbol;
         trade.price = stock.getLastClosePrice();
@@ -54,6 +61,10 @@ public class StockSellActivity extends AppCompatActivity {
         final Button btnBuyStock = findViewById(R.id.btnSellStock);
         final TextView tvPrice = findViewById(R.id.tvMktPriceValueSell);
         final EditText etQuantity = findViewById(R.id.etQuantitySell);
+        etQuantity.addTextChangedListener(mTextEditorWatcher);
+
+        trade.price = round(trade.price,2);
+        stockPrice = trade.price;
         tvPrice.setText(trade.price.toString());
 
         final History stockHistory = new History();
@@ -112,5 +123,45 @@ public class StockSellActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
+    }
+
+    private final TextWatcher mTextEditorWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            //This sets a textview to the current length
+
+            String quantity = s.toString();
+            if (quantity.isEmpty()) {
+                tvEstCreditValueSell.setText("0");
+                return;
+            }
+            Log.d("debug", "quantity");
+            Log.d("debug", quantity);
+
+            int price = stockPrice.intValue() * Integer.parseInt(quantity);
+
+            tvEstCreditValueSell.setText(Integer.toString(price));
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
+    public static float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 }

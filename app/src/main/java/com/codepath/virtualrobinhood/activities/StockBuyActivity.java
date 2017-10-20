@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -55,6 +56,7 @@ public class StockBuyActivity extends AppCompatActivity {
         getPortfolio(userId, stock.symbol);
         getHistory(userId);
 
+        trade.price = round(trade.price, 2);
 
         final Button btnBuyStock = findViewById(R.id.btnBuyStock);
         final TextView tvPrice = findViewById(R.id.tvMktPriceValueBuy);
@@ -70,12 +72,12 @@ public class StockBuyActivity extends AppCompatActivity {
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
 
+
         stockHistory.symbol = trade.symbol;
         stockHistory.stockPrice = trade.price;
         stockPrice = trade.price;
         stockHistory.date = date;
         stockHistory.buySell = "Market Buy";
-
 
         btnBuyStock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -180,4 +182,19 @@ public class StockBuyActivity extends AppCompatActivity {
         public void afterTextChanged(Editable s) {
         }
     };
+
+    public static float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 }
