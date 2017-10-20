@@ -46,21 +46,18 @@ public class StockSellActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Stock stock = Parcels.unwrap(intent.getParcelableExtra("stock"));
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        Log.d("debug", "stock");
-
-        tvEstCreditValueSell = findViewById(R.id.tvEstCreditValueSell);
-
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         final Trade trade = new Trade();
-        trade.symbol = stock.symbol;
-        trade.price = stock.getLastClosePrice();
         final FireBaseClient fireBaseClient = new FireBaseClient();
-        getPortfolio(userId, stock.symbol);
-
-
+        tvEstCreditValueSell = findViewById(R.id.tvEstCreditValueSell);
         final Button btnBuyStock = findViewById(R.id.btnSellStock);
         final TextView tvPrice = findViewById(R.id.tvMktPriceValueSell);
         final EditText etQuantity = findViewById(R.id.etQuantitySell);
+
+        trade.symbol = stock.symbol;
+        trade.price = stock.getLastClosePrice();
+
+        getPortfolio(userId, stock.symbol);
         etQuantity.addTextChangedListener(mTextEditorWatcher);
 
         trade.price = round(trade.price,2);
@@ -68,8 +65,6 @@ public class StockSellActivity extends AppCompatActivity {
         tvPrice.setText(trade.price.toString());
 
         final History stockHistory = new History();
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-
 
         stockHistory.symbol = trade.symbol;
         stockHistory.stockPrice = trade.price;
