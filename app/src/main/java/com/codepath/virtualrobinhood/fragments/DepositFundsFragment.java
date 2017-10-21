@@ -83,9 +83,9 @@ public class DepositFundsFragment extends Fragment {
                 mHelper.consumeAsync(inventory.getPurchase(Constants.SKU_COINS),
                         mConsumeFinishedListener);
                 return;
+            } else {
+                Log.d(TAG, "Unable to fetch the coins SKU");
             }
-
-            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
         }
     };
 

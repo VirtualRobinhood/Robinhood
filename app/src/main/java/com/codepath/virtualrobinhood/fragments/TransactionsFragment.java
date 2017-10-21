@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.virtualrobinhood.R;
-import com.codepath.virtualrobinhood.activities.StockDetailActivity;
+import com.codepath.virtualrobinhood.activities.TradeDetailActivity;
 import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.viewHolders.TradeViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -94,9 +94,8 @@ public class TransactionsFragment extends Fragment {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), StockDetailActivity.class);
+                        Intent intent = new Intent(getActivity(), TradeDetailActivity.class);
                         intent.putExtra("trade", Parcels.wrap(trade));
-
                         startActivity(intent);
                     }
                 });

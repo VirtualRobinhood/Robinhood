@@ -108,6 +108,8 @@ public class WatchlistFragment extends Fragment {
                         intent.putExtra("stock", Parcels.wrap(stock));
 
                         startActivity(intent);
+
+
                     }
                 });
 

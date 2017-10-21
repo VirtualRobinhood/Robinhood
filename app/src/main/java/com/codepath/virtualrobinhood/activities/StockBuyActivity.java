@@ -66,6 +66,10 @@ public class StockBuyActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().isEmpty()) {
+                    tvEstimatedCost.setText("");
+                    return;
+                }
                 int quantity = Integer.parseInt(s.toString());
                 tvEstimatedCost.setText(df.format(quantity * stock.getLastClosePrice()));
             }

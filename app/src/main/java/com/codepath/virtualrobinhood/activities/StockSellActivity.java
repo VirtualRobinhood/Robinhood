@@ -84,6 +84,12 @@ public class StockSellActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().isEmpty()) {
+                    tvEstimatedCost.setText("");
+                    tvEstimatedGain.setText("");
+                    return;
+                }
+
                 int quantity = Integer.parseInt(s.toString());
                 double estimatedCost = quantity * stock.getLastClosePrice();
                 tvEstimatedCost.setText(df.format(estimatedCost));
@@ -132,7 +138,7 @@ public class StockSellActivity extends AppCompatActivity {
 
                 fireBaseClient.updateCredit(userId, credit + trade.price * trade.quantity);
 
-                Toast.makeText(v.getContext(), "Stock purchased successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Stock sold successfully", Toast.LENGTH_SHORT).show();
             }
         });
     }
