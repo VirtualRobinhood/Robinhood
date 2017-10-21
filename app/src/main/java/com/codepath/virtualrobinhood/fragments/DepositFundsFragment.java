@@ -8,19 +8,86 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
+import com.codepath.virtualrobinhood.utils.Billing.IabHelper;
+import com.codepath.virtualrobinhood.utils.Billing.IabResult;
+import com.codepath.virtualrobinhood.utils.Billing.Inventory;
+import com.codepath.virtualrobinhood.utils.Billing.Purchase;
+import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.google.firebase.auth.FirebaseAuth;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by GANESH on 10/13/17.
  */
 
 public class DepositFundsFragment extends Fragment {
-    public DepositFundsFragment() {
-        // Required empty public constructor
-    }
+
+    private IabHelper mHelper;
+
+    IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
+        public void onConsumeFinished(Purchase purchase, IabResult result) {
+            Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
+
+            // if we were disposed of in the meantime, quit.
+            if (mHelper == null) return;
+
+            // We know this is the "gas" sku because it's the only one we consume,
+            // so we don't check which sku was consumed. If you have more than one
+            // sku, you probably should check...
+            if (result.isSuccess()) {
+                // successfully consumed, so we apply the effects of the item in our
+                // game world's logic, which in our case means filling the gas tank a bit
+                Log.d("CONSUME_FINISHED", "Consumption successful. Provisioning.");
+            }
+            else {
+                Log.d("CONSUME_FAILED", "Consumption successful. Provisioning.");
+            }
+        }
+    };
+
+    private IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+
+        @Override
+        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+            // Have we been disposed of in the meantime? If so, quit.
+            if (mHelper == null) {
+                return;
+            }
+
+// Is it a failure?
+            if (result.isFailure()) {
+                Toast.makeText(getActivity(),
+                        "Failed to query inventory: " + result,
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Log.d(TAG, "Query inventory was successful.");
+
+/*
+* Check for items we own. Notice that for each purchase, we check
+* the developer payload to see if it's correct! See
+* verifyDeveloperPayload().
+*/
+
+// Check for coins -- you can get coins
+// tank immediately
+            Purchase coinsPurchase = inventory.getPurchase(Constants.SKU_COINS);
+            if (coinsPurchase != null) {
+                Log.d(TAG, "We have Coins. Consuming it.");
+                mHelper.consumeAsync(inventory.getPurchase(Constants.SKU_COINS),
+                        mConsumeFinishedListener);
+                return;
+            }
+
+            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
+        }
+    };
 
     /**
      * Use this factory method to create a new instance of
@@ -35,14 +102,33 @@ public class DepositFundsFragment extends Fragment {
         args.putString("userId", userId);
         fragment.setArguments(args);
 
-
-
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        mHelper = new IabHelper(getContext(), Constants.base64EncodedPublicKey);
+
+        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            public void onIabSetupFinished(IabResult result) {
+                if (!result.isSuccess()) {
+//                    checkBilling = false;
+                    Log.e("INAPP_BILLING", "In-app Billing setup failed: " +
+                            result.getMessage()+ " "+result.getResponse());
+                } else {
+//                    checkBilling = true;
+
+
+                            Log.d("INAPP_BILLING", "In-app Billing is set up OK");
+                    mHelper.queryInventoryAsync(mGotInventoryListener);
+
+
+                }
+            }
+        });
+
         // Inflate the layout for this fragment
         final FireBaseClient fireBaseClient = new FireBaseClient();
 
