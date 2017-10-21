@@ -2,6 +2,8 @@ package com.codepath.virtualrobinhood.models;
 
 import org.parceler.Parcel;
 
+import java.util.UUID;
+
 /**
  * Created by gkurghin on 10/12/17.
  */
@@ -10,16 +12,24 @@ import org.parceler.Parcel;
 public class Trade {
     public String id;
     public String symbol;
+    public String companyName;
+    public TradeType tradeType;
     public Double price;
-    public String date;
+    public String submittedOn;
+    public String filledOn;
     public int quantity;
 
     public Trade() {
-        id = "10";
-        symbol = "csco";
-        price = 16.66;
-        date = "1/1/2017";
-        quantity = 10;
+        id = UUID.randomUUID().toString();
+    }
 
+    public enum TradeType{
+        BUY,
+        SELL
+    }
+
+    public enum TradeState {
+        ACTIVE,
+        ARCHIVED
     }
 }

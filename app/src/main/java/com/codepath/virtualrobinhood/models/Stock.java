@@ -16,7 +16,7 @@ import java.util.List;
 @Parcel(analyze = {Stock.class})
 public class Stock {
     public String symbol;
-    public String name;
+    public String companyName;
     public List<StockQuotation> quotations;
 
     public Stock() {
@@ -41,7 +41,7 @@ public class Stock {
     public Stock(JSONObject jsonObject) {
         try {
             this.symbol = jsonObject.getJSONObject("Meta Data").getString("2. Symbol");
-            this.name = "";
+            this.companyName = "";
             this.quotations = StockQuotation.fromJSONObject(jsonObject.getJSONObject("Time Series (Daily)"));
 
         } catch (JSONException e) {
@@ -51,7 +51,7 @@ public class Stock {
 
     public Stock(String symbol, String name) {
         this.symbol = symbol;
-        this.name = name;
+        this.companyName = name;
     }
 
     public static ArrayList<Stock> getSuggestions(JSONObject jsonObject) throws JSONException {

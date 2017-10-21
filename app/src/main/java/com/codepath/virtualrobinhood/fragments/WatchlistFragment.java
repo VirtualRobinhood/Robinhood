@@ -176,7 +176,6 @@ public class WatchlistFragment extends Fragment {
     }
 
     private Query getQuery(DatabaseReference databaseReference) {
-        // All my posts
         return databaseReference.child("users")
                 .child(getArguments().getString("userId"))
                 .child("watchlists")

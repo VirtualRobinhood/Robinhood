@@ -1,8 +1,5 @@
 package com.codepath.virtualrobinhood.models;
 
-import android.util.Log;
-
-import org.json.JSONObject;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
@@ -16,14 +13,9 @@ import java.util.List;
 @Parcel(analyze = {Portfolio.class})
 public class Portfolio {
     public String name;
-    public List<Trade> trades;
+    public List<Trade> positions;
 
     public Portfolio(){
-        //Log.d("debug", "tst");
-        trades = new ArrayList<>();
-    }
-
-    public Portfolio(JSONObject jsonObject) {
-        Log.d("debug", "test");
+        positions = new ArrayList<>();
     }
 }

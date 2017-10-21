@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.Trade;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by GANESH on 10/13/17.
  */
@@ -15,6 +17,7 @@ public class PortfolioViewHolder  extends RecyclerView.ViewHolder {
 
     public TextView tvSymbolPortfolio;
     public TextView tvPricePortfolio;
+    DecimalFormat df = new DecimalFormat("##.##");
 
     public PortfolioViewHolder(View itemView) {
         super(itemView);
@@ -25,7 +28,7 @@ public class PortfolioViewHolder  extends RecyclerView.ViewHolder {
 
     public void bindToPost(Trade trade) {
         tvSymbolPortfolio.setText(trade.symbol);
-        tvPricePortfolio.setText(Double.toString(trade.price));
+        tvPricePortfolio.setText(df.format(trade.price));
     }
 }
 

@@ -15,13 +15,17 @@ public class User {
     public String displayName;
     public String email;
     public String photoUrl;
+    public double credit;
 
     private List<Portfolio> portfolios;
     private List<Watchlist> watchlists;
+    private List<Trade> transitions;
 
     public User() {
         portfolios = new ArrayList<>();
         watchlists = new ArrayList<>();
+        transitions = new ArrayList<>();
+        credit = 0;
     }
 
     public void setId(String id) {
@@ -42,5 +46,13 @@ public class User {
 
     public List<Watchlist> getWatchlists() {
         return watchlists;
+    }
+
+    public void setTransitions(List<Trade> transitions) {
+        this.transitions = transitions;
+    }
+
+    public List<Trade> getTransitions() {
+        return transitions;
     }
 }
