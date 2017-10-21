@@ -26,7 +26,7 @@ public class TradeViewHolder extends RecyclerView.ViewHolder {
 
     public void bindToPost(Trade trade) {
         DecimalFormat df = new DecimalFormat("##.##");
-        tvSymbol.setText(trade.symbol);
+        tvSymbol.setText(trade.symbol + trade.tradeType.toString());
         tvPrice.setText(df.format(trade.price));
         tvDate.setText(trade.filledOn);
     }

@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        
+
+        <!--android:theme="@style/Theme.Material_Light"-->
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a27bd7b7825ee79072d483b2a9b224a240656d0c" />
