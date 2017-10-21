@@ -3,7 +3,8 @@ package com.codepath.virtualrobinhood.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,9 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
-import com.codepath.virtualrobinhood.models.History;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.Trade;
+import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,12 +25,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class StockBuyActivity extends AppCompatActivity {
-    public static int currentStockQuantity;
-    public static long lastHistory;
+    private double credit;
+    DecimalFormat df = new DecimalFormat("##.##");
+
+    private TextView tvAvailableCredit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,73 +43,80 @@ public class StockBuyActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Stock stock = Parcels.unwrap(intent.getParcelableExtra("stock"));
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        Log.d("debug", "stock");
-
-        final Trade trade = new Trade();
-        trade.symbol = stock.symbol;
-        trade.price = stock.getLastClosePrice();
         final FireBaseClient fireBaseClient = new FireBaseClient();
+        getUserCredit(userId);
 
-        getPortfolio(userId, stock.symbol);
-        getHistory(userId);
-
-
-        final Button btnBuyStock = findViewById(R.id.btnBuyStock);
-        final TextView tvPrice = findViewById(R.id.tvMktPriceValueBuy);
+        final TextView tvSymbol = findViewById(R.id.tvSymbol);
+        final TextView tvCompanyName = findViewById(R.id.tvCompanyName);
+        tvAvailableCredit = findViewById(R.id.tvAvailableCredit);
+        final TextView tvMarketPrice = findViewById(R.id.tvMarketPrice);
         final EditText etQuantity = findViewById(R.id.etQuantity);
-        tvPrice.setText(trade.price.toString());
+        final TextView tvEstimatedCost = findViewById(R.id.tvEstimatedCost);
+        final Button btnBuy = findViewById(R.id.btnBuy);
 
-        final History stockHistory = new History();
+        tvSymbol.setText(stock.symbol);
+        tvCompanyName.setText(stock.companyName);
+        tvMarketPrice.setText(df.format(stock.getLastClosePrice()));
 
+        etQuantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do nothing.
+            }
 
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int quantity = Integer.parseInt(s.toString());
+                tvEstimatedCost.setText(df.format(quantity * stock.getLastClosePrice()));
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Do nothing.
+            }
+        });
 
-        stockHistory.symbol = trade.symbol;
-        stockHistory.stockPrice = trade.price;
-        stockHistory.date = date;
-        stockHistory.buySell = "Market Buy";
-
-
-        btnBuyStock.setOnClickListener(new View.OnClickListener() {
+        btnBuy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("debug", "debug");
                 int buyQuantity = Integer.parseInt(etQuantity.getText().toString());
-                trade.quantity = currentStockQuantity + buyQuantity;
-                fireBaseClient.addTradeToPortfolio(userId, "TestPortfolio",
-                        trade);
-                stockHistory.quantity = buyQuantity;
-                fireBaseClient.addToHistory(userId, stockHistory, lastHistory+1);
+
+                if (buyQuantity * stock.getLastClosePrice() > credit) {
+                    Toast.makeText(v.getContext(), "Estimated cost is more that available credit",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+                Trade trade = new Trade();
+                trade.companyName = stock.companyName;
+                trade.symbol = stock.symbol;
+                trade.price = stock.getLastClosePrice();
+                trade.quantity = buyQuantity;
+                trade.submittedOn = date;
+                trade.filledOn = date;
+                trade.tradeType = Trade.TradeType.BUY;
+
+                fireBaseClient.addPositionToPortfolio(userId, Constants.DEFAULT_PORTFOLIO, trade);
+                fireBaseClient.addTradeToTransactions(userId, trade);
+                fireBaseClient.updateCredit(userId, credit - buyQuantity * stock.getLastClosePrice());
 
                 Toast.makeText(v.getContext(), "Stock purchased successfully", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void getPortfolio(String userId, String stockSymbol) {
-        //final Double amount;
-
-        final FirebaseDatabase database;
-        final DatabaseReference dbRef;
-
-        database = FirebaseDatabase.getInstance();
-        dbRef = database.getReference();
+    private void getUserCredit(String userId) {
+        final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
         dbRef.child("users")
                 .child(userId)
-                .child("portfolios")
-                .child("TestPortfolio")
-                .child("stocks")
-                .child(stockSymbol)
-                .child("quantity")
+                .child("credit")
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Log.d("debug", "onDataChange");
                 if (snapshot != null && snapshot.getValue() != null) {
-                    String quantity = snapshot.getValue().toString();
-                    currentStockQuantity = Integer.parseInt(quantity);
+                    credit = Double.parseDouble(snapshot.getValue().toString());
+                    tvAvailableCredit.setText(df.format(credit));
                 }
             }
 
@@ -113,34 +124,5 @@ public class StockBuyActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-    }
-
-    private void getHistory(String userId) {
-        //final Double amount;
-
-        final FirebaseDatabase database;
-        final DatabaseReference dbRef;
-
-        database = FirebaseDatabase.getInstance();
-        dbRef = database.getReference();
-
-        dbRef.child("users")
-                .child(userId)
-                .child("history")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        Log.d("debug", "onDataChange");
-                        if (snapshot != null && snapshot.getValue() != null) {
-                            Log.d("debug", "onDataChange");
-                            //String quantity = snapshot.getValue().toString();
-                            lastHistory = snapshot.getChildrenCount();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
     }
 }

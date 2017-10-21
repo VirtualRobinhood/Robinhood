@@ -2,8 +2,7 @@ package com.codepath.virtualrobinhood.utils;
 
 import android.util.Log;
 
-import com.codepath.virtualrobinhood.models.History;
-import com.codepath.virtualrobinhood.models.PortfolioList;
+import com.codepath.virtualrobinhood.models.Portfolio;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.models.User;
@@ -30,9 +29,11 @@ public class FireBaseClient {
 
     public void registerNewUser(FirebaseUser user) {
         final User u = new User();
+        u.credit = Constants.NEW_USER_CREDIT;
         u.id = user.getUid();
         u.displayName = user.getDisplayName();
         u.email = user.getEmail();
+        u.photoUrl = user.getPhotoUrl().toString();
 
         dbRef.child("users").child(u.id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -41,26 +42,21 @@ public class FireBaseClient {
                     dbRef.child("users").child(u.id).setValue(u);
                     Watchlist defaultWatchlist = new Watchlist();
                     defaultWatchlist.name = Constants.DEFAULT_WATCHLIST;
+
+                    Portfolio defaultPortfolio = new Portfolio();
+                    defaultPortfolio.name = Constants.DEFAULT_PORTFOLIO;
+
                     dbRef.child("users")
                             .child(u.id)
-                            .child("warchlists")
+                            .child("watchlists")
                             .child(Constants.DEFAULT_WATCHLIST)
                             .setValue(defaultWatchlist);
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-
-    public void getUser(String userId) {
-        dbRef.child("users").child(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot == null) {
-                    User user = snapshot.getValue(User.class);
+                    dbRef.child("users")
+                            .child(u.id)
+                            .child("portfolios")
+                            .child(Constants.DEFAULT_PORTFOLIO)
+                            .setValue(defaultPortfolio);
                 }
             }
 
@@ -88,22 +84,25 @@ public class FireBaseClient {
     }
 
     public void createPortfolio(final String userId, final String portfolioName) {
-        //Portfolio portfolio = new Portfolio();
-        //portfolio.name = portfolioName;
-        PortfolioList portfolioList = new PortfolioList();
-        portfolioList.name = portfolioName;
+        Portfolio portfolio = new Portfolio();
+        portfolio.name = portfolioName;
 
         dbRef.child("users").child(userId)
                 .child("portfolios")
                 .child(portfolioName)
-                .setValue(portfolioList);
+                .setValue(portfolio);
     }
-
 
     public void createDeposit(final String userId, double amount) {
         dbRef.child("users").child(userId)
                 .child("amount")
                 .setValue(amount);
+    }
+
+    public void updateCredit(final String userId, double newCredit) {
+        dbRef.child("users").child(userId)
+                .child("credit")
+                .setValue(newCredit);
     }
 
     public void getDeposit(String userId) {
@@ -142,7 +141,7 @@ public class FireBaseClient {
     }
 
     public void removeSymbolFromWatchlist(final String userId, final String watchlistName,
-                                     final String stockSymbol) {
+                                          final String stockSymbol) {
         dbRef.child("users").child(userId)
                 .child("watchlists")
                 .child(watchlistName)
@@ -151,59 +150,45 @@ public class FireBaseClient {
                 .removeValue();
     }
 
-    public void addTradeToPortfolio(final String userId, final String portfolioName,
-                                    final Trade trade) {
-        /*dbRef.child("users").child(userId)
-                .child("portfolios")
-                .child(portfolioName)
-                .child("trades")
-                .child(trade.id)
-                .setValue(trade);*/
+    public void addPositionToPortfolio(final String userId, final String portfolioName,
+                                       final Trade trade) {
 
         dbRef.child("users").child(userId)
                 .child("portfolios")
                 .child(portfolioName)
-                .child("stocks")
-                .child(trade.symbol)
+                .child("positions")
+                .child(trade.id)
                 .setValue(trade);
-
-
-        /*dbRef.child("users").child(userId)
-                .child("watchlists")
-                .child(watchlistName)
-                .child("stocks")
-                .child(stock.symbol)
-                .setValue(stock);*/
-
     }
 
-    public void removeTradeFromPortfolio(final String userId, final String portfolioName,
-                                    final Trade trade) {
+    public void removePositionFromPortfolio(final String userId, final String portfolioName,
+                                            final Trade trade) {
+
         dbRef.child("users").child(userId)
                 .child("portfolios")
                 .child(portfolioName)
-                .child("stocks")
-                .child(trade.symbol)
+                .child("positions")
+                .child(trade.id)
                 .removeValue();
     }
 
-    public void addToHistory(final String userId,
-                                    final History history, long historyCount) {
-       /* dbRef.child("users").child(userId)
-                .child("history").child("TestHistory").child("stocks").child(Long.toString(historyCount))
-                .setValue(history);*/
-
+    public void updatePosition(final String userId, final String portfolioName,
+                                            final Trade trade, int quantity) {
 
         dbRef.child("users").child(userId)
-                .child("history")
-                .child("TestHistory")
-                .child("stocks")
-                .child(Long.toString(historyCount))
-                .setValue(history);
+                .child("portfolios")
+                .child(portfolioName)
+                .child("positions")
+                .child(trade.id)
+                .child("quantity")
+                .setValue(quantity);
+    }
 
-        Log.d("debug", "add_to_history");
+    public void addTradeToTransactions(final String userId, final Trade trade) {
 
-
-
+        dbRef.child("users").child(userId)
+                .child("transactions")
+                .child(trade.id)
+                .setValue(trade);
     }
 }

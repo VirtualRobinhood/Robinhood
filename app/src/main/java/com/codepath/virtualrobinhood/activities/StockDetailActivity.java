@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.StockQuotation;
-import com.codepath.virtualrobinhood.models.Trade;
 import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.CustomMarkerView;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
@@ -36,11 +35,6 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
@@ -52,8 +46,6 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
         OnChartValueSelectedListener {
 
     public static String EXTRA_STOCK_KEY = "stock_key";
-    public static double depositAmount;
-
     private LineChart mChart;
 
     @Override
@@ -66,12 +58,7 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
 
         setTitle(stock.symbol.toUpperCase());
 
-        final FireBaseClient fireBaseClient = new FireBaseClient();
         DecimalFormat df = new DecimalFormat("##.##");
-
-        final Trade trade = new Trade();
-        trade.symbol = stock.symbol;
-        trade.price = stock.getLastClosePrice();
 
         TextView tvSymbol  = findViewById(R.id.tvSymbol);
         TextView tvPrice = findViewById(R.id.tvPrice);
@@ -89,21 +76,12 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
 
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //fireBaseClient.getDeposit(userId);
-        getDeposit1(userId);
-
-        /* test end */
-
         final Button button = findViewById(R.id.btnBuy);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("debug", "debug");
-                if (stock.getLastClosePrice() > depositAmount) {
-                    Log.d("debug", "insufficient funds");
-                }
-                 fireBaseClient.addTradeToPortfolio(userId, "Saturday",
-                                trade);
-                // Code here executes on main thread after user presses button
+                Intent tradeIntent = new Intent(StockDetailActivity.this, StockBuyActivity.class);
+                tradeIntent.putExtra("stock", Parcels.wrap(stock));
+                startActivity(tradeIntent);
             }
         });
 
@@ -197,32 +175,6 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
     @Override
     public void onChartTranslate(MotionEvent me, float dX, float dY) {
         Log.i("Translate / Move", "dX: " + dX + ", dY: " + dY);
-    }
-
-    private void getDeposit1(String userId) {
-        //final Double amount;
-
-        final FirebaseDatabase database;
-        final DatabaseReference dbRef;
-
-        database = FirebaseDatabase.getInstance();
-        dbRef = database.getReference();
-
-        dbRef.child("users").child(userId).child("amount").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                Log.d("debug", "onDataChange");
-                if (snapshot != null && snapshot.getValue() != null) {
-                    Double amount = Double.parseDouble(snapshot.getValue().toString());
-                    Log.d("debug", "onDataChange");
-                    depositAmount = amount;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
     }
 
     private void setupLineChart(Stock stock) {

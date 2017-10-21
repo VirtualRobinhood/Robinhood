@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="8dp">
@@ -27,32 +27,13 @@
         android:layout_below="@id/tvSymbol"/>
 
     <TextView
-        android:id="@+id/tvPositionLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/position_to_sell"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvCompanyName"
-        android:layout_marginBottom="32dp"/>
-
-    <Spinner
-        android:id="@+id/spPosition"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tvCompanyName"
-        android:layout_marginBottom="32dp"/>
-
-    <TextView
         android:id="@+id/tvQuantityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/available_quantity"
+        android:text="@string/stock_quantity"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvPositionLabel"
+        android:layout_below="@id/tvCompanyName"
         android:layout_marginBottom="32dp"/>
 
     <TextView
@@ -61,22 +42,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/tvPositionLabel"
-        tools:text="4000"
-        android:layout_marginBottom="32dp"/>
+        android:layout_below="@id/tvCompanyName"
+        android:layout_marginBottom="32dp" />
 
     <TextView
-        android:id="@+id/tvCostPerShareLabel"
+        android:id="@+id/tvPriceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cost_per_share"
+        android:text="@string/price"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/tvQuantityLabel"
         android:layout_marginBottom="32dp"/>
 
     <TextView
-        android:id="@+id/tvCostPareShare"
+        android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -84,46 +64,6 @@
         android:layout_below="@id/tvQuantityLabel"
         tools:text="4000"
         android:layout_marginBottom="32dp"/>
-
-    <TextView
-        android:id="@+id/tvMarketPriceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mkt_price"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvCostPerShareLabel"
-        android:layout_marginBottom="32dp"/>
-
-    <TextView
-        android:id="@+id/tvMarketPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tvCostPerShareLabel"
-        tools:text="4000"
-        android:layout_marginBottom="32dp"/>
-
-    <TextView
-        android:id="@+id/tvQuantityToSellLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/number_of_stocks_to_sell"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvMarketPriceLabel"
-        android:layout_marginBottom="32dp"/>
-
-    <EditText
-        android:id="@+id/etQuantityToSell"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tvMarketPriceLabel"
-        android:layout_marginBottom="32dp"
-        android:gravity="right"/>
 
     <TextView
         android:id="@+id/tvEstimatedCostLabel"
@@ -132,7 +72,7 @@
         android:text="@string/estimated_cost"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvQuantityToSellLabel"
+        android:layout_below="@id/tvPriceLabel"
         android:layout_marginBottom="32dp"/>
 
     <TextView
@@ -141,21 +81,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/tvQuantityToSellLabel"
+        android:layout_below="@id/tvPriceLabel"
         tools:text="4000"
         android:layout_marginBottom="32dp"/>
 
     <TextView
-        android:id="@+id/tvEstimatedGainLabel"
+        android:id="@+id/tvFilledDateLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/estimated_gain"
+        android:text="@string/filled_date"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/tvEstimatedCostLabel"/>
 
     <TextView
-        android:id="@+id/tvEstimatedGain"
+        android:id="@+id/tvFilledDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -163,10 +103,4 @@
         android:layout_below="@id/tvEstimatedCostLabel"
         tools:text="4000"/>
 
-    <Button
-        android:id="@+id/btnSell"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sell_button"
-        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

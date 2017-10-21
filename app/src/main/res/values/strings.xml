@@ -24,4 +24,17 @@
     <string name="stock_low">Low</string>
     <string name="stock_high">High</string>
     <string name="stock_close">Close</string>
+    <string name="credit_available_to_trade">Credit available to Trade</string>
+    <string name="stock_quantity">Quantity</string>
+    <string name="mkt_price">MKT price</string>
+    <string name="estimated_cost">Estimated cost</string>
+    <string name="buy_button">Buy</string>
+    <string name="available_quantity">Available quantity</string>
+    <string name="number_of_stocks_to_sell">Number of stocks to sell</string>
+    <string name="estimated_gain">Estimated gain</string>
+    <string name="sell_button">Sell</string>
+    <string name="cost_per_share">Cost per share</string>
+    <string name="position_to_sell">Position to sell</string>
+    <string name="price">Price</string>
+    <string name="filled_date">Filled date</string>
 </resources>

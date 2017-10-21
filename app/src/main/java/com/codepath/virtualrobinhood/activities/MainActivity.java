@@ -29,8 +29,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.adaptors.SearchFeedResultsAdaptor;
 import com.codepath.virtualrobinhood.fragments.DepositFundsFragment;
-import com.codepath.virtualrobinhood.fragments.HistoryFragment;
 import com.codepath.virtualrobinhood.fragments.PortfolioFragment;
+import com.codepath.virtualrobinhood.fragments.TransactionsFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.User;
@@ -53,6 +53,7 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import okhttp3.Call;
@@ -65,7 +66,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, SearchView.OnSuggestionListener {
     private static final String TAG = "vr:MainActivity";
     public static String[] columns = new String[] {"_id", "STOCK_SYMBOL", "STOCK_NAME"};
-
+    private DecimalFormat df = new DecimalFormat("##.##");
 
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
@@ -126,9 +127,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         nav_Menu.findItem(R.id.action_search).setVisible(false);
         nav_Menu.findItem(R.id.action_progress).setVisible(false);
 
-
         // Get current Funds
-        getCurrentFunds(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        getAvailableCredit(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         setupDrawerContent(nvDrawer);
 
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 fragment = DepositFundsFragment.newInstance(userId);
                 break;
             case R.id.nav_history:
-                fragment = HistoryFragment.newInstance(userId);
+                fragment = TransactionsFragment.newInstance(userId);
                 break;
             case R.id.nav_sign_out:
                 signOut();
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     final String responseData = response.body().string();
                     JSONObject json = new JSONObject(responseData);
                     Stock stock = new Stock(json);
-                    stock.name = name;
+                    stock.companyName = name;
                     Log.d("STOCK", stock.toString());
 
                     Intent intent = new Intent(MainActivity.this, StockDetailActivity.class);
@@ -347,35 +347,27 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         });
     }
 
-    public void getCurrentFunds(String userId) {
-        //final Double amount;
-
+    public void getAvailableCredit(String userId) {
         final FirebaseDatabase database;
         final DatabaseReference dbRef;
 
         database = FirebaseDatabase.getInstance();
         dbRef = database.getReference();
 
-        dbRef.child("users").child(userId).child("amount").addValueEventListener(new ValueEventListener() {
+        dbRef.child("users").child(userId).child("credit").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                Log.d("debug", "onDataChange");
                 if (snapshot != null) {
+                    NavigationView navigationView = findViewById(R.id.nvView);
+                    Menu nav_Menu = navigationView.getMenu();
+
+                    MenuItem myItem = nav_Menu.findItem(R.id.portfolio_value);
+
                     if (snapshot.getValue() != null) {
                         Double amount = Double.parseDouble(snapshot.getValue().toString());
-                        Log.d("debug", "onDataChange");
-
-                        NavigationView navigationView = (NavigationView) findViewById(R.id.nvView);
-                        Menu nav_Menu = navigationView.getMenu();
-
-                        MenuItem myItem = nav_Menu.findItem(R.id.portfolio_value);
-                        myItem.setTitle("    $" + amount.toString() + "0");
+                        myItem.setTitle("$" + df.format(amount) + "0");
                     } else {
-                        NavigationView navigationView = (NavigationView) findViewById(R.id.nvView);
-                        Menu nav_Menu = navigationView.getMenu();
-
-                        MenuItem myItem = nav_Menu.findItem(R.id.portfolio_value);
-                        myItem.setTitle("    $0.00");
+                        myItem.setTitle("$0.00");
                     }
                 }
             }
@@ -421,7 +413,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             temp[0] = Integer.toString(i);
 
             temp[1] = stock.symbol;
-            temp[2] = stock.name;
+            temp[2] = stock.companyName;
             cursor.addRow(temp);
         }
         return cursor;
