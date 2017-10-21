@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.codepath.virtualrobinhood.R;
+import com.codepath.virtualrobinhood.utils.Billing.IabHelper;
+import com.codepath.virtualrobinhood.utils.Billing.IabResult;
+import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -18,6 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 
 public class DepositFundsFragment extends Fragment {
+
+    private IabHelper mHelper;
+
     public DepositFundsFragment() {
         // Required empty public constructor
     }
@@ -35,14 +41,31 @@ public class DepositFundsFragment extends Fragment {
         args.putString("userId", userId);
         fragment.setArguments(args);
 
-
-
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        mHelper = new IabHelper(getContext(), Constants.base64EncodedPublicKey);
+
+        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            public void onIabSetupFinished(IabResult result) {
+                if (!result.isSuccess()) {
+//                    checkBilling = false;
+                    Log.e("INAPP_BILLING", "In-app Billing setup failed: " +
+                            result.getMessage()+ " "+result.getResponse());
+                } else {
+//                    checkBilling = true;
+
+
+                            Log.d("INAPP_BILLING", "In-app Billing is set up OK");
+
+                }
+            }
+        });
+
         // Inflate the layout for this fragment
         final FireBaseClient fireBaseClient = new FireBaseClient();
 
