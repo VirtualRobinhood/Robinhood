@@ -104,7 +104,7 @@ public class StockBuyActivity extends AppCompatActivity {
                 fireBaseClient.addTradeToTransactions(userId, trade);
                 fireBaseClient.updateCredit(userId, credit - buyQuantity * stock.getLastClosePrice());
 
-                Toast.makeText(v.getContext(), "Stock purchased successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StockBuyActivity.this, "Stock purchased successfully", Toast.LENGTH_SHORT).show();
             }
         });
     }

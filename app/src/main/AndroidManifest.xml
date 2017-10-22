@@ -31,7 +31,7 @@
         <activity android:name=".activities.StockBuyActivity" />
         <activity android:name=".activities.StockSellActivity" />
         <activity android:name=".activities.TradeDetailActivity">
-            android:theme="@style/Theme.Material_Light
+
         </activity>
     </application>
 

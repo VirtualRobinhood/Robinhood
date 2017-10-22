@@ -157,8 +157,46 @@ public class FireBaseClient {
                 .child("portfolios")
                 .child(portfolioName)
                 .child("positions")
-                .child(trade.id)
-                .setValue(trade);
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        boolean merged = false;
+                        if (snapshot != null && snapshot.getValue() != null) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                Trade t = dataSnapshot.getValue(Trade.class);
+                                if (t.symbol.equalsIgnoreCase(trade.symbol)) {
+                                    int oldQuantity = t.quantity;
+                                    double oldPrice = t.price;
+                                    t.quantity = t.quantity + trade.quantity;
+                                    t.price = (oldPrice * oldQuantity + trade.price * trade.quantity) / t.quantity;
+
+                                    dbRef.child("users").child(userId)
+                                            .child("portfolios")
+                                            .child(portfolioName)
+                                            .child("positions")
+                                            .child(t.id)
+                                            .setValue(t);
+
+                                    merged = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (snapshot == null || snapshot.getValue() == null || !merged) {
+                            dbRef.child("users").child(userId)
+                                    .child("portfolios")
+                                    .child(portfolioName)
+                                    .child("positions")
+                                    .child(trade.id)
+                                    .setValue(trade);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
     }
 
     public void removePositionFromPortfolio(final String userId, final String portfolioName,

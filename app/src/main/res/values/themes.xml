@@ -5,7 +5,7 @@
     <style name="Theme.Material_Light" parent="Theme.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="pageBackground">@style/page_background_wh</item>
+        <item name="pageBackground">@style/page_background_black</item>
         <item name="textSubheader">@style/text_subheader_wh</item>
         <item name="textLarge">@style/text_large_wh</item>
         <item name="textRegular">@style/text_regular_wh</item>
