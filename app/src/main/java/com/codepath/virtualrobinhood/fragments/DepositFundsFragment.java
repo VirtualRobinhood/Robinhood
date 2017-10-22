@@ -1,5 +1,6 @@
 package com.codepath.virtualrobinhood.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -30,24 +31,17 @@ public class DepositFundsFragment extends Fragment {
 
     private IabHelper mHelper;
 
-    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
-            = new IabHelper.OnIabPurchaseFinishedListener() {
+    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+
         public void onIabPurchaseFinished(IabResult result,
                                           Purchase purchase) {
             if (result.isFailure()) {
                 Log.e("result1", "" + result.getMessage());
-                // Handle error
-                //  showAlert(result.getMessage());
-//                Utils.showSnak(PayCoinsActivity.this,result.getMessage());
-//                consumeItem(purchase);
                 return;
-            } else if (
-                    purchase.getSku().equals(Constants.SKU_COINS)) {
-                    consumeItem(purchase);
-
+            } else if (purchase.getSku().equals(Constants.SKU_COINS)) {
+                consumeItem(purchase);
                 Log.e("HO GAYA PURCHASE", "OK");
             }
-
         }
     };
 
@@ -81,7 +75,7 @@ public class DepositFundsFragment extends Fragment {
                 return;
             }
 
-// Is it a failure?
+            // Is it a failure?
             if (result.isFailure()) {
                 Toast.makeText(getActivity(),
                         "Failed to query inventory: " + result,
@@ -91,14 +85,6 @@ public class DepositFundsFragment extends Fragment {
 
             Log.d(TAG, "Query inventory was successful.");
 
-/*
-* Check for items we own. Notice that for each purchase, we check
-* the developer payload to see if it's correct! See
-* verifyDeveloperPayload().
-*/
-
-// Check for coins -- you can get coins
-// tank immediately
             Purchase coinsPurchase = inventory.getPurchase(Constants.SKU_COINS);
             if (coinsPurchase != null) {
 
@@ -141,14 +127,10 @@ public class DepositFundsFragment extends Fragment {
         mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             public void onIabSetupFinished(IabResult result) {
                 if (!result.isSuccess()) {
-//                    checkBilling = false;
                     Log.e("INAPP_BILLING", "In-app Billing setup failed: " +
                             result.getMessage()+ " "+result.getResponse());
                 } else {
-//                    checkBilling = true;
-
-
-                            Log.d("INAPP_BILLING", "In-app Billing is set up OK");
+                    Log.d("INAPP_BILLING", "In-app Billing is set up OK");
                     mHelper.queryInventoryAsync(mGotInventoryListener);
 
                 }
@@ -166,18 +148,30 @@ public class DepositFundsFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("debug", "debug");
 
-                Random Rand = new Random();
-                int Rndnum = Rand.nextInt(10000) + 1;
+                Random rand = new Random();
+                int randonNumber = rand.nextInt(10000) + 1;
+
                 mHelper.launchPurchaseFlow(getActivity(), Constants.SKU_COINS, 10001,
-                        mPurchaseFinishedListener, "token-" + Rndnum);
+                        mPurchaseFinishedListener, "token-" + randonNumber);
             }
         });
 
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
 
-
-
-
+        // Pass on the activity result to the helper for handling
+        if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
+            // not handled, so handle it ourselves (here's where you'd
+            // perform any handling of activity results not related to in-app
+            // billing...
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+        else {
+            Log.d(TAG, "onActivityResult handled by IABUtil.");
+        }
+    }
 }

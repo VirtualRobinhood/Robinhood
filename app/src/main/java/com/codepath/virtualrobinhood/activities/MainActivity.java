@@ -34,6 +34,7 @@ import com.codepath.virtualrobinhood.fragments.TransactionsFragment;
 import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.models.User;
+import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.HttpClient;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -155,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String tag = "";
 
         switch (menuItem.getItemId()) {
             case R.id.nav_watchlist:
@@ -164,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 fragment = PortfolioFragment.newInstance(userId);
                 break;
             case R.id.nav_add_money:
+                tag = Constants.DEPOSITS_FRAGMENT_TAG;
                 fragment = DepositFundsFragment.newInstance(userId);
                 break;
             case R.id.nav_transactions:
@@ -178,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment, tag).commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -468,5 +471,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 hideProgressBar();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(Constants.DEPOSITS_FRAGMENT_TAG);
+        if (fragment != null) {
+            ((DepositFundsFragment)fragment).onActivityResult(requestCode, resultCode,data);
+        }
     }
 }
