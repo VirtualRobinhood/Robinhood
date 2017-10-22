@@ -3,6 +3,7 @@ package com.codepath.virtualrobinhood.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -76,6 +77,11 @@ public class TransactionsFragment extends Fragment {
                 .setQuery(tradesQuery, Trade.class)
                 .build();
 
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+
+        rvTrades.addItemDecoration(itemDecoration);
+
         mAdapter = new FirebaseRecyclerAdapter<Trade, TradeViewHolder>(options) {
 
             @Override
@@ -96,6 +102,7 @@ public class TransactionsFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), TradeDetailActivity.class);
                         intent.putExtra("trade", Parcels.wrap(trade));
+                        intent.putExtra("caller", TransactionsFragment.class.getName());
                         startActivity(intent);
                     }
                 });

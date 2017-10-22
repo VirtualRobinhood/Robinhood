@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.codepath.virtualrobinhood.R;
+import com.codepath.virtualrobinhood.fragments.TransactionsFragment;
 import com.codepath.virtualrobinhood.models.Trade;
 
 import org.parceler.Parcels;
@@ -23,6 +24,7 @@ public class TradeDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final Trade trade = Parcels.unwrap(intent.getParcelableExtra("trade"));
+        final String callerName = intent.getStringExtra("caller");
 
         DecimalFormat df = new DecimalFormat("##.##");
 
@@ -42,7 +44,9 @@ public class TradeDetailActivity extends AppCompatActivity {
 
         Button btnSell = (Button) findViewById(R.id.btnSell);
 
-        //TODO: if user came from history activity hide sell button.
+        if (callerName != null && callerName.equals(TransactionsFragment.class.getName())) {
+            btnSell.setVisibility(View.GONE);
+        }
 
         btnSell.setOnClickListener(new View.OnClickListener()
         {
