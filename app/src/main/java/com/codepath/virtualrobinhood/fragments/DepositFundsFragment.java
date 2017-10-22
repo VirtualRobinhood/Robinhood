@@ -17,7 +17,8 @@ import com.codepath.virtualrobinhood.utils.Billing.Inventory;
 import com.codepath.virtualrobinhood.utils.Billing.Purchase;
 import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
-import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Random;
 
 import static android.content.ContentValues.TAG;
 
@@ -28,6 +29,27 @@ import static android.content.ContentValues.TAG;
 public class DepositFundsFragment extends Fragment {
 
     private IabHelper mHelper;
+
+    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
+            = new IabHelper.OnIabPurchaseFinishedListener() {
+        public void onIabPurchaseFinished(IabResult result,
+                                          Purchase purchase) {
+            if (result.isFailure()) {
+                Log.e("result1", "" + result.getMessage());
+                // Handle error
+                //  showAlert(result.getMessage());
+//                Utils.showSnak(PayCoinsActivity.this,result.getMessage());
+//                consumeItem(purchase);
+                return;
+            } else if (
+                    purchase.getSku().equals(Constants.SKU_COINS)) {
+                    consumeItem(purchase);
+
+                Log.e("HO GAYA PURCHASE", "OK");
+            }
+
+        }
+    };
 
     IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
@@ -79,6 +101,7 @@ public class DepositFundsFragment extends Fragment {
 // tank immediately
             Purchase coinsPurchase = inventory.getPurchase(Constants.SKU_COINS);
             if (coinsPurchase != null) {
+
                 Log.d(TAG, "We have Coins. Consuming it.");
                 mHelper.consumeAsync(inventory.getPurchase(Constants.SKU_COINS),
                         mConsumeFinishedListener);
@@ -105,6 +128,10 @@ public class DepositFundsFragment extends Fragment {
         return fragment;
     }
 
+    private void consumeItem(Purchase purchase) {
+        mHelper.consumeAsync(purchase, mConsumeFinishedListener);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -124,7 +151,6 @@ public class DepositFundsFragment extends Fragment {
                             Log.d("INAPP_BILLING", "In-app Billing is set up OK");
                     mHelper.queryInventoryAsync(mGotInventoryListener);
 
-
                 }
             }
         });
@@ -140,10 +166,10 @@ public class DepositFundsFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("debug", "debug");
 
-                fireBaseClient.createDeposit(FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                        Double.parseDouble(etMoney.getText().toString()));
-
-                // Code here executes on main thread after user presses button
+                Random Rand = new Random();
+                int Rndnum = Rand.nextInt(10000) + 1;
+                mHelper.launchPurchaseFlow(getActivity(), Constants.SKU_COINS, 10001,
+                        mPurchaseFinishedListener, "token-" + Rndnum);
             }
         });
 
