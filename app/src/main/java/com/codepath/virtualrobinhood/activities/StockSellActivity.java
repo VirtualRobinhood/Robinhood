@@ -99,11 +99,18 @@ public class StockSellActivity extends AppCompatActivity {
 
         btnSell.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (etQuantityToSell.getText().toString().isEmpty()) {
+                    Toast.makeText(StockSellActivity.this, "Please enter valid integer",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 int sellQuantity = Integer.parseInt(etQuantityToSell.getText().toString());
 
                 if (sellQuantity > trade.quantity) {
                     Toast.makeText(v.getContext(), "Count is more than available stocks.",
                             Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
@@ -128,7 +135,7 @@ public class StockSellActivity extends AppCompatActivity {
                 fireBaseClient.addTradeToTransactions(userId, t);
                 fireBaseClient.updateCredit(userId, credit + trade.price * trade.quantity);
 
-                Toast.makeText(v.getContext(), "Stock sold successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StockSellActivity.this, "Stock sold successfully", Toast.LENGTH_SHORT).show();
             }
         });
     }

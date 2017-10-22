@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/page_background_black"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="8dp">
 
@@ -13,38 +14,55 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
-        style="@style/LargeText"
+        android:textColor="@color/white"
         android:layout_marginBottom="4dp"/>
 
     <TextView
         android:id="@+id/tvCompanyName"
-        style="?textLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
         android:layout_below="@id/tvSymbol"/>
+
+    <View
+        android:id="@+id/viewCompanyName"
+        style="@style/Divider"
+        android:layout_below="@id/tvCompanyName"/>
+
 
     <TextView
         android:id="@+id/tvQuantityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/stock_quantity"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvCompanyName"
-        android:layout_marginBottom="32dp"/>
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/viewCompanyName"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/stock_quantity"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/tvQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:textColor="@color/white"
+        tools:text="2000"
+        android:layout_alignBaseline="@+id/tvQuantityLabel"
+        android:layout_alignBottom="@+id/tvQuantityLabel"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/tvCompanyName"
-        android:layout_marginBottom="32dp" />
+        android:layout_alignParentEnd="true" />
+
+    <View
+        android:id="@+id/viewQuantity"
+        android:layout_below="@id/tvQuantityLabel"
+        style="@style/Divider"
+        />
 
     <TextView
         android:id="@+id/tvPriceLabel"
@@ -53,18 +71,28 @@
         android:text="@string/price"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvQuantityLabel"
-        android:layout_marginBottom="32dp"/>
+        android:layout_below="@id/viewQuantity"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tvQuantityLabel"
         tools:text="4000"
-        android:layout_marginBottom="32dp"/>
+        android:textColor="@color/white"
+        android:layout_alignBaseline="@+id/tvPriceLabel"
+        android:layout_alignBottom="@+id/tvPriceLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <View
+        android:id="@+id/viewPrice"
+        android:layout_below="@id/tvPriceLabel"
+        style="@style/Divider"
+        />
 
     <TextView
         android:id="@+id/tvEstimatedCostLabel"
@@ -73,18 +101,28 @@
         android:text="@string/estimated_cost"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvPriceLabel"
-        android:layout_marginBottom="32dp"/>
+        android:layout_below="@id/viewPrice"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:id="@+id/tvEstimatedCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tvPriceLabel"
         tools:text="4000"
-        android:layout_marginBottom="32dp"/>
+        android:textColor="@color/white"
+        android:layout_alignBaseline="@+id/tvEstimatedCostLabel"
+        android:layout_alignBottom="@+id/tvEstimatedCostLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <View
+        android:id="@+id/viewEstimatedCost"
+        android:layout_below="@id/tvEstimatedCostLabel"
+        style="@style/Divider"
+        />
 
     <TextView
         android:id="@+id/tvFilledDateLabel"
@@ -93,16 +131,27 @@
         android:text="@string/filled_date"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvEstimatedCostLabel"/>
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@id/viewEstimatedCost"/>
 
     <TextView
         android:id="@+id/tvFilledDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        tools:text="4000"
+        android:textColor="@color/white"
+        android:layout_alignBaseline="@+id/tvFilledDateLabel"
+        android:layout_alignBottom="@+id/tvFilledDateLabel"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/tvEstimatedCostLabel"
-        tools:text="4000"/>
+        android:layout_alignParentEnd="true" />
+
+    <View
+        android:id="@+id/viewFilledDate"
+        android:layout_below="@id/tvFilledDateLabel"
+        style="@style/Divider"
+        />
 
     <Button
         android:id="@+id/btnSell"
