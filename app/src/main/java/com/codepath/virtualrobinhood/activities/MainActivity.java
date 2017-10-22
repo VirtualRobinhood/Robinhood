@@ -365,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
                     if (snapshot.getValue() != null) {
                         Double amount = Double.parseDouble(snapshot.getValue().toString());
-                        myItem.setTitle("$" + df.format(amount) + "0");
+                        myItem.setTitle("$" + df.format(amount));
                     } else {
                         myItem.setTitle("$0.00");
                     }

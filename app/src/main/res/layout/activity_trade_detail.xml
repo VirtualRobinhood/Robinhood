@@ -104,4 +104,10 @@
         android:layout_below="@id/tvEstimatedCostLabel"
         tools:text="4000"/>
 
+    <Button
+        android:id="@+id/btnSell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/sell_stock" />
 </RelativeLayout>
