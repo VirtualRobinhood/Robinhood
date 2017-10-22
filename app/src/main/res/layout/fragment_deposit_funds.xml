@@ -13,18 +13,19 @@
             android:id="@+id/tvMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/etMoney"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/tvMoney"/>
+            android:hint="$0.00" />
 
         <Button
             android:id="@+id/btnAddMoney"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="DEPOSIT FUNDS"
-            android:layout_below="@+id/etMoney"/>
+            android:text="PURCHASE CURRENCY"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </FrameLayout>

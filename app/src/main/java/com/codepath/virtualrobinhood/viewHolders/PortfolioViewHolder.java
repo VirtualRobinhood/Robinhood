@@ -28,7 +28,7 @@ public class PortfolioViewHolder  extends RecyclerView.ViewHolder {
 
     public void bindToPost(Trade trade) {
         tvSymbolPortfolio.setText(trade.symbol);
-        tvPricePortfolio.setText(df.format(trade.price));
+        tvPricePortfolio.setText("$" + df.format(trade.price));
     }
 }
 
