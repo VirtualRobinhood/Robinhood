@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.Stock;
@@ -91,6 +92,8 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
                 FireBaseClient fireBaseClient = new FireBaseClient();
                 fireBaseClient.addSymbolToWatchlist(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                         Constants.DEFAULT_WATCHLIST, stock);
+
+                Toast.makeText(v.getContext(), "Symbol was added to your watchlist!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -101,18 +104,6 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
             public void onClick(View v)
             {
                 Intent intent = new Intent(StockDetailActivity.this, StockBuyActivity.class);
-                intent.putExtra("stock", Parcels.wrap(stock));
-                startActivity(intent);
-            }
-        });
-
-        Button btnSell = (Button) findViewById(R.id.btnSell);
-
-        btnSell.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(StockDetailActivity.this, StockSellActivity.class);
                 intent.putExtra("stock", Parcels.wrap(stock));
                 startActivity(intent);
             }

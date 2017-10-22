@@ -27,32 +27,13 @@
         android:layout_below="@id/tvSymbol"/>
 
     <TextView
-        android:id="@+id/tvPositionLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/position_to_sell"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvCompanyName"
-        android:layout_marginBottom="32dp"/>
-
-    <Spinner
-        android:id="@+id/spPosition"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tvCompanyName"
-        android:layout_marginBottom="32dp"/>
-
-    <TextView
         android:id="@+id/tvQuantityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/available_quantity"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvPositionLabel"
+        android:layout_below="@id/tvCompanyName"
         android:layout_marginBottom="32dp"/>
 
     <TextView
@@ -61,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/tvPositionLabel"
+        android:layout_below="@id/tvCompanyName"
         tools:text="4000"
         android:layout_marginBottom="32dp"/>
 
