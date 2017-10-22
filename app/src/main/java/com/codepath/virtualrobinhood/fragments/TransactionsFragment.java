@@ -96,6 +96,7 @@ public class TransactionsFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), TradeDetailActivity.class);
                         intent.putExtra("trade", Parcels.wrap(trade));
+                        intent.putExtra("caller", TransactionsFragment.class.getName());
                         startActivity(intent);
                     }
                 });

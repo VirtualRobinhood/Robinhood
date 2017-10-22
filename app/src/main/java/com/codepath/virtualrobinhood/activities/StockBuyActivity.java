@@ -82,6 +82,13 @@ public class StockBuyActivity extends AppCompatActivity {
 
         btnBuy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (etQuantity.getText().toString().isEmpty()) {
+                    Toast.makeText(StockBuyActivity.this, "Please enter valid integer",
+                            Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+
                 int buyQuantity = Integer.parseInt(etQuantity.getText().toString());
 
                 if (buyQuantity * stock.getLastClosePrice() > credit) {

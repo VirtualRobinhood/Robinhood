@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             case R.id.nav_add_money:
                 fragment = DepositFundsFragment.newInstance(userId);
                 break;
-            case R.id.nav_history:
+            case R.id.nav_transactions:
                 fragment = TransactionsFragment.newInstance(userId);
                 break;
             case R.id.nav_sign_out:

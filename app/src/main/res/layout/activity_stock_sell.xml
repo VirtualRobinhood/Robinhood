@@ -142,7 +142,9 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/viewMarketPrice"
         android:gravity="right"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:digits="0123456789."
+        android:inputType="number"/>
 
     <View
         android:id="@+id/viewQuantityToSell"
