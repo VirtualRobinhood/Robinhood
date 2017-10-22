@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:textColor="@color/white"
         tools:text="MSFT"/>
 
     <TextView
@@ -19,6 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@color/colorAccent"
+        android:textColor="@color/white"
         tools:text="76.70" />
 </RelativeLayout>
