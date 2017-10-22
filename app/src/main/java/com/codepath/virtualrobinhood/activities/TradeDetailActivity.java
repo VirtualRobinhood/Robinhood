@@ -45,7 +45,8 @@ public class TradeDetailActivity extends AppCompatActivity {
         Button btnSell = (Button) findViewById(R.id.btnSell);
 
         if (callerName != null && callerName.equals(TransactionsFragment.class.getName())) {
-            btnSell.setVisibility(View.GONE);
+           // btnSell.setVisibility(View.GONE);
+            btnSell.setEnabled(false);
         }
 
         btnSell.setOnClickListener(new View.OnClickListener()
