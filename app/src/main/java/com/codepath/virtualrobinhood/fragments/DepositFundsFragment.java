@@ -18,6 +18,12 @@ import com.codepath.virtualrobinhood.utils.Billing.Inventory;
 import com.codepath.virtualrobinhood.utils.Billing.Purchase;
 import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
 
@@ -30,6 +36,7 @@ import static android.content.ContentValues.TAG;
 public class DepositFundsFragment extends Fragment {
 
     private IabHelper mHelper;
+    private double currentUserCredit;
 
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
 
@@ -40,6 +47,7 @@ public class DepositFundsFragment extends Fragment {
                 return;
             } else if (purchase.getSku().equals(Constants.SKU_COINS)) {
                 consumeItem(purchase);
+                updateUserCredit();
                 Log.e("HO GAYA PURCHASE", "OK");
             }
         }
@@ -118,9 +126,38 @@ public class DepositFundsFragment extends Fragment {
         mHelper.consumeAsync(purchase, mConsumeFinishedListener);
     }
 
+    private void getUserCredit() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+        dbRef.child("users")
+                .child(userId)
+                .child("credit")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot != null && snapshot.getValue() != null) {
+                            currentUserCredit = Double.parseDouble(snapshot.getValue().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+    }
+
+    private void updateUserCredit() {
+        final FireBaseClient fireBaseClient = new FireBaseClient();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        fireBaseClient.updateCredit(userId, currentUserCredit + 10000);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        getUserCredit();
 
         mHelper = new IabHelper(getContext(), Constants.base64EncodedPublicKey);
 
@@ -138,7 +175,6 @@ public class DepositFundsFragment extends Fragment {
         });
 
         // Inflate the layout for this fragment
-        final FireBaseClient fireBaseClient = new FireBaseClient();
 
         View view = inflater.inflate(R.layout.fragment_deposit_funds, container, false);
         final Button btnAddMoney = view.findViewById(R.id.btnAddMoney);
