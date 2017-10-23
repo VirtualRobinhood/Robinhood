@@ -94,6 +94,7 @@ public class StockBuyActivity extends AppCompatActivity {
                 if (buyQuantity * stock.getLastClosePrice() > credit) {
                     Toast.makeText(v.getContext(), "Estimated cost is more that available credit",
                             Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());

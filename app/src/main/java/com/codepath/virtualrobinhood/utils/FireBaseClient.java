@@ -157,7 +157,7 @@ public class FireBaseClient {
                 .child("portfolios")
                 .child(portfolioName)
                 .child("positions")
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         boolean merged = false;
