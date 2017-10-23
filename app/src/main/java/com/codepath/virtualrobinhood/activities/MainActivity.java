@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -482,6 +483,30 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Fragment fragment = fragmentManager.findFragmentByTag(Constants.DEPOSITS_FRAGMENT_TAG);
         if (fragment != null) {
             ((DepositFundsFragment)fragment).onActivityResult(requestCode, resultCode,data);
+        }
+    }
+
+    public void onClickLargePurchase(View view) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(Constants.DEPOSITS_FRAGMENT_TAG);
+        if (fragment != null) {
+            ((DepositFundsFragment)fragment).onClickLargePurchase();
+        }
+    }
+
+    public void onClickMediumPurchase(View view) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(Constants.DEPOSITS_FRAGMENT_TAG);
+        if (fragment != null) {
+            ((DepositFundsFragment)fragment).onClickMediumPurchase();
+        }
+    }
+
+    public void onClickSmallPurchase(View view) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(Constants.DEPOSITS_FRAGMENT_TAG);
+        if (fragment != null) {
+            ((DepositFundsFragment)fragment).onClickSmallPurchase();
         }
     }
 }

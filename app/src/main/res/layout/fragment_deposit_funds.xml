@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvSmall"
             android:layout_marginLeft="5dp"
-            android:text="$0.99" />
+            android:text="$0.99"
+            android:onClick="onClickSmallPurchase"/>
 
         <TextView
             android:id="@+id/tvMedium"
@@ -47,7 +48,8 @@
             android:layout_toRightOf="@id/btnAddMoneySmall"
             android:layout_below="@id/tvMedium"
             android:layout_marginLeft="30dp"
-            android:text="$1.99" />
+            android:text="$1.99"
+            android:onClick="onClickMediumPurchase" />
 
         <TextView
             android:id="@+id/tvLarge"
@@ -66,7 +68,8 @@
             android:layout_toRightOf="@id/btnAddMoneyMedium"
             android:layout_below="@id/tvLarge"
             android:layout_marginLeft="30dp"
-            android:text="$2.99" />
+            android:text="$2.99"
+            android:onClick="onClickLargePurchase" />
 
     </RelativeLayout>
 
