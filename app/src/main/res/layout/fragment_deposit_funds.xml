@@ -14,18 +14,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/etMoney"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvSmall"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="$0.00" />
+            android:text="$5,000 credit"
+             />
+
+        <Button
+            android:id="@+id/btnAddMoneySmall"
+            android:padding="10dp"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvSmall"
+            android:layout_marginLeft="5dp"
+            android:text="$0.99" />
+
+        <TextView
+            android:id="@+id/tvMedium"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvSmall"
+            android:text="$12,000 credit"
+            />
+
+        <Button
+            android:id="@+id/btnAddMoneyMedium"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btnAddMoneySmall"
+            android:layout_below="@id/tvMedium"
+            android:layout_marginLeft="30dp"
+            android:text="$1.99" />
+
+        <TextView
+            android:id="@+id/tvLarge"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvMedium"
+            android:text="$20,000 credit"
+            />
 
         <Button
             android:id="@+id/btnAddMoney"
-            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="PURCHASE CURRENCY"
-            android:layout_alignParentBottom="true"/>
+            android:layout_toRightOf="@id/btnAddMoneyMedium"
+            android:layout_below="@id/tvLarge"
+            android:layout_marginLeft="30dp"
+            android:text="$2.99" />
+
     </RelativeLayout>
 
 </FrameLayout>
