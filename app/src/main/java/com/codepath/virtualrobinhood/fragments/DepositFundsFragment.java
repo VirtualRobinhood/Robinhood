@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
@@ -42,14 +40,20 @@ public class DepositFundsFragment extends Fragment {
 
         public void onIabPurchaseFinished(IabResult result,
                                           Purchase purchase) {
+            double credit = 0;
             if (result.isFailure()) {
                 Log.e("result1", "" + result.getMessage());
                 return;
-            } else if (purchase.getSku().equals(Constants.SKU_COINS)) {
-                consumeItem(purchase);
-                updateUserCredit();
-                Log.e("HO GAYA PURCHASE", "OK");
+            } else if (purchase.getSku().equals(Constants.SKU_SMALL_COINS)) {
+                credit = 5000;
+            } else if (purchase.getSku().equals(Constants.SKU_MEDIUM_COINS)) {
+                credit = 12000;
+            } else if (purchase.getSku().equals(Constants.SKU_LARGE_COINS)) {
+                credit = 20000;
             }
+
+            consumeItem(purchase);
+            updateUserCredit(credit);
         }
     };
 
@@ -93,15 +97,28 @@ public class DepositFundsFragment extends Fragment {
 
             Log.d(TAG, "Query inventory was successful.");
 
-            Purchase coinsPurchase = inventory.getPurchase(Constants.SKU_COINS);
+            Purchase coinsPurchase = inventory.getPurchase(Constants.SKU_SMALL_COINS);
             if (coinsPurchase != null) {
 
                 Log.d(TAG, "We have Coins. Consuming it.");
-                mHelper.consumeAsync(inventory.getPurchase(Constants.SKU_COINS),
+                mHelper.consumeAsync(inventory.getPurchase(Constants.SKU_SMALL_COINS),
                         mConsumeFinishedListener);
-                return;
-            } else {
-                Log.d(TAG, "Unable to fetch the coins SKU");
+            }
+
+            coinsPurchase = inventory.getPurchase(Constants.SKU_MEDIUM_COINS);
+            if (coinsPurchase != null) {
+
+                Log.d(TAG, "We have Coins. Consuming it.");
+                mHelper.consumeAsync(inventory.getPurchase(Constants.SKU_MEDIUM_COINS),
+                        mConsumeFinishedListener);
+            }
+
+            coinsPurchase = inventory.getPurchase(Constants.SKU_LARGE_COINS);
+            if (coinsPurchase != null) {
+
+                Log.d(TAG, "We have Coins. Consuming it.");
+                mHelper.consumeAsync(inventory.getPurchase(Constants.SKU_LARGE_COINS),
+                        mConsumeFinishedListener);
             }
         }
     };
@@ -147,10 +164,10 @@ public class DepositFundsFragment extends Fragment {
                 });
     }
 
-    private void updateUserCredit() {
+    private void updateUserCredit(double credit) {
         final FireBaseClient fireBaseClient = new FireBaseClient();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        fireBaseClient.updateCredit(userId, currentUserCredit + 10000);
+        fireBaseClient.updateCredit(userId, currentUserCredit + credit);
     }
 
     @Override
@@ -177,20 +194,19 @@ public class DepositFundsFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_deposit_funds, container, false);
-        final Button btnAddMoney = view.findViewById(R.id.btnAddMoney);
-        final EditText etMoney = view.findViewById(R.id.etMoney);
-
-        btnAddMoney.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d("debug", "debug");
-
-                Random rand = new Random();
-                int randonNumber = rand.nextInt(10000) + 1;
-
-                mHelper.launchPurchaseFlow(getActivity(), Constants.SKU_COINS, 10001,
-                        mPurchaseFinishedListener, "token-" + randonNumber);
-            }
-        });
+//        final Button btnAddMoney = view.findViewById(R.id.btnAddMoney);
+//
+//        btnAddMoney.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.d("debug", "debug");
+//
+//                Random rand = new Random();
+//                int randonNumber = rand.nextInt(10000) + 1;
+//
+//                mHelper.launchPurchaseFlow(getActivity(), Constants.SKU_COINS, 10001,
+//                        mPurchaseFinishedListener, "token-" + randonNumber);
+//            }
+//        });
 
         return view;
     }
@@ -209,5 +225,29 @@ public class DepositFundsFragment extends Fragment {
         else {
             Log.d(TAG, "onActivityResult handled by IABUtil.");
         }
+    }
+
+    public void onClickSmallPurchase() {
+        Random rand = new Random();
+        int randonNumber = rand.nextInt(10000) + 1;
+
+        mHelper.launchPurchaseFlow(getActivity(), Constants.SKU_SMALL_COINS, 10001,
+                mPurchaseFinishedListener, "token-" + randonNumber);
+    }
+
+    public void onClickLargePurchase() {
+        Random rand = new Random();
+        int randonNumber = rand.nextInt(10000) + 1;
+
+        mHelper.launchPurchaseFlow(getActivity(), Constants.SKU_LARGE_COINS, 10001,
+                mPurchaseFinishedListener, "token-" + randonNumber);
+    }
+
+    public void onClickMediumPurchase() {
+        Random rand = new Random();
+        int randonNumber = rand.nextInt(10000) + 1;
+
+        mHelper.launchPurchaseFlow(getActivity(), Constants.SKU_MEDIUM_COINS, 10001,
+                mPurchaseFinishedListener, "token-" + randonNumber);
     }
 }
