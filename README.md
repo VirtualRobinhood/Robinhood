@@ -34,7 +34,7 @@ The following functionality will supported:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/yXry66F.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/sAVQSP3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 Here's a walkthrough of high level design:
 
