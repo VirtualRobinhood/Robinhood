@@ -92,9 +92,4 @@
     <style name="text_color_wh">
         <item name="android:textColor">#FFFFFF</item>
     </style>
-
-    <!-- =============================================================== -->
-    <!-- Customize YOUR_CUSTOM_THEME Styles -->
-    <!-- Define your own styles below. -->
-    <!-- =============================================================== -->
 </resources>

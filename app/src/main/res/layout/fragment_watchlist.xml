@@ -3,31 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.codepath.virtualrobinhood.fragments.WatchlistFragment"
-    android:padding="8dp">
-
-    <!--
-    <EditText
-        android:id="@+id/etWatchlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/watchlist_name" />
-
-    <Button
-        android:id="@+id/btnCreateWatchlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/create_watchlist"
-        android:layout_alignParentRight="true" />
-
-    <Spinner
-        android:id="@+id/spWatchlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etWatchlist"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="8dp"/>
-
-        -->
+    android:padding="8dp"
+    android:background="@color/colorPrimary">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvStocks"

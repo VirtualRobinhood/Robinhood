@@ -15,20 +15,27 @@ import java.text.DecimalFormat;
 
 public class PortfolioViewHolder  extends RecyclerView.ViewHolder {
 
-    public TextView tvSymbolPortfolio;
-    public TextView tvPricePortfolio;
+    private TextView tvSymbol;
+    private TextView tvCompanyName;
+    private TextView tvPrice;
+    private TextView tvQuantity;
+
     DecimalFormat df = new DecimalFormat("##.##");
 
     public PortfolioViewHolder(View itemView) {
         super(itemView);
 
-        tvSymbolPortfolio = itemView.findViewById(R.id.tvSymbolPortfolio);
-        tvPricePortfolio = itemView.findViewById(R.id.tvPricePortfolio);
+        tvSymbol = itemView.findViewById(R.id.tvSymbol);
+        tvCompanyName = itemView.findViewById(R.id.tvCompanyName);
+        tvPrice = itemView.findViewById(R.id.tvPrice);
+        tvQuantity = itemView.findViewById(R.id.tvQuantity);
     }
 
     public void bindToPost(Trade trade) {
-        tvSymbolPortfolio.setText(trade.symbol);
-        tvPricePortfolio.setText("$" + df.format(trade.price));
+        tvSymbol.setText(trade.symbol);
+        tvCompanyName.setText(trade.companyName);
+        tvPrice.setText("$" + df.format(trade.price));
+        tvQuantity.setText(String.valueOf(trade.quantity));
     }
 }
 

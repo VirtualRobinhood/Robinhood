@@ -23,10 +23,10 @@ public class SearchFeedResultsAdaptor extends SimpleCursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView tvStockName = view.findViewById(R.id.tvStockName);
-        TextView tvStockSymbol = view.findViewById(R.id.tvStockSymbol);
+        TextView tvSymbol = view.findViewById(R.id.tvSymbol);
+        TextView tvCompanyName = view.findViewById(R.id.tvCompanyName);
 
-        tvStockName.setText(cursor.getString(1));
-        tvStockSymbol.setText(cursor.getString(2));
+        tvSymbol.setText(cursor.getString(1));
+        tvCompanyName.setText(cursor.getString(2));
     }
 }

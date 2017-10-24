@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnSuggestionListener(this);
-        mSearchViewAdapter = new SearchFeedResultsAdaptor(this, R.layout.search_feed_list_item, null, columns, null, -1000);
+        mSearchViewAdapter = new SearchFeedResultsAdaptor(this, R.layout.search_symbol_list_item, null, columns, null, -1000);
         searchView.setSuggestionsAdapter(mSearchViewAdapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
