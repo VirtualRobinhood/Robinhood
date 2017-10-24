@@ -17,10 +17,11 @@ import java.text.DecimalFormat;
  */
 
 public class StockViewHolder extends RecyclerView.ViewHolder {
-    public ImageView ivRemoveSymbol;
-    public TextView tvSymbol;
-    public TextView tvPrice;
-    public TextView tvPriceDifference;
+    private ImageView ivRemoveSymbol;
+    private TextView tvSymbol;
+    private TextView tvCompanyName;
+    private TextView tvPrice;
+    private TextView tvPriceDifference;
 
     private Context context;
 
@@ -30,6 +31,7 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
 
         tvSymbol = itemView.findViewById(R.id.tvSymbol);
+        tvCompanyName = itemView.findViewById(R.id.tvCompanyName);
         tvPrice = itemView.findViewById(R.id.tvPrice);
         tvPriceDifference = itemView.findViewById(R.id.tvPriceDifference);
         ivRemoveSymbol = itemView.findViewById(R.id.ivRemoveSymbol);
@@ -37,6 +39,7 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
 
     public void bindToPost(Stock stock) {
         tvSymbol.setText(stock.symbol);
+        tvCompanyName.setText(stock.companyName);
         if (stock.quotations.size() > 0) {
             DecimalFormat df = new DecimalFormat("##.##");
             float currentClose = stock.quotations.get(0).close;

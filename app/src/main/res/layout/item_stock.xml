@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/ivRemoveSymbol"
@@ -21,6 +22,15 @@
         android:layout_toRightOf="@+id/ivRemoveSymbol"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
+        tools:text="MSFT"
+        style="@style/LargeText"/>
+
+    <TextView
+        android:id="@+id/tvCompanyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvSymbol"
+        android:layout_alignLeft="@id/tvSymbol"
         tools:text="MSFT"
         style="@style/LargeText"/>
 
