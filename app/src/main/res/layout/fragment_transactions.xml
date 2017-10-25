@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    style="?pageBackground"
     tools:context="com.codepath.virtualrobinhood.fragments.PortfolioFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -10,9 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:padding="5dp"
         android:scrollbars="vertical"
-        tools:listitem="@layout/item_stock"
-        android:layout_marginTop="8dp"/>
+        tools:listitem="@layout/item_trade" />
 
 </FrameLayout>

@@ -231,8 +231,8 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.addLimitLine(ll1);
-        leftAxis.addLimitLine(ll2);
+        //leftAxis.addLimitLine(ll1);
+        //leftAxis.addLimitLine(ll2);
         //leftAxis.setAxisMaximum(maxPrice);
         //leftAxis.setAxisMinimum(minPrice);
         //leftAxis.setYOffset(20f);

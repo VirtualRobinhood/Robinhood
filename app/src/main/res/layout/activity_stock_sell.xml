@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/page_background_black"
     android:padding="8dp">
 
     <TextView
@@ -34,7 +33,7 @@
     <View
         android:id="@+id/viewSymbol"
         android:layout_below="@id/tvCompanyName"
-        style="@style/Divider"/>
+        style="?dividerHorizontal"/>
 
     <TextView
         android:id="@+id/tvQuantityLabel"
@@ -61,8 +60,7 @@
     <View
         android:id="@+id/viewQuantityLabel"
         android:layout_below="@id/tvQuantityLabel"
-        style="@style/Divider"
-        />
+        style="?dividerHorizontal" />
 
     <TextView
         android:id="@+id/tvCostPerShareLabel"
@@ -90,8 +88,7 @@
     <View
         android:id="@+id/viewCostPerShareLabel"
         android:layout_below="@id/tvCostPerShareLabel"
-        style="@style/Divider"
-        />
+        style="?dividerHorizontal" />
 
     <TextView
         android:id="@+id/tvMarketPriceLabel"
@@ -119,8 +116,7 @@
     <View
         android:id="@+id/viewMarketPrice"
         android:layout_below="@id/tvMarketPriceLabel"
-        style="@style/Divider"
-        />
+        style="?dividerHorizontal" />
 
     <TextView
         android:id="@+id/tvQuantityToSellLabel"
@@ -149,8 +145,7 @@
     <View
         android:id="@+id/viewQuantityToSell"
         android:layout_below="@id/tvQuantityToSellLabel"
-        style="@style/Divider"
-        />
+        style="?dividerHorizontal" />
 
     <TextView
         android:id="@+id/tvEstimatedCostLabel"
@@ -178,8 +173,7 @@
     <View
         android:id="@+id/viewEstimatedCost"
         android:layout_below="@id/tvEstimatedCostLabel"
-        style="@style/Divider"
-        />
+        style="?dividerHorizontal" />
 
     <TextView
         android:id="@+id/tvEstimatedGainLabel"
@@ -206,8 +200,7 @@
     <View
         android:id="@+id/viewEstimatedGain"
         android:layout_below="@id/tvEstimatedGainLabel"
-        style="@style/Divider"
-        />
+        style="?dividerHorizontal" />
 
     <Button
         android:id="@+id/btnSell"

@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/page_background_black"
     android:padding="8dp">
 
     <TextView
@@ -33,7 +32,7 @@
     <View
         android:id="@+id/viewSymbolBuy"
         android:layout_below="@id/tvCompanyName"
-        style="@style/Divider"/>
+        style="?dividerHorizontal"/>
 
     <TextView
         android:id="@+id/tvAvailableCreditLabel"
@@ -61,7 +60,7 @@
     <View
         android:id="@+id/viewAvailableCredit"
         android:layout_below="@id/tvAvailableCreditLabel"
-        style="@style/Divider"/>
+        style="?dividerHorizontal"/>
 
     <TextView
         android:id="@+id/tvQuantityLabel"
@@ -90,7 +89,7 @@
     <View
         android:id="@+id/viewQuantityLabel"
         android:layout_below="@id/tvQuantityLabel"
-        style="@style/Divider"/>
+        style="?dividerHorizontal"/>
 
     <TextView
         android:id="@+id/tvMarketPriceLabel"
@@ -118,7 +117,7 @@
     <View
         android:id="@+id/viewMarketPriceLabel"
         android:layout_below="@id/tvMarketPriceLabel"
-        style="@style/Divider"/>
+        style="?dividerHorizontal"/>
 
     <TextView
         android:id="@+id/tvEstimatedCostLabel"
@@ -145,7 +144,7 @@
     <View
         android:id="@+id/viewEstimatedCostLabel"
         android:layout_below="@id/tvEstimatedCostLabel"
-        style="@style/Divider"/>
+        style="?dividerHorizontal"/>
 
     <Button
         android:id="@+id/btnBuy"

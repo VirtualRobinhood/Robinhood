@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorPrimary"
-    android:padding="8dp">
+    style="?pageBackground">
 
     <TextView
         android:id="@+id/tvSymbol"
@@ -13,7 +12,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
-        style="@style/LargeText"/>
+        style="?textLarge"/>
 
     <ImageView
         android:id="@+id/ivAddToWatchlist"
@@ -30,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvSymbol"
         tools:text="76.70"
-        style="@style/LargeText"/>
+        style="?textSubheader"/>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
@@ -63,7 +62,7 @@
         android:text="@string/key_statistics"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        style="@style/LargeText"/>
+        style="?textLarge"/>
 
     <LinearLayout
         android:id="@+id/llOpenClose"
@@ -77,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/stock_open"
-            style="@style/LargeText"/>
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/tvOpenPrice"
@@ -88,7 +87,7 @@
             android:layout_toEndOf="@id/tvOpen"
             android:layout_marginLeft="24dp"
             tools:text="111"
-            style="@style/LargeText"/>
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/tvClose"
@@ -96,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/stock_close"
-            style="@style/LargeText"/>
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/tvClosePrice"
@@ -107,7 +106,7 @@
             android:layout_toEndOf="@id/tvClose"
             android:layout_marginLeft="24dp"
             tools:text="111"
-            style="@style/LargeText"/>
+            style="?textRegular"/>
     </LinearLayout>
 
     <LinearLayout
@@ -123,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/stock_low"
-            style="@style/LargeText"/>
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/tvLowPrice"
@@ -134,7 +133,7 @@
             android:layout_toEndOf="@id/tvLow"
             android:layout_marginLeft="24dp"
             tools:text="111"
-            style="@style/LargeText"/>
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/tvHigh"
@@ -142,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/stock_high"
-            style="@style/LargeText"/>
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/tvHighPrice"
@@ -153,6 +152,6 @@
             android:layout_toEndOf="@id/tvHigh"
             android:layout_marginLeft="24dp"
             tools:text="111"
-            style="@style/LargeText"/>
+            style="?textRegular"/>
     </LinearLayout>
 </RelativeLayout>
