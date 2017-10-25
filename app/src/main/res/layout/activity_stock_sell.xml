@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp">
+    style="?pageBackground">
 
     <TextView
         android:id="@+id/tvSymbol"
@@ -13,8 +13,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
-        style="@style/LargeText"
-        android:textColor="@color/white"
+        style="?textLarge"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -25,15 +24,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
-        android:textColor="@color/white"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        style="?textRegular"
+        android:layout_marginBottom="32dp"
         android:layout_below="@id/tvSymbol"/>
-
-    <View
-        android:id="@+id/viewSymbol"
-        android:layout_below="@id/tvCompanyName"
-        style="?dividerHorizontal"/>
 
     <TextView
         android:id="@+id/tvQuantityLabel"
@@ -42,8 +35,8 @@
         android:text="@string/available_quantity"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/viewSymbol"
-        android:textColor="@color/white"
+        android:layout_below="@id/tvCompanyName"
+        style="?textRegular"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -54,7 +47,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         tools:text="4000"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_alignTop="@+id/tvQuantityLabel" />
 
     <View
@@ -70,7 +63,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewQuantityLabel"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -79,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="4000"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_alignBaseline="@+id/tvCostPerShareLabel"
         android:layout_alignBottom="@+id/tvCostPerShareLabel"
         android:layout_alignParentRight="true"
@@ -98,7 +91,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewCostPerShareLabel"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -107,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="4000"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_alignBaseline="@+id/tvMarketPriceLabel"
         android:layout_alignBottom="@+id/tvMarketPriceLabel"
         android:layout_alignParentRight="true"
@@ -126,7 +119,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewMarketPrice"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -138,7 +131,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/viewMarketPrice"
         android:gravity="right"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:digits="0123456789."
         android:inputType="number"/>
 
@@ -155,7 +148,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewQuantityToSell"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -163,7 +156,7 @@
         android:id="@+id/tvEstimatedCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        style="?textRegular"
         tools:text="4000"
         android:layout_alignBaseline="@+id/tvEstimatedCostLabel"
         android:layout_alignBottom="@+id/tvEstimatedCostLabel"
@@ -182,7 +175,7 @@
         android:text="@string/estimated_gain"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_below="@id/viewEstimatedCost"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
@@ -193,7 +186,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:textColor="@color/white"
+        style="?textRegular"
         tools:text="4000"
         android:layout_alignTop="@+id/tvEstimatedGainLabel" />
 

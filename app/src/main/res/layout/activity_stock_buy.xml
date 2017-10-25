@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp">
+    style="?pageBackground">
 
     <TextView
         android:id="@+id/tvSymbol"
@@ -13,8 +13,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
-        style="@style/LargeText"
-        android:textColor="@color/white"
+        style="?textLarge"
         android:layout_marginBottom="4dp"/>
 
     <TextView
@@ -24,15 +23,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:textColor="@color/white"
+        android:layout_marginBottom="32dp"
+        style="?textRegular"
         android:layout_below="@id/tvSymbol"/>
-
-    <View
-        android:id="@+id/viewSymbolBuy"
-        android:layout_below="@id/tvCompanyName"
-        style="?dividerHorizontal"/>
 
     <TextView
         android:id="@+id/tvAvailableCreditLabel"
@@ -41,8 +34,8 @@
         android:text="@string/credit_available_to_trade"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/viewSymbolBuy"
-        android:textColor="@color/white"
+        android:layout_below="@id/tvCompanyName"
+        style="?textRegular"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -51,11 +44,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="4000"
-        android:textColor="@color/white"
         android:layout_alignBaseline="@+id/tvAvailableCreditLabel"
         android:layout_alignBottom="@+id/tvAvailableCreditLabel"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        style="?textRegular"/>
 
     <View
         android:id="@+id/viewAvailableCredit"
@@ -70,7 +63,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewAvailableCredit"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -81,7 +74,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/viewAvailableCredit"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:gravity="right"
         android:digits="0123456789."
         android:inputType="number"/>
@@ -99,7 +92,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewQuantityLabel"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
@@ -108,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="4000"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_alignBaseline="@+id/tvMarketPriceLabel"
         android:layout_alignBottom="@+id/tvMarketPriceLabel"
         android:layout_alignParentRight="true"
@@ -126,7 +119,7 @@
         android:text="@string/estimated_cost"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:textColor="@color/white"
+        style="?textRegular"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:layout_below="@id/viewMarketPriceLabel"/>
@@ -137,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:textColor="@color/white"
+        style="?textRegular"
         tools:text="4000"
         android:layout_alignTop="@+id/tvEstimatedCostLabel" />
 
