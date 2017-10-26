@@ -37,9 +37,9 @@ public class TradeDetailActivity extends AppCompatActivity {
 
         tvSymbol.setText(trade.symbol);
         tvCompanyName.setText(trade.companyName);
-        tvPrice.setText(df.format(trade.price));
+        tvPrice.setText("$" + df.format(trade.price));
         tvQuantity.setText(String.valueOf(trade.quantity));
-        tvEstimatedCost.setText(df.format(trade.quantity * trade.price));
+        tvEstimatedCost.setText("$" + df.format(trade.quantity * trade.price));
         tvFilledDate.setText(trade.filledOn);
 
         Button btnSell = (Button) findViewById(R.id.btnSell);

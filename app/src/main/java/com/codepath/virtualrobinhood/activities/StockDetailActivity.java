@@ -69,11 +69,11 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
         TextView tvClosePrice = findViewById(R.id.tvClosePrice);
 
         tvSymbol.setText(stock.symbol);
-        tvPrice.setText(df.format(stock.getLastClosePrice()));
-        tvOpenPrice.setText(df.format(stock.getLastOpenPrice()));
-        tvClosePrice.setText(df.format(stock.getLastClosePrice()));
-        tvLowPrice.setText(df.format(stock.getLastLowPrice()));
-        tvHighPrice.setText(df.format(stock.getLastHighPrice()));
+        tvPrice.setText("$" + df.format(stock.getLastClosePrice()));
+        tvOpenPrice.setText("$" + df.format(stock.getLastOpenPrice()));
+        tvClosePrice.setText("$" + df.format(stock.getLastClosePrice()));
+        tvLowPrice.setText("$" + df.format(stock.getLastLowPrice()));
+        tvHighPrice.setText("$" + df.format(stock.getLastHighPrice()));
 
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

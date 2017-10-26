@@ -64,9 +64,9 @@ public class StockSellActivity extends AppCompatActivity {
 
         tvSymbol.setText(trade.symbol);
         tvCompanyName.setText(trade.companyName);
-        tvMarketPrice.setText(df.format(trade.price));
+        tvMarketPrice.setText("$" + df.format(trade.price));
         tvQuantity.setText(String.valueOf(trade.quantity));
-        tvCostPareShare.setText(df.format(trade.price));
+        tvCostPareShare.setText("$" + df.format(trade.price));
 
         getUserPortfolio(userId);
         getUserCredit(userId);
@@ -87,8 +87,8 @@ public class StockSellActivity extends AppCompatActivity {
 
                 int quantity = Integer.parseInt(s.toString());
                 double estimatedCost = quantity * trade.price;
-                tvEstimatedCost.setText(df.format(estimatedCost));
-                tvEstimatedGain.setText(df.format(estimatedCost));
+                tvEstimatedCost.setText("$" + df.format(estimatedCost));
+                tvEstimatedGain.setText("$" + df.format(estimatedCost));
             }
 
             @Override

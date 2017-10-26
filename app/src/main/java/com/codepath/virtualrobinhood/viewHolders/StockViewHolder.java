@@ -43,7 +43,7 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
         if (stock.quotations.size() > 0) {
             DecimalFormat df = new DecimalFormat("##.##");
             float currentClose = stock.quotations.get(0).close;
-            tvPrice.setText(String.valueOf(df.format(currentClose)));
+            tvPrice.setText("$" + String.valueOf(df.format(currentClose)));
 
             float prevClose = stock.quotations.size() > 1
                     ? stock.quotations.get(1).close
