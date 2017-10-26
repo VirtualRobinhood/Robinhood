@@ -1,68 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="?pageBackground">
+    style="?pageBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvSymbol"
+        style="?textLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        tools:text="MSFT"
-        style="?textLarge"/>
-
-    <ImageView
-        android:id="@+id/ivAddToWatchlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/icon_add_24"/>
+        android:layout_alignParentStart="true"
+        tools:text="MSFT" />
 
     <TextView
         android:id="@+id/tvPrice"
+        style="?textSubheader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvSymbol"
-        tools:text="76.70"
-        style="?textSubheader"/>
+        tools:text="76.70" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@+id/tvPrice"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
 
-    <LinearLayout
-        android:id="@+id/llbuttons"
+    <Button
+        android:id="@+id/btnBuy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@id/lineChart"
-        android:layout_marginTop="16dp">
-
-        <Button
-            android:id="@+id/btnBuy"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/buy_stock" />
-    </LinearLayout>
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:text="@string/buy_stock" />
 
     <TextView
         android:id="@+id/tvKeyStatistics"
+        style="?textSubheader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/llbuttons"
-        android:text="@string/key_statistics"
-        android:layout_marginTop="16dp"
+        android:layout_below="@id/btnBuy"
         android:layout_marginBottom="16dp"
-        style="?textLarge"/>
+        android:layout_marginTop="16dp"
+        android:text="@string/key_statistics" />
 
     <LinearLayout
         android:id="@+id/llOpenClose"
@@ -72,41 +57,41 @@
 
         <TextView
             android:id="@+id/tvOpen"
+            style="?textRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stock_open"
-            style="?textRegular"/>
+            android:text="@string/stock_open" />
 
         <TextView
             android:id="@+id/tvOpenPrice"
+            style="?textRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_toRightOf="@id/tvOpen"
-            android:layout_toEndOf="@id/tvOpen"
             android:layout_marginLeft="24dp"
-            tools:text="111"
-            style="?textRegular"/>
+            android:layout_toEndOf="@id/tvOpen"
+            android:layout_toRightOf="@id/tvOpen"
+            android:layout_weight="1"
+            tools:text="111" />
 
         <TextView
             android:id="@+id/tvClose"
+            style="?textRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stock_close"
-            style="?textRegular"/>
+            android:text="@string/stock_close" />
 
         <TextView
             android:id="@+id/tvClosePrice"
+            style="?textRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_toRightOf="@id/tvClose"
-            android:layout_toEndOf="@id/tvClose"
             android:layout_marginLeft="24dp"
-            tools:text="111"
-            style="?textRegular"/>
+            android:layout_toEndOf="@id/tvClose"
+            android:layout_toRightOf="@id/tvClose"
+            android:layout_weight="1"
+            tools:text="111" />
     </LinearLayout>
 
     <LinearLayout
@@ -118,40 +103,58 @@
 
         <TextView
             android:id="@+id/tvLow"
+            style="?textRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stock_low"
-            style="?textRegular"/>
+            android:text="@string/stock_low" />
 
         <TextView
             android:id="@+id/tvLowPrice"
+            style="?textRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_toRightOf="@id/tvLow"
-            android:layout_toEndOf="@id/tvLow"
             android:layout_marginLeft="24dp"
-            tools:text="111"
-            style="?textRegular"/>
+            android:layout_toEndOf="@id/tvLow"
+            android:layout_toRightOf="@id/tvLow"
+            android:layout_weight="1"
+            tools:text="111" />
 
         <TextView
             android:id="@+id/tvHigh"
+            style="?textRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stock_high"
-            style="?textRegular"/>
+            android:text="@string/stock_high" />
 
         <TextView
             android:id="@+id/tvHighPrice"
+            style="?textRegular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_toRightOf="@id/tvHigh"
-            android:layout_toEndOf="@id/tvHigh"
             android:layout_marginLeft="24dp"
-            tools:text="111"
-            style="?textRegular"/>
+            android:layout_toEndOf="@id/tvHigh"
+            android:layout_toRightOf="@id/tvHigh"
+            android:layout_weight="1"
+            tools:text="111" />
     </LinearLayout>
+
+    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/llLowHigh">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:src="@drawable/icon_add_24"
+            app:backgroundTint="@color/colorPrimary"
+            app:fabSize="normal" />
+    </FrameLayout>
 </RelativeLayout>

@@ -5,15 +5,15 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.models.Stock;
@@ -86,14 +86,17 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
             }
         });
 
-        final ImageView ivAddToWatchlist = findViewById(R.id.ivAddToWatchlist);
-        ivAddToWatchlist.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 FireBaseClient fireBaseClient = new FireBaseClient();
                 fireBaseClient.addSymbolToWatchlist(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                         Constants.DEFAULT_WATCHLIST, stock);
 
-                Toast.makeText(v.getContext(), "Symbol was added to your watchlist!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(button, getString(R.string.add_stock_to_watchlist), Snackbar.LENGTH_LONG)
+                        .show();
             }
         });
 
