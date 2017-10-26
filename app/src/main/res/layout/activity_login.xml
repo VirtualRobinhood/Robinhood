@@ -4,21 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.codepath.virtualrobinhood.activities.LoginActivity"
-    android:background="@android:color/holo_green_light">
+    android:background="@color/loginPageBackground"
+    android:padding="8dp">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Virtual Robinhood"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
-        android:textSize="22sp"/>
+        android:scaleType="fitCenter"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/login_activity_image"/>
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"/>
 
 </RelativeLayout>

@@ -11,4 +11,5 @@
     <color name="green">#00796B</color>
     <color name="red">#FF5252</color>
     <color name="white">#FFFFFF</color>
+    <color name="loginPageBackground">#21CE99</color>
 </resources>

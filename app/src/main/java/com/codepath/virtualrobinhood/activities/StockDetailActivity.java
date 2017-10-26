@@ -1,5 +1,7 @@
 package com.codepath.virtualrobinhood.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -9,9 +11,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Transition;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -46,8 +51,9 @@ import java.util.List;
 public class StockDetailActivity extends AppCompatActivity implements OnChartGestureListener,
         OnChartValueSelectedListener {
 
-    public static String EXTRA_STOCK_KEY = "stock_key";
     private LineChart mChart;
+    private FloatingActionButton fab;
+    private Transition.TransitionListener mEnterTransitionListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,32 +81,7 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
         tvLowPrice.setText(df.format(stock.getLastLowPrice()));
         tvHighPrice.setText(df.format(stock.getLastHighPrice()));
 
-        final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        final Button button = findViewById(R.id.btnBuy);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent tradeIntent = new Intent(StockDetailActivity.this, StockBuyActivity.class);
-                tradeIntent.putExtra("stock", Parcels.wrap(stock));
-                startActivity(tradeIntent);
-            }
-        });
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FireBaseClient fireBaseClient = new FireBaseClient();
-                fireBaseClient.addSymbolToWatchlist(FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                        Constants.DEFAULT_WATCHLIST, stock);
-
-                Snackbar.make(button, getString(R.string.add_stock_to_watchlist), Snackbar.LENGTH_LONG)
-                        .show();
-            }
-        });
-
-        Button btnBuy = (Button) findViewById(R.id.btnBuy);
+        final Button btnBuy = findViewById(R.id.btnBuy);
 
         btnBuy.setOnClickListener(new View.OnClickListener()
         {
@@ -112,7 +93,134 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
             }
         });
 
+        fab = findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FireBaseClient fireBaseClient = new FireBaseClient();
+                fireBaseClient.addSymbolToWatchlist(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                        Constants.DEFAULT_WATCHLIST, stock);
+
+                Snackbar.make(btnBuy, getString(R.string.add_stock_to_watchlist), Snackbar.LENGTH_LONG)
+                        .show();
+            }
+        });
+
         setupLineChart(stock);
+        setupTransitionListener();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                exitReveal();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        exitReveal();
+    }
+
+    private void setupTransitionListener() {
+        mEnterTransitionListener = new Transition.TransitionListener() {
+            @Override
+            public void onTransitionStart(Transition transition) {
+
+            }
+
+            @Override
+            public void onTransitionEnd(Transition transition) {
+                enterReveal();
+            }
+
+            @Override
+            public void onTransitionCancel(Transition transition) {
+
+            }
+
+            @Override
+            public void onTransitionPause(Transition transition) {
+
+            }
+
+            @Override
+            public void onTransitionResume(Transition transition) {
+
+            }
+        };
+        getWindow().getEnterTransition().addListener(mEnterTransitionListener);
+    }
+
+    void enterReveal() {
+        // previously invisible view
+        final View myView = fab;
+
+        // get the center for the clipping circle
+        int cx = myView.getMeasuredWidth() / 2;
+        int cy = myView.getMeasuredHeight() / 2;
+
+        // get the final radius for the clipping circle
+        int finalRadius = Math.max(myView.getWidth(), myView.getHeight()) / 2;
+        Animator anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
+        myView.setVisibility(View.VISIBLE);
+        anim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                getWindow().getEnterTransition().removeListener(mEnterTransitionListener);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        anim.start();
+    }
+
+    void exitReveal() {
+        // previously visible view
+        final View myView = fab;
+
+        // get the center for the clipping circle
+        int cx = myView.getMeasuredWidth() / 2;
+        int cy = myView.getMeasuredHeight() / 2;
+
+        // get the initial radius for the clipping circle
+        int initialRadius = myView.getWidth() / 2;
+
+        // create the animation (the final radius is zero)
+        Animator anim =
+                ViewAnimationUtils.createCircularReveal(myView, cx, cy, initialRadius, 0);
+
+        // make the view invisible when the animation is done
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                myView.setVisibility(View.INVISIBLE);
+
+                // Finish the activity after the exit transition completes.
+                supportFinishAfterTransition();
+            }
+        });
+
+        // start the animation
+        anim.start();
     }
 
     @Override
