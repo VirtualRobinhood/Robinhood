@@ -4,18 +4,23 @@
 
     <item
         android:id="@+id/portfolio_value_title"
-        android:title="@string/portfolio_value_title" />
+        android:title="@string/portfolio_value_title"
+        android:icon="@drawable/currency2"/>
 
     <item
         android:id="@+id/portfolio_value"
-        android:title="@string/portfolio_value" />
+        android:title="@string/portfolio_value"
+        />
 
     <item
         android:id="@+id/nav_watchlist"
-        android:title="@string/watchlist" />
+        android:title="@string/watchlist"
+        android:icon="@drawable/watchlist"/>
+
     <item
         android:id="@+id/nav_portfolio"
-        android:title="@string/portfolio" />
+        android:title="@string/portfolio"
+        android:icon="@drawable/portfolio"/>
 
     <item android:id="@+id/action_search"
         android:orderInCategory="5"
@@ -34,13 +39,16 @@
 
     <item
         android:id="@+id/nav_add_money"
-        android:title="@string/deposit_funds" />
+        android:title="@string/deposit_funds"
+        android:icon="@drawable/bank"/>
 
     <item
         android:id="@+id/nav_transactions"
-        android:title="@string/transactions" />
+        android:title="@string/transactions"
+        android:icon="@drawable/history"/>
 
     <item
         android:id="@+id/nav_sign_out"
-        android:title="@string/sign_out" />
+        android:title="@string/sign_out"
+        android:icon="@drawable/logout"/>
 </menu>
