@@ -14,8 +14,7 @@
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
         style="?textLarge"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="@dimen/symbol_margin_bottom"/>
 
     <TextView
         android:id="@+id/tvCompanyName"
@@ -25,7 +24,7 @@
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
         style="?textRegular"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="@dimen/company_name_margin_bottom"
         android:layout_below="@id/tvSymbol"/>
 
     <TextView
@@ -37,8 +36,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/tvCompanyName"
         style="?textRegular"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
 
     <TextView
         android:id="@+id/tvQuantity"
@@ -64,8 +63,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewQuantityLabel"
         style="?textRegular"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
 
     <TextView
         android:id="@+id/tvCostPareShare"
@@ -92,8 +91,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewCostPerShareLabel"
         style="?textRegular"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
 
     <TextView
         android:id="@+id/tvMarketPrice"
@@ -120,12 +119,12 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewMarketPrice"
         style="?textRegular"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
 
     <EditText
         android:id="@+id/etQuantityToSell"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/buy_sell_quantity_layout_width"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -149,8 +148,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewQuantityToSell"
         style="?textRegular"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
 
     <TextView
         android:id="@+id/tvEstimatedCost"
@@ -177,8 +176,8 @@
         android:layout_alignParentLeft="true"
         style="?textRegular"
         android:layout_below="@id/viewEstimatedCost"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
 
     <TextView
         android:id="@+id/tvEstimatedGain"

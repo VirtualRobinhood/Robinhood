@@ -56,7 +56,7 @@ public class StockBuyActivity extends AppCompatActivity {
 
         tvSymbol.setText(stock.symbol);
         tvCompanyName.setText(stock.companyName);
-        tvMarketPrice.setText(df.format(stock.getLastClosePrice()));
+        tvMarketPrice.setText("$" + df.format(stock.getLastClosePrice()));
 
         etQuantity.addTextChangedListener(new TextWatcher() {
             @Override
@@ -71,7 +71,7 @@ public class StockBuyActivity extends AppCompatActivity {
                     return;
                 }
                 int quantity = Integer.parseInt(s.toString());
-                tvEstimatedCost.setText(df.format(quantity * stock.getLastClosePrice()));
+                tvEstimatedCost.setText("$" + df.format(quantity * stock.getLastClosePrice()));
             }
 
             @Override
@@ -128,7 +128,7 @@ public class StockBuyActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot != null && snapshot.getValue() != null) {
                     credit = Double.parseDouble(snapshot.getValue().toString());
-                    tvAvailableCredit.setText(df.format(credit));
+                    tvAvailableCredit.setText("$" + df.format(credit));
                 }
             }
 

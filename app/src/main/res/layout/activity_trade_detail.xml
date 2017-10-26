@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
         style="?textLarge"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="@dimen/symbol_margin_bottom"/>
 
     <TextView
         android:id="@+id/tvCompanyName"
@@ -23,7 +23,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         tools:text="MSFT"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="@dimen/company_name_margin_bottom"
         style="?textRegular"
         android:layout_below="@id/tvSymbol"/>
 
@@ -34,8 +34,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/tvCompanyName"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"
         android:text="@string/stock_quantity"
         style="?textRegular" />
 
@@ -64,8 +64,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewQuantity"
         style="?textRegular"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
 
     <TextView
         android:id="@+id/tvPrice"
@@ -92,8 +92,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/viewPrice"
         style="?textRegular"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
 
     <TextView
         android:id="@+id/tvEstimatedCost"
@@ -119,8 +119,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         style="?textRegular"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="@dimen/layout_margin_top"
+        android:layout_marginBottom="@dimen/layout_margin_bottom"
         android:layout_below="@id/viewEstimatedCost"/>
 
     <TextView
