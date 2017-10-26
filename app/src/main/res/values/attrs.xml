@@ -4,6 +4,8 @@
     <attr name="textSubheader" format="reference" />
     <attr name="textLarge" format="reference" />
     <attr name="textRegular" format="reference" />
+    <attr name="textDrawer" format="reference" />
+    <attr name="textDrawerWhite" format="reference" />
     <attr name="whiteBackground" format="reference" />
     <attr name="button" format="reference" />
     <attr name="spinner" format="reference" />

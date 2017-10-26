@@ -47,7 +47,17 @@
 
     <style name="text_regular">
         <item name="android:textColor">@color/colorSecondaryText</item>
-        <item name="android:textSize">@dimen/text_regular_text_size</item>
+        <item name="android:textSize">@dimen/text_drawer_text_size</item>
+    </style>
+
+    <style name="text_drawer">
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">@dimen/text_drawer_text_size</item>
+    </style>
+
+    <style name="text_drawer_white">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_drawer_text_size</item>
     </style>
 
     <style name="white_background_wh">

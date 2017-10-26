@@ -9,6 +9,8 @@
         <item name="textSubheader">@style/text_subheader</item>
         <item name="textLarge">@style/text_large</item>
         <item name="textRegular">@style/text_regular</item>
+        <item name="textDrawer">@style/text_drawer</item>
+        <item name="textDrawerWhite">@style/text_drawer_white</item>
         <item name="whiteBackground">@style/white_background_wh</item>
         <item name="button">@style/button</item>
         <item name="spinner">@style/spinner_wh</item>

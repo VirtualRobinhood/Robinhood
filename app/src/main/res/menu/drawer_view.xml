@@ -5,6 +5,7 @@
     <item
         android:id="@+id/portfolio_value_title"
         android:title="@string/portfolio_value_title" />
+
     <item
         android:id="@+id/portfolio_value"
         android:title="@string/portfolio_value" />

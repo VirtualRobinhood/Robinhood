@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private FirebaseAuth mAuth;
     private GoogleApiClient mGoogleApiClient;
     private TextView tvUsername;
+    private TextView tvEmailAddress;
     private ImageView ivProfileImage;
     private MenuItem miActionProgress;
     private SearchView searchView;
@@ -97,9 +98,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         User currentUser = Parcels.unwrap(intent.getParcelableExtra("user"));
 
         NavigationView navigationView = findViewById(R.id.nvView);
-        ivProfileImage = navigationView.getHeaderView(0).findViewById(R.id.ivProfileImage);
-        tvUsername = navigationView.getHeaderView(0).findViewById(R.id.tvUsername);
+        View headerView = navigationView.getHeaderView(0);
+        ivProfileImage = headerView.findViewById(R.id.ivProfileImage);
+        tvUsername = headerView.findViewById(R.id.tvUsername);
+        tvEmailAddress = headerView.findViewById(R.id.tvEmailAddress);
         tvUsername.setText(currentUser.displayName);
+        tvEmailAddress.setText(currentUser.email);
 
         Glide.with(this).load(currentUser.photoUrl)
                 .apply(RequestOptions.circleCropTransform())

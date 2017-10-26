@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="?textDrawer">
 
     <!-- This LinearLayout represents the contents of the screen  -->
     <LinearLayout
@@ -30,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorPrimary"
-        app:itemTextColor="@color/white"
+        android:background="@color/white"
+        app:itemTextColor="@color/colorSecondaryText"
         app:menu="@menu/drawer_view"
         app:headerLayout="@layout/nav_header"/>
 </android.support.v4.widget.DrawerLayout>
