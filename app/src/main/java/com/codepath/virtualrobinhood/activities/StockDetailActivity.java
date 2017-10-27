@@ -94,6 +94,7 @@ public class StockDetailActivity extends AppCompatActivity implements OnChartGes
         });
 
         fab = findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
