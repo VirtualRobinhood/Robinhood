@@ -6,71 +6,166 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tvMoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tvSmall"
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$5,000 credit"
-             />
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvDepositFundsSmall"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
 
-        <Button
-            android:id="@+id/btnAddMoneySmall"
-            android:padding="10dp"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvSmall"
-            android:layout_marginLeft="5dp"
-            android:text="$0.99"
-            android:onClick="onClickSmallPurchase"/>
-
-        <TextView
-            android:id="@+id/tvMedium"
-            android:padding="10dp"
+        <!-- Main Content View -->
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tvSmall"
-            android:text="$12,000 credit"
-            />
+            android:id="@+id/rvSmall">
 
-        <Button
-            android:id="@+id/btnAddMoneyMedium"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnAddMoneySmall"
-            android:layout_below="@id/tvMedium"
-            android:layout_marginLeft="30dp"
-            android:text="$1.99"
-            android:onClick="onClickMediumPurchase" />
+            <TextView
+                android:id="@+id/tvSmall"
+                android:paddingLeft="20dp"
+                android:paddingTop="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?textRegular"
+                android:text="Small bag of coins"
+                android:textStyle="bold"
 
-        <TextView
-            android:id="@+id/tvLarge"
-            android:padding="10dp"
+                />
+
+            <TextView
+                android:id="@+id/tvMoneySmall"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:layout_below="@id/tvSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$5,000 virtual currency"
+                style="?textRegular"
+                />
+
+            <Button
+                android:id="@+id/btnAddMoneySmall"
+                android:padding="10dp"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:text="Buy $0.99"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:layout_marginTop="25dp"
+                android:onClick="onClickSmallPurchase"
+                style="?textRegular"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvDepositFundsMedium"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_marginTop="110dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <!-- Main Content View -->
+        <RelativeLayout
+            android:id="@+id/rvMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tvMedium"
-            android:text="$20,000 credit"
-            />
+            android:layout_below="@id/rvSmall"
+            >
 
-        <Button
-            android:id="@+id/btnAddMoney"
-            android:padding="10dp"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnAddMoneyMedium"
-            android:layout_below="@id/tvLarge"
-            android:layout_marginLeft="30dp"
-            android:text="$2.99"
-            android:onClick="onClickLargePurchase" />
+            <TextView
+                android:id="@+id/tvMedium"
+                android:paddingLeft="20dp"
+                android:paddingTop="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?textRegular"
+                android:text="Medium bag of coins"
+                android:textStyle="bold"
 
-    </RelativeLayout>
+                />
+
+            <TextView
+                android:id="@+id/tvMoneyMedium"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:layout_below="@id/tvMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$12,000 virtual currency"
+                style="?textRegular"
+                />
+
+            <Button
+                android:id="@+id/btnAddMoneyMedium"
+                android:padding="10dp"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="25dp"
+                android:text="Buy $1.99"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                style="?textRegular"
+                android:onClick="onClickMediumPurchase"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvDepositFundsLarge"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@id/cvDepositFundsMedium"
+        android:layout_marginTop="220dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <!-- Main Content View -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvLarge"
+                android:paddingLeft="20dp"
+                android:paddingTop="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Large bag of coins"
+                style="?textRegular"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/tvMoneyLarge"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:layout_below="@id/tvLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$20,000 virtual currency"
+                style="?textRegular"
+                />
+
+            <Button
+                android:id="@+id/btnAddMoneyLarge"
+                android:padding="10dp"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:text="Buy $2.99"
+                android:layout_marginTop="25dp"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:onClick="onClickLargePurchase"
+                style="?textRegular"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
 </FrameLayout>
