@@ -1,148 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="?pageBackground">
+    style="?pageBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvSymbol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        tools:text="MSFT"
-        style="?textLarge"
-        android:layout_marginBottom="@dimen/symbol_margin_bottom"/>
-
-    <TextView
-        android:id="@+id/tvCompanyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        tools:text="MSFT"
-        android:layout_marginBottom="@dimen/company_name_margin_bottom"
-        style="?textRegular"
-        android:layout_below="@id/tvSymbol"/>
-
-    <TextView
-        android:id="@+id/tvQuantityLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/tvCompanyName"
-        android:layout_marginTop="@dimen/layout_margin_top"
-        android:layout_marginBottom="@dimen/layout_margin_bottom"
-        android:text="@string/stock_quantity"
-        style="?textRegular" />
-
-    <TextView
-        android:id="@+id/tvQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="?textRegular"
-        tools:text="2000"
-        android:layout_alignBaseline="@+id/tvQuantityLabel"
-        android:layout_alignBottom="@+id/tvQuantityLabel"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <View
-        android:id="@+id/viewQuantity"
-        android:layout_below="@id/tvQuantityLabel"
-        style="?dividerHorizontal" />
-
-    <TextView
-        android:id="@+id/tvPriceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/price"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/viewQuantity"
-        style="?textRegular"
-        android:layout_marginTop="@dimen/layout_margin_top"
-        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
-
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="4000"
-        style="?textRegular"
-        android:layout_alignBaseline="@+id/tvPriceLabel"
-        android:layout_alignBottom="@+id/tvPriceLabel"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <View
-        android:id="@+id/viewPrice"
-        android:layout_below="@id/tvPriceLabel"
-        style="?dividerHorizontal" />
-
-    <TextView
-        android:id="@+id/tvEstimatedCostLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/estimated_cost"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/viewPrice"
-        style="?textRegular"
-        android:layout_marginTop="@dimen/layout_margin_top"
-        android:layout_marginBottom="@dimen/layout_margin_bottom"/>
-
-    <TextView
-        android:id="@+id/tvEstimatedCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="4000"
-        style="?textRegular"
-        android:layout_alignBaseline="@+id/tvEstimatedCostLabel"
-        android:layout_alignBottom="@+id/tvEstimatedCostLabel"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <View
-        android:id="@+id/viewEstimatedCost"
-        android:layout_below="@id/tvEstimatedCostLabel"
-        style="?dividerHorizontal" />
-
-    <TextView
-        android:id="@+id/tvFilledDateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/filled_date"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        style="?textRegular"
-        android:layout_marginTop="@dimen/layout_margin_top"
-        android:layout_marginBottom="@dimen/layout_margin_bottom"
-        android:layout_below="@id/viewEstimatedCost"/>
-
-    <TextView
-        android:id="@+id/tvFilledDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="4000"
-        style="?textRegular"
-        android:layout_alignBaseline="@+id/tvFilledDateLabel"
-        android:layout_alignBottom="@+id/tvFilledDateLabel"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <View
-        android:id="@+id/viewFilledDate"
-        android:layout_below="@id/tvFilledDateLabel"
-        style="?dividerHorizontal" />
-
-    <Button
-        android:id="@+id/btnSell"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/sell_stock" />
-</RelativeLayout>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvSymbol"
+            style="?textLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/symbol_margin_bottom"
+            tools:text="MSFT" />
+
+        <TextView
+            android:id="@+id/tvCompanyName"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/tvSymbol"
+            android:layout_marginBottom="@dimen/company_name_margin_bottom"
+            tools:text="MSFT" />
+
+        <FrameLayout
+            android:id="@+id/flLineChart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvCompanyName" />
+
+        <Button
+            android:id="@+id/btnSell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flLineChart"
+            android:layout_marginTop="@dimen/layout_margin_top"
+            android:text="@string/sell_stock" />
+
+        <TextView
+            android:id="@+id/tvQuantityLabel"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/btnSell"
+            android:layout_marginBottom="@dimen/layout_margin_bottom"
+            android:layout_marginTop="@dimen/layout_margin_top"
+            android:text="@string/stock_quantity" />
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvQuantityLabel"
+            android:layout_alignBottom="@+id/tvQuantityLabel"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            tools:text="2000" />
+
+        <View
+            android:id="@+id/viewQuantity"
+            style="?dividerHorizontal"
+            android:layout_below="@id/tvQuantityLabel" />
+
+        <TextView
+            android:id="@+id/tvPriceLabel"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/viewQuantity"
+            android:layout_marginBottom="@dimen/layout_margin_bottom"
+            android:layout_marginTop="@dimen/layout_margin_top"
+            android:text="@string/price" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvPriceLabel"
+            android:layout_alignBottom="@+id/tvPriceLabel"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            tools:text="4000" />
+
+        <View
+            android:id="@+id/viewPrice"
+            style="?dividerHorizontal"
+            android:layout_below="@id/tvPriceLabel" />
+
+        <TextView
+            android:id="@+id/tvEstimatedCostLabel"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/viewPrice"
+            android:layout_marginBottom="@dimen/layout_margin_bottom"
+            android:layout_marginTop="@dimen/layout_margin_top"
+            android:text="@string/estimated_cost" />
+
+        <TextView
+            android:id="@+id/tvEstimatedCost"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvEstimatedCostLabel"
+            android:layout_alignBottom="@+id/tvEstimatedCostLabel"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            tools:text="4000" />
+
+        <View
+            android:id="@+id/viewEstimatedCost"
+            style="?dividerHorizontal"
+            android:layout_below="@id/tvEstimatedCostLabel" />
+
+        <TextView
+            android:id="@+id/tvFilledDateLabel"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/viewEstimatedCost"
+            android:layout_marginBottom="@dimen/layout_margin_bottom"
+            android:layout_marginTop="@dimen/layout_margin_top"
+            android:text="@string/filled_date" />
+
+        <TextView
+            android:id="@+id/tvFilledDate"
+            style="?textRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvFilledDateLabel"
+            android:layout_alignBottom="@+id/tvFilledDateLabel"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            tools:text="4000" />
+
+        <View
+            android:id="@+id/viewFilledDate"
+            style="?dividerHorizontal"
+            android:layout_below="@id/tvFilledDateLabel" />
+
+        <TextView
+            android:id="@+id/tvArticles"
+            style="?textSubheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewFilledDate"
+            android:layout_marginBottom="@dimen/layout_margin_bottom"
+            android:layout_marginTop="@dimen/layout_margin_top"
+            android:text="@string/related_articles" />
+
+        <FrameLayout
+            android:id="@+id/flArticles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvArticles" />
+    </RelativeLayout>
+</ScrollView>

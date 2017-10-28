@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/article_card_padding"
+    app:cardCornerRadius="@dimen/article_card_corner_radius"
+    app:cardElevation="@dimen/article_card_elevation"
+    app:cardUseCompatPadding="false"
+    android:background="@drawable/card_edge"
+    android:layout_margin="@dimen/article_card_margin">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/ivArticleImage"
+            android:layout_width="@dimen/artice_card_image_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tvHeadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:gravity="left"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:text="Premium Phone Screen, at a Premium Price" />
+
+        <TextView
+            android:id="@+id/tvPublishDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            tools:text="2017-09-09" />
+
+        <TextView
+            android:id="@+id/tvSnippet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:maxLines="4"
+            android:layout_marginTop="@dimen/article_card_vertical_margin"
+            tools:text="At nearly $1,000, Samsung’s new device is part of a new category of high-end smartphones with cutting-edge technology. But it has plenty of flaws." />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+

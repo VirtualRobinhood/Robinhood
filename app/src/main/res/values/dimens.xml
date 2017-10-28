@@ -20,5 +20,11 @@
     <dimen name="buy_sell_quantity_layout_width">100dp</dimen>
     <dimen name="symbol_margin_bottom">4dp</dimen>
     <dimen name="company_name_margin_bottom">32dp</dimen>
+    <dimen name="article_card_padding">8dp</dimen>
+    <dimen name="article_card_corner_radius">8dp</dimen>
+    <dimen name="article_card_elevation">4dp</dimen>
+    <dimen name="article_card_margin">8dp</dimen>
+    <dimen name="artice_card_image_width">80dp</dimen>
+    <dimen name="article_card_vertical_margin">4dp</dimen>
 
 </resources>

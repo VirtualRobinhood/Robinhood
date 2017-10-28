@@ -1,160 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="?pageBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvSymbol"
-        style="?textLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:text="MSFT" />
-
-    <TextView
-        android:id="@+id/tvPrice"
-        style="?textSubheader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvSymbol"
-        tools:text="76.70" />
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/tvPrice"
-        android:layout_marginTop="16dp" />
-
-    <Button
-        android:id="@+id/btnBuy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lineChart"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1"
-        android:text="@string/buy_stock" />
-
-    <TextView
-        android:id="@+id/tvKeyStatistics"
-        style="?textSubheader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnBuy"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/key_statistics" />
-
-    <LinearLayout
-        android:id="@+id/llOpenClose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvKeyStatistics">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvOpen"
-            style="?textRegular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/stock_open" />
-
-        <TextView
-            android:id="@+id/tvOpenPrice"
-            style="?textRegular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_toEndOf="@id/tvOpen"
-            android:layout_toRightOf="@id/tvOpen"
-            android:layout_weight="1"
-            tools:text="111" />
-
-        <TextView
-            android:id="@+id/tvClose"
-            style="?textRegular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/stock_close" />
-
-        <TextView
-            android:id="@+id/tvClosePrice"
-            style="?textRegular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_toEndOf="@id/tvClose"
-            android:layout_toRightOf="@id/tvClose"
-            android:layout_weight="1"
-            tools:text="111" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llLowHigh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/llOpenClose"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:id="@+id/tvLow"
-            style="?textRegular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/stock_low" />
-
-        <TextView
-            android:id="@+id/tvLowPrice"
-            style="?textRegular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_toEndOf="@id/tvLow"
-            android:layout_toRightOf="@id/tvLow"
-            android:layout_weight="1"
-            tools:text="111" />
-
-        <TextView
-            android:id="@+id/tvHigh"
-            style="?textRegular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/stock_high" />
-
-        <TextView
-            android:id="@+id/tvHighPrice"
-            style="?textRegular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_toEndOf="@id/tvHigh"
-            android:layout_toRightOf="@id/tvHigh"
-            android:layout_weight="1"
-            tools:text="111" />
-    </LinearLayout>
-
-    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/llLowHigh">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/tvSymbol"
+            style="?textLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="16dp"
-            android:src="@drawable/icon_add_24"
-            app:backgroundTint="@color/colorPrimary"
-            app:fabSize="normal" />
-    </FrameLayout>
-</RelativeLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            tools:text="MSFT" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            style="?textSubheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvSymbol"
+            tools:text="76.70" />
+
+        <FrameLayout
+            android:id="@+id/flLineChart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPrice" />
+
+        <Button
+            android:id="@+id/btnBuy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flLineChart"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:text="@string/buy_stock" />
+
+        <TextView
+            android:id="@+id/tvKeyStatistics"
+            style="?textSubheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnBuy"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/key_statistics" />
+
+        <LinearLayout
+            android:id="@+id/llOpenClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvKeyStatistics">
+
+            <TextView
+                android:id="@+id/tvOpen"
+                style="?textRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/stock_open" />
+
+            <TextView
+                android:id="@+id/tvOpenPrice"
+                style="?textRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_toEndOf="@id/tvOpen"
+                android:layout_toRightOf="@id/tvOpen"
+                android:layout_weight="1"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tvClose"
+                style="?textRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/stock_close" />
+
+            <TextView
+                android:id="@+id/tvClosePrice"
+                style="?textRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_toEndOf="@id/tvClose"
+                android:layout_toRightOf="@id/tvClose"
+                android:layout_weight="1"
+                tools:text="111" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llLowHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llOpenClose"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tvLow"
+                style="?textRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/stock_low" />
+
+            <TextView
+                android:id="@+id/tvLowPrice"
+                style="?textRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_toEndOf="@id/tvLow"
+                android:layout_toRightOf="@id/tvLow"
+                android:layout_weight="1"
+                tools:text="111" />
+
+            <TextView
+                android:id="@+id/tvHigh"
+                style="?textRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/stock_high" />
+
+            <TextView
+                android:id="@+id/tvHighPrice"
+                style="?textRegular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_toEndOf="@id/tvHigh"
+                android:layout_toRightOf="@id/tvHigh"
+                android:layout_weight="1"
+                tools:text="111" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvArticles"
+            style="?textSubheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llLowHigh"
+            android:layout_marginBottom="@dimen/layout_margin_bottom"
+            android:layout_marginTop="@dimen/layout_margin_top"
+            android:text="@string/related_articles" />
+
+        <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/llLowHigh">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                android:src="@drawable/icon_add_24"
+                app:backgroundTint="@color/colorPrimary"
+                app:fabSize="normal" />
+        </FrameLayout>
+
+        <!-- The main content view where fragments are loaded -->
+        <FrameLayout
+            android:id="@+id/flArticles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tvArticles" />
+    </RelativeLayout>
+</ScrollView>

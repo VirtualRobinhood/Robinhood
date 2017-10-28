@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material_Light">
 
-        <!--android:theme="@style/Theme.Material_Light"-->
+        <!-- android:theme="@style/Theme.Material_Light" -->
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -29,9 +29,8 @@
         <activity android:name=".activities.StockDetailActivity" />
         <activity android:name=".activities.StockBuyActivity" />
         <activity android:name=".activities.StockSellActivity" />
-        <activity android:name=".activities.TradeDetailActivity">
-
-        </activity>
+        <activity android:name=".activities.TradeDetailActivity"></activity>
+        <activity android:name=".activities.ArticleActivity"></activity>
     </application>
 
 </manifest>
