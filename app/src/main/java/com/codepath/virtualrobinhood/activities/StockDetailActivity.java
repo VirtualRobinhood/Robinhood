@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.codepath.virtualrobinhood.R;
 import com.codepath.virtualrobinhood.fragments.ArticlesListFragment;
 import com.codepath.virtualrobinhood.fragments.LineChartFragment;
+import com.codepath.virtualrobinhood.fragments.WatchlistFragment;
 import com.codepath.virtualrobinhood.models.Stock;
 import com.codepath.virtualrobinhood.utils.Constants;
 import com.codepath.virtualrobinhood.utils.FireBaseClient;
@@ -91,6 +92,11 @@ public class StockDetailActivity extends AppCompatActivity {
                         .show();
             }
         });
+
+        final String callerName = intent.getStringExtra("caller");
+        if (callerName != null && callerName.equals(WatchlistFragment.class.getName())) {
+            fab.setVisibility(View.GONE);
+        }
 
         setupTransitionListener();
     }

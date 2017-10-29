@@ -111,6 +111,7 @@ public class WatchlistFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), StockDetailActivity.class);
                         intent.putExtra("stock", Parcels.wrap(stock));
+                        intent.putExtra("caller", WatchlistFragment.class.getName());
 
                         startActivity(intent);
 
