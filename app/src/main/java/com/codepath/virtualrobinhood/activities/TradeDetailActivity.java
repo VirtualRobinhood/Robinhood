@@ -43,8 +43,8 @@ public class TradeDetailActivity extends AppCompatActivity {
 
         DecimalFormat df = new DecimalFormat("##.##");
 
-        TextView tvSymbol  = findViewById(R.id.tvSymbol);
-        TextView tvCompanyName  = findViewById(R.id.tvCompanyName);
+        TextView tvSymbol = findViewById(R.id.tvSymbol);
+        TextView tvCompanyName = findViewById(R.id.tvCompanyName);
         TextView tvQuantity = findViewById(R.id.tvQuantity);
         TextView tvPrice = findViewById(R.id.tvPrice);
         TextView tvEstimatedCost = findViewById(R.id.tvEstimatedCost);
@@ -66,10 +66,8 @@ public class TradeDetailActivity extends AppCompatActivity {
             fetchStockInfo(trade);
         }
 
-        btnSell.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        btnSell.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent intent = new Intent(TradeDetailActivity.this, StockSellActivity.class);
                 intent.putExtra("trade", Parcels.wrap(trade));
                 startActivity(intent);

@@ -78,7 +78,7 @@ public class StockDetailActivity extends AppCompatActivity {
         });
 
         fab = findViewById(R.id.fab);
-        fab.setVisibility(View.INVISIBLE);
+        //fab.setVisibility(View.INVISIBLE);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

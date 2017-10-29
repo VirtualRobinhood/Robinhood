@@ -17,9 +17,7 @@ import com.codepath.virtualrobinhood.network.NYTimesClient;
 import com.codepath.virtualrobinhood.network.NYTimesService;
 import com.codepath.virtualrobinhood.utils.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -100,13 +98,8 @@ public class ArticlesListFragment extends Fragment {
         if (Utils.isNetworkAvailable(getActivity())) {
 
             if (stockSymbol != null && !stockSymbol.isEmpty()) {
-
-                String fq = null; //"Business";
-                SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMdd");
-                String currentDateTimeString = dateFormat.format(new Date());
-
                 Call<ArticlesResponse> articlesCall = NEW_YORK_TIMES_SERVICE
-                        .getArticles(stockSymbol, page, null, "newest", fq);
+                        .getArticles(stockSymbol, page, null, "newest", null);
 
                 articlesCall.enqueue(new Callback<ArticlesResponse>() {
                     @Override
@@ -116,7 +109,7 @@ public class ArticlesListFragment extends Fragment {
                             mArticlesAdapter.notifyDataSetChanged();
                         } else {
                             if (response.code() == 429) {
-                                Utils.showSnackBar(mrvArticles, getActivity(), R.string.request_failed_too_many_requests_text);
+                                // do nothing.
                             } else {
                                 Utils.showSnackBar(mrvArticles, getActivity(), R.string.request_failed_text);
                             }

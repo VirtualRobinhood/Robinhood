@@ -156,15 +156,15 @@
         <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_below="@+id/llLowHigh">
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
+                android:layout_gravity="right"
                 android:layout_margin="16dp"
                 android:src="@drawable/icon_add_24"
                 app:backgroundTint="@color/colorPrimary"
