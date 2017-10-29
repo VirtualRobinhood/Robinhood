@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         setupDrawerContent(nvDrawer);
 
-        nvDrawer.getMenu().getItem(0).setChecked(true);
+        //nvDrawer.getMenu().getItem(0).setChecked(true);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent,
                 PortfolioFragment.newInstance(FirebaseAuth.getInstance().getCurrentUser().getUid()))
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment, tag).commit();
 
         // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
+        //menuItem.setChecked(true);
         // Set action bar title
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
