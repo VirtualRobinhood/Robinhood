@@ -7,7 +7,7 @@
     <string name="sign_out">Sign out</string>
     <string name="deposit_funds">Purchase Currency</string>
     <string name="history">History</string>
-    <string name="portfolio_value_title">Portfolio Value</string>
+    <string name="available_credit_title">Available Credit</string>
     <string name="portfolio_value">Portfolio Value</string>
 
     <string name="new_watchlist">New watchlist</string>

@@ -219,6 +219,43 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+
+        Fragment fragment = null;
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String tag = "";
+
+        switch (item.getItemId()) {
+            case R.id.nav_watchlist:
+                fragment = WatchlistFragment.newInstance(userId);
+                break;
+            case R.id.nav_portfolio:
+                fragment = PortfolioFragment.newInstance(userId);
+                break;
+            case R.id.nav_add_money:
+                tag = Constants.DEPOSITS_FRAGMENT_TAG;
+                fragment = DepositFundsFragment.newInstance(userId);
+                break;
+            case R.id.nav_transactions:
+                fragment = TransactionsFragment.newInstance(userId);
+                break;
+            case R.id.nav_sign_out:
+                signOut();
+                return true;
+            default:
+                fragment = PortfolioFragment.newInstance(userId);
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment, tag).commit();
+
+        // Highlight the selected item has been done by NavigationView
+        //menuItem.setChecked(true);
+        // Set action bar title
+        setTitle(item.getTitle());
+        // Close the navigation drawer
+        mDrawer.closeDrawers();
+
         return super.onOptionsItemSelected(item);
     }
 
