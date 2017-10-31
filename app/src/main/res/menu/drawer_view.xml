@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/portfolio_value_title"
-        android:title="@string/portfolio_value_title"
+        android:title="@string/available_credit_title"
         android:icon="@drawable/currency2"/>
 
     <item

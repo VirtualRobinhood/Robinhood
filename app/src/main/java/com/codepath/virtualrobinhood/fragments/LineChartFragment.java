@@ -176,11 +176,14 @@ public class LineChartFragment extends Fragment implements OnChartGestureListene
 
         float maxPrice = Float.MIN_VALUE;
         float minPrice = Float.MAX_VALUE;
-        for(StockQuotation quotation : stock.quotations) {
-            if (quotation.close > maxPrice) {
-                maxPrice = quotation.close;
-            } else if (quotation.close < minPrice) {
-                minPrice = quotation.close;
+
+        if (stock.quotations != null) {
+            for (StockQuotation quotation : stock.quotations) {
+                if (quotation.close > maxPrice) {
+                    maxPrice = quotation.close;
+                } else if (quotation.close < minPrice) {
+                    minPrice = quotation.close;
+                }
             }
         }
 
@@ -228,6 +231,9 @@ public class LineChartFragment extends Fragment implements OnChartGestureListene
 
     private void setData(Stock stock) {
 
+        if (stock.quotations == null) {
+            return;
+        }
         List<Entry> values = new ArrayList<Entry>();
 
         for (int i = 0; i < stock.quotations.size(); i++) {

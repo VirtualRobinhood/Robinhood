@@ -111,7 +111,7 @@ public class ArticlesListFragment extends Fragment {
                             if (response.code() == 429) {
                                 // do nothing.
                             } else {
-                                Utils.showSnackBar(mrvArticles, getActivity(), R.string.request_failed_text);
+                                //Utils.showSnackBar(mrvArticles, getActivity(), R.string.request_failed_text);
                             }
                         }
                     }

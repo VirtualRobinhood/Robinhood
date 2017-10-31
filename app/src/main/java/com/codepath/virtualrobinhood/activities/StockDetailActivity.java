@@ -41,7 +41,9 @@ public class StockDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final Stock stock = Parcels.unwrap(intent.getParcelableExtra("stock"));
 
-        setTitle(stock.symbol.toUpperCase());
+        if (stock.symbol != null) {
+            setTitle(stock.symbol.toUpperCase());
+        }
 
         DecimalFormat df = new DecimalFormat("##.##");
 
@@ -53,11 +55,14 @@ public class StockDetailActivity extends AppCompatActivity {
         TextView tvClosePrice = findViewById(R.id.tvClosePrice);
 
         tvSymbol.setText(stock.symbol);
-        tvPrice.setText("$" + df.format(stock.getLastClosePrice()));
-        tvOpenPrice.setText("$" + df.format(stock.getLastOpenPrice()));
-        tvClosePrice.setText("$" + df.format(stock.getLastClosePrice()));
-        tvLowPrice.setText("$" + df.format(stock.getLastLowPrice()));
-        tvHighPrice.setText("$" + df.format(stock.getLastHighPrice()));
+
+        if (stock.quotations != null ) {
+            tvPrice.setText("$" + df.format(stock.getLastClosePrice()));
+            tvOpenPrice.setText("$" + df.format(stock.getLastOpenPrice()));
+            tvClosePrice.setText("$" + df.format(stock.getLastClosePrice()));
+            tvLowPrice.setText("$" + df.format(stock.getLastClosePrice()));
+            tvHighPrice.setText("$" + df.format(stock.getLastHighPrice()));
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flArticles,
